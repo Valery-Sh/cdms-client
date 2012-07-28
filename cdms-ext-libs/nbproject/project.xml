@@ -29,64 +29,6 @@
                 <package>javax.validation.groups</package>
                 <package>javax.validation.metadata</package>
                 <package>javax.validation.spi</package>
-                <package>oracle.core.lmx</package>
-                <package>oracle.core.lvf</package>
-                <package>oracle.jdbc</package>
-                <package>oracle.jdbc.aq</package>
-                <package>oracle.jdbc.connector</package>
-                <package>oracle.jdbc.dcn</package>
-                <package>oracle.jdbc.diagnostics</package>
-                <package>oracle.jdbc.driver</package>
-                <package>oracle.jdbc.internal</package>
-                <package>oracle.jdbc.oci</package>
-                <package>oracle.jdbc.oracore</package>
-                <package>oracle.jdbc.pool</package>
-                <package>oracle.jdbc.rowset</package>
-                <package>oracle.jdbc.util</package>
-                <package>oracle.jdbc.xa</package>
-                <package>oracle.jdbc.xa.client</package>
-                <package>oracle.jpub.runtime</package>
-                <package>oracle.net.ano</package>
-                <package>oracle.net.aso</package>
-                <package>oracle.net.jdbc.TNSAddress</package>
-                <package>oracle.net.jdbc.nl</package>
-                <package>oracle.net.jdbc.nl.mesg</package>
-                <package>oracle.net.jndi</package>
-                <package>oracle.net.ns</package>
-                <package>oracle.net.nt</package>
-                <package>oracle.net.resolver</package>
-                <package>oracle.security.o3logon</package>
-                <package>oracle.security.o5logon</package>
-                <package>oracle.sql</package>
-                <package>oracle.sql.converter</package>
-                <package>org.aopalliance.aop</package>
-                <package>org.aopalliance.intercept</package>
-                <package>org.hibernate.validator</package>
-                <package>org.hibernate.validator.ap</package>
-                <package>org.hibernate.validator.ap.checks</package>
-                <package>org.hibernate.validator.ap.util</package>
-                <package>org.hibernate.validator.cfg</package>
-                <package>org.hibernate.validator.cfg.context</package>
-                <package>org.hibernate.validator.cfg.context.impl</package>
-                <package>org.hibernate.validator.cfg.defs</package>
-                <package>org.hibernate.validator.constraints</package>
-                <package>org.hibernate.validator.constraints.impl</package>
-                <package>org.hibernate.validator.engine</package>
-                <package>org.hibernate.validator.engine.groups</package>
-                <package>org.hibernate.validator.engine.resolver</package>
-                <package>org.hibernate.validator.group</package>
-                <package>org.hibernate.validator.jtype</package>
-                <package>org.hibernate.validator.messageinterpolation</package>
-                <package>org.hibernate.validator.metadata</package>
-                <package>org.hibernate.validator.metadata.location</package>
-                <package>org.hibernate.validator.method</package>
-                <package>org.hibernate.validator.method.metadata</package>
-                <package>org.hibernate.validator.resourceloading</package>
-                <package>org.hibernate.validator.util</package>
-                <package>org.hibernate.validator.util.annotationfactory</package>
-                <package>org.hibernate.validator.util.privilegedactions</package>
-                <package>org.hibernate.validator.util.scriptengine</package>
-                <package>org.hibernate.validator.xml</package>
                 <package>org.slf4j</package>
                 <package>org.slf4j.helpers</package>
                 <package>org.slf4j.spi</package>
@@ -96,28 +38,12 @@
                 <binary-origin>release/modules/ext/slf4j-api-1.6.1.jar</binary-origin>
             </class-path-extension>
             <class-path-extension>
-                <runtime-relative-path>ext/aopalliance-1.0.jar</runtime-relative-path>
-                <binary-origin>release/modules/ext/aopalliance-1.0.jar</binary-origin>
-            </class-path-extension>
-            <class-path-extension>
-                <runtime-relative-path>ext/hibernate-validator-4.2.0.Final.jar</runtime-relative-path>
-                <binary-origin>release/modules/ext/hibernate-validator-4.2.0.Final.jar</binary-origin>
-            </class-path-extension>
-            <class-path-extension>
                 <runtime-relative-path>ext/hessian-4.0.7.jar</runtime-relative-path>
                 <binary-origin>release/modules/ext/hessian-4.0.7.jar</binary-origin>
             </class-path-extension>
             <class-path-extension>
                 <runtime-relative-path>ext/validation-api-1.0.0.GA.jar</runtime-relative-path>
                 <binary-origin>release/modules/ext/validation-api-1.0.0.GA.jar</binary-origin>
-            </class-path-extension>
-            <class-path-extension>
-                <runtime-relative-path>ext/hibernate-validator-annotation-processor-4.2.0.Final.jar</runtime-relative-path>
-                <binary-origin>release/modules/ext/hibernate-validator-annotation-processor-4.2.0.Final.jar</binary-origin>
-            </class-path-extension>
-            <class-path-extension>
-                <runtime-relative-path>ext/ojdbc6.jar</runtime-relative-path>
-                <binary-origin>release/modules/ext/ojdbc6.jar</binary-origin>
             </class-path-extension>
         </data>
     </configuration>

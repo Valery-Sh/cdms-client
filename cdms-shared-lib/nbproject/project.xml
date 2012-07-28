@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://www.netbeans.org/ns/project/1">
+    <type>org.netbeans.modules.apisupport.project</type>
+    <configuration>
+        <data xmlns="http://www.netbeans.org/ns/nb-module-project/3">
+            <code-name-base>org.cdms.shared</code-name-base>
+            <suite-component/>
+            <module-dependencies/>
+            <public-packages>
+                <package>org.cdms.entities</package>
+                <package>org.cdms.remoting</package>
+            </public-packages>
+            <class-path-extension>
+                <runtime-relative-path>ext/cdms-shared-lib.jar</runtime-relative-path>
+                <binary-origin>release/modules/ext/cdms-shared-lib.jar</binary-origin>
+            </class-path-extension>
+        </data>
+    </configuration>
+</project>

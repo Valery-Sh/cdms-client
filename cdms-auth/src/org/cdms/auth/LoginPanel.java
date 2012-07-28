@@ -9,6 +9,17 @@ package org.cdms.auth;
  * @author Valery
  */
 public class LoginPanel extends javax.swing.JPanel {
+   public String getUsername() {
+      return jTextField_UserName.getText().toUpperCase();
+   }
+   
+   public String getPassword() {
+      return new String(jPasswordField_Password.getPassword());
+   }
+   
+   public void setMsg(String msg) {
+      jLabel_message.setText(msg);
+   }
 
     /**
      * Creates new form LoginPanel
@@ -31,6 +42,7 @@ public class LoginPanel extends javax.swing.JPanel {
         jTextField_UserName = new javax.swing.JTextField();
         jPasswordField_Password = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
+        jLabel_message = new javax.swing.JLabel();
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel_UserName, org.openide.util.NbBundle.getMessage(LoginPanel.class, "LoginPanel.jLabel_UserName.text")); // NOI18N
 
@@ -45,22 +57,28 @@ public class LoginPanel extends javax.swing.JPanel {
         jLabel1.setIcon(new javax.swing.ImageIcon("D:\\VnsJob\\cdms-client\\cdms-auth\\src\\org\\cdms\\auth\\icon_login.png")); // NOI18N
         org.openide.awt.Mnemonics.setLocalizedText(jLabel1, org.openide.util.NbBundle.getMessage(LoginPanel.class, "LoginPanel.jLabel1.text")); // NOI18N
 
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel_message, org.openide.util.NbBundle.getMessage(LoginPanel.class, "LoginPanel.jLabel_message.text")); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel_UserName, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel_Psw))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPasswordField_Password)
-                    .addComponent(jTextField_UserName))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel_message, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel_UserName, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel_Psw))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPasswordField_Password, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+                            .addComponent(jTextField_UserName, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -76,13 +94,16 @@ public class LoginPanel extends javax.swing.JPanel {
                             .addComponent(jLabel_Psw)
                             .addComponent(jPasswordField_Password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel1))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel_message, javax.swing.GroupLayout.DEFAULT_SIZE, 17, Short.MAX_VALUE)
+                .addGap(18, 18, 18))
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel_Psw;
     private javax.swing.JLabel jLabel_UserName;
+    private javax.swing.JLabel jLabel_message;
     private javax.swing.JPasswordField jPasswordField_Password;
     private javax.swing.JTextField jTextField_UserName;
     // End of variables declaration//GEN-END:variables
