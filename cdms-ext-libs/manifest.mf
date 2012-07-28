@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+OpenIDE-Module: orq.cdms.ext.libs
+OpenIDE-Module-Localizing-Bundle: orq/cdms/ext/libs/Bundle.properties
+OpenIDE-Module-Specification-Version: 1.0
+
