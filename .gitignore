@@ -2,3 +2,9 @@
 /cdms-auth/nbproject/private/
 /cdms-shared/nbproject/private/
 /cdms-shared-lib/build/
+/dist/
+/HesianRemoteServices/nbproject/private/
+/cdms-remote-services/build/
+/cdms-hessian-services/build/
+/cdms-remote-services/nbproject/private/
+/cdms-hessian-services/nbproject/private/
