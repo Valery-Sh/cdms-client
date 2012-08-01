@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+OpenIDE-Module: org.cdms.ui.statictics
+OpenIDE-Module-Localizing-Bundle: org/cdms/ui/statictics/Bundle.properties
+OpenIDE-Module-Specification-Version: 1.0
+

@@ -1,6 +1,7 @@
 Manifest-Version: 1.0
 OpenIDE-Module: org.cdms.auth
 OpenIDE-Module-Install: org/cdms/auth/Installer.class
+OpenIDE-Module-Layer: org/cdms/auth/layer.xml
 OpenIDE-Module-Localizing-Bundle: org/cdms/auth/Bundle.properties
 OpenIDE-Module-Specification-Version: 1.0
 

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE filesystem PUBLIC "-//NetBeans//DTD Filesystem 1.2//EN" "http://www.netbeans.org/dtds/filesystem-1_2.dtd">
+<filesystem>
+    
+    <!-- We left Tools menu in order to be able to config proxy -->
+    
+    <folder name="Menu">
+        <folder name="Applications" />
+        <file name="File_hidden" /> 
+        <file name="Edit_hidden" /> 
+        <file name="View_hidden" /> 
+        <file name="GoTo_hidden" /> 
+        
+        <file name="Source_hidden" /> 
+        <file name="Refactor_hidden" /> 
+        <file name="Run_hidden" /> 
+        <file name="Debug_hidden" /> 
+        <file name="Profile_hidden" /> 
+        <file name="Team_hidden" /> 
+        <file name="Window_hidden" /> 
+    </folder>
+</filesystem>
