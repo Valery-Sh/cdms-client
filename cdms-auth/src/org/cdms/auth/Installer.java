@@ -1,10 +1,12 @@
 package org.cdms.auth;
 
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.Authenticator;
+import java.util.List;
 import java.util.prefs.Preferences;
 import org.cdms.remoting.AuthService;
 import org.cdms.remoting.UserInfo;
@@ -15,6 +17,10 @@ import org.openide.LifecycleManager;
 import org.openide.modules.ModuleInstall;
 import org.openide.util.Lookup;
 import org.openide.util.NbPreferences;
+import org.openide.windows.TopComponent;
+import org.openide.windows.WindowManager;
+import org.openide.windows.WindowSystemEvent;
+import org.openide.windows.WindowSystemListener;
 
 /**
  *
@@ -42,13 +48,6 @@ public class Installer extends ModuleInstall implements ActionListener {
 
         descr.addPropertyChangeListener(pcl);
         DialogDisplayer.getDefault().notifyLater(descr);
-        /*        WindowManager.getDefault().invokeWhenUIReady(new Runnable() {
-         @Override
-         public void run() {
-         DialogDisplayer.getDefault().notify(descr);
-         }
-         });
-         */
     }
 
     @Override
@@ -60,8 +59,7 @@ public class Installer extends ModuleInstall implements ActionListener {
             AuthServiceProvider rs = Lookup.getDefault().lookup(AuthServiceProvider.class);
             AuthService authService = rs.getInstance();
             Authenticator.setDefault(null); // to disable pop up window
-            //UserInfo userInfo = authService.authenticate(pane.getUsername(), pane.getPassword());
-            UserInfo userInfo = authService.authenticate(pane.getUsername(), "msbg");            
+            UserInfo userInfo = authService.authenticate(pane.getUsername(), pane.getPassword());
             
             if (userInfo == null) {
                 pane.setLoginMsg("Invalid user name or password");
@@ -75,7 +73,8 @@ public class Installer extends ModuleInstall implements ActionListener {
             }
 
         }
-    }
+   }
+
     public static class PropertyChangeHandler implements PropertyChangeListener {
 
         @Override

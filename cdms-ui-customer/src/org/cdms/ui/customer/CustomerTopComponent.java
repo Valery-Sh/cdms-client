@@ -4,13 +4,18 @@
  */
 package org.cdms.ui.customer;
 
+import javax.swing.Action;
 import org.cdms.auth.UserLookup;
 import org.cdms.remoting.UserInfo;
 import org.netbeans.api.settings.ConvertAsProperties;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
+import org.openide.awt.Actions;
+import org.openide.filesystems.FileObject;
+import org.openide.filesystems.FileUtil;
 import org.openide.windows.TopComponent;
 import org.openide.util.NbBundle.Messages;
+import org.openide.util.Utilities;
 
 /**
  * Top component which displays something.
@@ -22,33 +27,35 @@ autostore = false)
     preferredID = "customerTopComponent",
 iconBase = "org/cdms/ui/customer/customers.png",
 persistenceType = TopComponent.PERSISTENCE_ALWAYS)
-@TopComponent.Registration(mode = "editor", openAtStartup = true)
-@ActionID(category = "Applications", id = "org.cdms.ui.customer.customerTopComponent")
-@ActionReference(path = "Menu/Applications" /*, position = 333 */)
-@TopComponent.OpenActionRegistration(
-    displayName = "#CTL_customerAction",
-preferredID = "customerTopComponent")
+@TopComponent.Registration(mode = "editor", openAtStartup = false)
+//@ActionID(category = "Applications", id = "org.cdms.ui.customer.customerTopComponent")
+//@ActionReference(path = "Menu/Applications" /*, position = 333 */)
+//@TopComponent.OpenActionRegistration(
+//    displayName = "#CTL_customerAction",
+//    preferredID = "customerTopComponent")
 @Messages({
     "CTL_customerAction=customer",
-    "CTL_customerTopComponent=Customer",
+    "CTL_customerTopComponent=Customer Window",
     "HINT_customerTopComponent=Opens a Customer window"
 })
 public final class CustomerTopComponent extends TopComponent {
-    
+
     public CustomerTopComponent() {
         initComponents();
-        hideCRUIDPanel();
+
+        //hideCRUIDPanel();
         setName(Bundle.CTL_customerTopComponent());
         setToolTipText(Bundle.HINT_customerTopComponent());
 
     }
+
     protected void hideCRUIDPanel() {
         UserInfo info = UserLookup.getDefault().lookup(UserInfo.class);
-        if ( ! info.inRole("edit")) {
+        if (!info.inRole("edit")) {
             this.GRUIDPanel.setVisible(false);
         }
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -61,6 +68,8 @@ public final class CustomerTopComponent extends TopComponent {
         jLabel1 = new javax.swing.JLabel();
         GRUIDPanel = new javax.swing.JPanel();
         jButton_New_Customer_ = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         org.openide.awt.Mnemonics.setLocalizedText(jButton1, org.openide.util.NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.jButton1.text")); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -89,6 +98,15 @@ public final class CustomerTopComponent extends TopComponent {
                 .addGap(0, 14, Short.MAX_VALUE))
         );
 
+        org.openide.awt.Mnemonics.setLocalizedText(jButton2, org.openide.util.NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.jButton2.text")); // NOI18N
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        org.openide.awt.Mnemonics.setLocalizedText(jButton3, org.openide.util.NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.jButton3.text")); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -98,11 +116,16 @@ public final class CustomerTopComponent extends TopComponent {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(136, 136, 136)
-                                .addComponent(jButton1))
-                            .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(136, 136, 136)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jButton3)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jButton1)
+                                        .addGap(29, 29, 29)
+                                        .addComponent(jButton2)))))
                         .addGap(0, 67, Short.MAX_VALUE))
                     .addComponent(GRUIDPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -113,8 +136,12 @@ public final class CustomerTopComponent extends TopComponent {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(82, 82, 82)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(GRUIDPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(98, 98, 98))
         );
@@ -125,12 +152,30 @@ public final class CustomerTopComponent extends TopComponent {
         jLabel1.setText(info.getFirstName() + " " + info.getLastName() + " " + info.getUserName());
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        for (FileObject fo : FileUtil.getConfigFile("Actions/Applications").getChildren()) {
+            Action action = FileUtil.getConfigObject(fo.getPath(), Action.class);
+            System.out.println("ACTION: " + action.toString() + "; CLASS=" + action.getClass().getName());
+            if ( action.getClass().getSimpleName().equals("OpenInvoiceAction") ){
+                //jButton3.setAction(action); 
+                System.out.println("INVOICE ACTION: " + action.toString());
+                Actions.connect(jButton3, action);
+                
+            }
+            //button.setPreferredSize(new Dimension(150,100));
+            //add(button);
+            //org.netbeans.modules.db.dataview.api.DataView dv;           
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel GRUIDPanel;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton_New_Customer_;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
+
     @Override
     public void componentOpened() {
         // TODO add custom code on component opening

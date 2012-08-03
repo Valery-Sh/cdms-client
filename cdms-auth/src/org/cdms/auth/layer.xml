@@ -5,18 +5,53 @@
     <!-- We left Tools menu in order to be able to config proxy -->
     
     <folder name="Menu">
-        <folder name="Applications" />
-        <file name="File_hidden" /> 
-        <file name="Edit_hidden" /> 
-        <file name="View_hidden" /> 
-        <file name="GoTo_hidden" /> 
+        <folder name="Applications">
+            <!--file name="org-cdms-auth-action-SomeAction.shadow">
+                <attr name="originalFile" 
+                      stringvalue="Actions/myactions/org-cdms-auth-action-SomeAction.instance" />        
+                
+            </file-->    
+        </folder>    
+        <file name="File_hidden"/> 
+        <file name="Edit_hidden"/> 
+        <file name="View_hidden"/> 
+        <file name="GoTo_hidden"/> 
         
-        <file name="Source_hidden" /> 
-        <file name="Refactor_hidden" /> 
-        <file name="Run_hidden" /> 
-        <file name="Debug_hidden" /> 
-        <file name="Profile_hidden" /> 
-        <file name="Team_hidden" /> 
-        <file name="Window_hidden" /> 
+        <file name="Source_hidden"/> 
+        <file name="Refactor_hidden"/> 
+        <file name="Run_hidden"/> 
+        <file name="Debug_hidden"/> 
+        <file name="Profile_hidden"/> 
+        <file name="Team_hidden"/> 
+        <file name="Window_hidden"/> 
+        
     </folder>
+    <!--folder name="Actions">
+        <folder name="myactions">
+            <file name="org-cdms-auth-action-SomeAction.instance"> 
+                <attr name="displayName" stringvalue= 
+            "com.galileo.netbeans.Bundle#CTL_MyFirstAction"/> 
+                <attr name="iconBase"  
+                  stringvalue="org/cdms/auth/icon_login.png"/> 
+                
+            </file>    
+            
+        </folder>
+        
+    </folder-->
+    <!--folder name="Actions">
+        <folder name="myactions">
+            <file name="org-cdms-auth-action-SomeAction.instance"> 
+                <attr name="displayName" stringvalue= 
+            "com.galileo.netbeans.Bundle#CTL_MyFirstAction"/> 
+                <attr name="iconBase"  
+                  stringvalue="org/cdms/auth/icon_login.png"/> 
+                <attr name="instanceCreate" 
+                  methodvalue="org.openide.awt.Actions.alwaysEnabled"/> 
+                <attr name="delegate"   
+                  newvalue="org.cdms.auth.action.SomeAction"/> 
+            </file>
+        </folder>
+        
+    </folder-->
 </filesystem>

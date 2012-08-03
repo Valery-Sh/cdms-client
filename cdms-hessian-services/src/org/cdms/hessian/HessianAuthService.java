@@ -5,7 +5,6 @@ import java.util.prefs.Preferences;
 import org.cdms.remoting.AuthService;
 import org.cdms.remoting.UserInfo;
 import org.openide.util.NbPreferences;
-import org.openide.util.lookup.ServiceProvider;
 
 /**
  *
