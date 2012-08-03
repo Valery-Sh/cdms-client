@@ -1,5 +1,5 @@
 
-package org.cdms.hessian;
+package org.cdms.remoting.services;
 
 import org.cdms.remoting.AuthService;
 import org.cdms.remoting.services.AuthServiceProvider;

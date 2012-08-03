@@ -29,6 +29,14 @@
                 <package>javax.validation.groups</package>
                 <package>javax.validation.metadata</package>
                 <package>javax.validation.spi</package>
+                <package>net.sf.nachocalendar</package>
+                <package>net.sf.nachocalendar.components</package>
+                <package>net.sf.nachocalendar.customizer</package>
+                <package>net.sf.nachocalendar.event</package>
+                <package>net.sf.nachocalendar.holidays</package>
+                <package>net.sf.nachocalendar.model</package>
+                <package>net.sf.nachocalendar.table</package>
+                <package>net.sf.nachocalendar.tasks</package>
                 <package>org.slf4j</package>
                 <package>org.slf4j.helpers</package>
                 <package>org.slf4j.spi</package>
@@ -44,6 +52,10 @@
             <class-path-extension>
                 <runtime-relative-path>ext/validation-api-1.0.0.GA.jar</runtime-relative-path>
                 <binary-origin>release/modules/ext/validation-api-1.0.0.GA.jar</binary-origin>
+            </class-path-extension>
+            <class-path-extension>
+                <runtime-relative-path>ext/nachocalendar-0.23.jar</runtime-relative-path>
+                <binary-origin>release/modules/ext/nachocalendar-0.23.jar</binary-origin>
             </class-path-extension>
         </data>
     </configuration>

@@ -22,12 +22,11 @@ public abstract class AuthServiceProvider {
         return services;
     }
 
-    private static class DefaultAuthServiceProvider extends AuthServiceProvider {
+    protected static class DefaultAuthServiceProvider extends AuthServiceProvider {
 
         @Override
         public AuthService getInstance() {
-            //return new HessianAuthService();
-            return null;
+            return new HessianAuthService();
         }
     }
 }

@@ -1,12 +1,10 @@
 package org.cdms.ui.shared;
 
-import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.JMenuItem;
 import org.cdms.auth.UserLookup;
 import org.cdms.remoting.UserInfo;
 import org.openide.util.ImageUtilities;
-import org.openide.util.NbBundle;
 import org.openide.util.actions.Presenter;
 import org.openide.windows.TopComponent;
 import org.openide.windows.WindowManager;

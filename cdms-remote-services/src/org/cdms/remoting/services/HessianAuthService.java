@@ -1,4 +1,4 @@
-package org.cdms.hessian;
+package org.cdms.remoting.services;
 
 import com.caucho.hessian.client.HessianProxyFactory;
 import java.util.prefs.Preferences;
