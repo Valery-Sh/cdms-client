@@ -2,7 +2,6 @@
 package org.cdms.remoting.services;
 
 import org.cdms.remoting.AuthService;
-import org.cdms.remoting.services.AuthServiceProvider;
 import org.openide.util.lookup.ServiceProvider;
 
 /**
