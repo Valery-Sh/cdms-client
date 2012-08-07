@@ -5,6 +5,7 @@ import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.plaf.metal.MetalBorders;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
@@ -140,42 +141,28 @@ public class TableBinder {
 
     public void updateMasterColumnModel() {
         TableColumnModel cm = table.getColumnModel();
+        
         JTableHeader th = table.getTableHeader();
         
+        if (th != null) {
+            if (th.getDefaultRenderer() != null) {
+                if (th.getDefaultRenderer() instanceof JLabel) {
+                    ((JLabel) th.getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
+                }
+            }
+        }
+
         for (int i = 0; i < cm.getColumnCount(); i++) {
             TableColumn c = cm.getColumn(i);
-            
-            if ("id".equals(c.getIdentifier()) || "version".equals(c.getIdentifier()) ) {
+
+            if ("id".equals(c.getIdentifier()) || "version".equals(c.getIdentifier())) {
                 if (c.getCellRenderer() == null) {
                     DefaultTableCellRenderer r0 = new DefaultTableCellRenderer();
                     c.setCellRenderer(r0);
                     r0.setOpaque(true);
                     r0.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
                 }
-                if ( c.getHeaderRenderer() != null ) {
-                    TableCellRenderer thr = c.getHeaderRenderer();
-                }
-                if ( th != null ) {
-                    
-                    if ( th.getDefaultRenderer() != null ) {
-                        if ( th.getDefaultRenderer() instanceof JLabel ) {
-                            
-                        }
-                    }
-                }
             }
         }
-/*        TableColumn c0 = cm.getColumn(0);
-        //jTable1_Users.setRowSelectionAllowed(true);
-        //jTable1_Users.setCellSelectionEnabled(true);
-
-        c0.setHeaderValue("ИД");
-        if (c0.getCellRenderer() == null) {
-            DefaultTableCellRenderer r0 = new DefaultTableCellRenderer();
-            c0.setCellRenderer(r0);
-            r0.setOpaque(true);
-            r0.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        }
-*/
     }
 }
