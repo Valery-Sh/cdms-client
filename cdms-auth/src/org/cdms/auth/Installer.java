@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.Authenticator;
-import java.util.List;
 import java.util.prefs.Preferences;
 import org.cdms.remoting.AuthService;
 import org.cdms.remoting.UserInfo;
@@ -17,10 +16,6 @@ import org.openide.LifecycleManager;
 import org.openide.modules.ModuleInstall;
 import org.openide.util.Lookup;
 import org.openide.util.NbPreferences;
-import org.openide.windows.TopComponent;
-import org.openide.windows.WindowManager;
-import org.openide.windows.WindowSystemEvent;
-import org.openide.windows.WindowSystemListener;
 
 /**
  *

@@ -2,8 +2,15 @@ package org.cdms.ui.shared;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.plaf.metal.MetalBorders;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 import org.jdesktop.beansbinding.AutoBinding;
 import org.jdesktop.beansbinding.BeanProperty;
 import org.jdesktop.beansbinding.Binding;
@@ -20,51 +27,52 @@ import org.jdesktop.swingbinding.SwingBindings;
 public class TableBinder {
 
     private JTable table;
-    private TableBinder parentTableBinder;    
+    private TableBinder parentTableBinder;
     protected List<TableBinder> childs;
-    
     private List masterList;
-    
     JTableBinding jTableBinding;
     private BindingGroup bindingGroup;
-
     protected String linkProperty;
-    
+
     public TableBinder(JTable table, List masterList) {
         this.bindingGroup = new BindingGroup();
         this.parentTableBinder = null;
         this.table = table;
         this.masterList = masterList;
-        
+
         if (masterList == null) {
             this.masterList = new ArrayList();
         }
         initList();
     }
+
     protected TableBinder(JTable childTable, String linkProperty) {
         this.table = childTable;
         this.linkProperty = linkProperty;
     }
-    public TableBinder addChild(JTable childTable,String linkProperty) {
-        TableBinder tb = new TableBinder(childTable,linkProperty);
+
+    public TableBinder addChild(JTable childTable, String linkProperty) {
+        TableBinder tb = new TableBinder(childTable, linkProperty);
         tb.parentTableBinder = this;
         ELProperty eLProperty = ELProperty.create("${selectedElement." + linkProperty + "}");
         tb.setjTableBinding(SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, table, eLProperty, childTable));
         tb.setBindingGroup(bindingGroup);
-        addBinding(tb.getjTableBinding());  
-        if ( childs == null ) {
+        addBinding(tb.getjTableBinding());
+        if (childs == null) {
             childs = new ArrayList<TableBinder>();
         }
         childs.add(tb);
 
         return tb;
-        
+
     }
+
     protected final void initList() {
         jTableBinding = SwingBindings.createJTableBinding(
                 AutoBinding.UpdateStrategy.READ_WRITE, masterList, table);
         table.setAutoscrolls(true);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
     }
 
     public JTableBinding.ColumnBinding addColumn(String name, Class columnType) {
@@ -84,36 +92,40 @@ public class TableBinder {
     public void addBinding(Binding binding) {
         bindingGroup.addBinding(binding);
     }
+
     public boolean isChild() {
         return parentTableBinder != null;
     }
+
     public void bindTable() {
-        if ( ! isChild() ) {
+        if (!isChild()) {
             addBinding(jTableBinding);
         }
     }
-    public void addTextFieldBinder(JTextField textField,String propertyName) {
+
+    public void addTextFieldBinder(JTextField textField, String propertyName) {
         Binding b = Bindings.createAutoBinding(
                 AutoBinding.UpdateStrategy.READ_WRITE,
                 table,
                 ELProperty.create("${selectedElement." + propertyName + "}"),
                 textField,
                 BeanProperty.create("text"));
-        
-        addBinding(b);        
+
+        addBinding(b);
     }
+
     public void refresh() {
-        if ( isChild() ) {
+        if (isChild()) {
             return;
         }
         bindingGroup.unbind();
         bindingGroup.bind();
     }
 
-
     public JTableBinding getjTableBinding() {
         return jTableBinding;
     }
+
     protected void setjTableBinding(JTableBinding tb) {
         this.jTableBinding = tb;
     }
@@ -125,5 +137,45 @@ public class TableBinder {
     protected void setBindingGroup(BindingGroup bindingGroup) {
         this.bindingGroup = bindingGroup;
     }
-    
+
+    public void updateMasterColumnModel() {
+        TableColumnModel cm = table.getColumnModel();
+        JTableHeader th = table.getTableHeader();
+        
+        for (int i = 0; i < cm.getColumnCount(); i++) {
+            TableColumn c = cm.getColumn(i);
+            
+            if ("id".equals(c.getIdentifier()) || "version".equals(c.getIdentifier()) ) {
+                if (c.getCellRenderer() == null) {
+                    DefaultTableCellRenderer r0 = new DefaultTableCellRenderer();
+                    c.setCellRenderer(r0);
+                    r0.setOpaque(true);
+                    r0.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                }
+                if ( c.getHeaderRenderer() != null ) {
+                    TableCellRenderer thr = c.getHeaderRenderer();
+                }
+                if ( th != null ) {
+                    
+                    if ( th.getDefaultRenderer() != null ) {
+                        if ( th.getDefaultRenderer() instanceof JLabel ) {
+                            
+                        }
+                    }
+                }
+            }
+        }
+/*        TableColumn c0 = cm.getColumn(0);
+        //jTable1_Users.setRowSelectionAllowed(true);
+        //jTable1_Users.setCellSelectionEnabled(true);
+
+        c0.setHeaderValue("ИД");
+        if (c0.getCellRenderer() == null) {
+            DefaultTableCellRenderer r0 = new DefaultTableCellRenderer();
+            c0.setCellRenderer(r0);
+            r0.setOpaque(true);
+            r0.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        }
+*/
+    }
 }

@@ -7,8 +7,11 @@
             <suite-component/>
             <module-dependencies/>
             <public-packages>
+                <package>org.cdms.connection.exception</package>
                 <package>org.cdms.entities</package>
                 <package>org.cdms.remoting</package>
+                <package>org.cdms.remoting.exception</package>
+                <package>org.cdms.remoting.validation</package>
             </public-packages>
             <class-path-extension>
                 <runtime-relative-path>ext/cdms-shared-lib.jar</runtime-relative-path>

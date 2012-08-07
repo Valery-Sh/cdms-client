@@ -27,6 +27,21 @@
         
     </folder>
     <!--folder name="Actions">
+        <folder name="Applications">
+            <folder name="Customer">
+            
+            <file name="org-cdms-ui-customer-actions-CustomerFindByExampleAction.instance">
+            <attr name="instanceCreate" methodvalue="org.openide.awt.Actions.alwaysEnabled"/>
+            <attr name="delegate" newvalue="org.cdms.ui.customer.actions.CustomerFindByExampleAction"/>
+            <attr name="displayName" stringvalue="Make me PDF..!"/>
+            <attr name="noIconInMenu" stringvalue="true"/>
+            <attr name="asynchronous" boolvalue="true"/>                    
+            </file>
+            </folder>
+        </folder>
+    </folder!-->
+    
+    <!--folder name="Actions">
         <folder name="myactions">
             <file name="org-cdms-auth-action-SomeAction.instance"> 
                 <attr name="displayName" stringvalue= 
