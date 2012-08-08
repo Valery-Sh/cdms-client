@@ -16,11 +16,12 @@ import org.cdms.connection.exception.RemoteConnectionException;
 import org.cdms.entities.Customer;
 import org.cdms.entities.User;
 import org.cdms.remoting.UserInfo;
+import org.cdms.remoting.exception.RemoteDataAccessException;
 import org.cdms.remoting.validation.RemoteConstraintViolation;
 import org.cdms.remoting.validation.RemoteValidationException;
-import org.cdms.ui.shared.EntityBinder;
-import org.cdms.ui.shared.EntityBinderImpl;
-import org.cdms.ui.shared.TableBinder;
+import org.cdms.ui.common.EntityBinder;
+import org.cdms.ui.common.EntityBinderImpl;
+import org.cdms.ui.common.TableBinder;
 import org.jdesktop.beansbinding.BindingGroup;
 import org.jdesktop.observablecollections.ObservableCollections;
 import org.netbeans.api.settings.ConvertAsProperties;
@@ -239,10 +240,11 @@ public final class CustomerTopComponent extends TopComponent {
         jLabel16 = new javax.swing.JLabel();
         jFormattedTextField_CreatedAt = new javax.swing.JFormattedTextField();
         JPanel_CruidOp = new javax.swing.JPanel();
+        jLabel_Cruid_Errors = new javax.swing.JLabel();
+        jButton_Delete = new javax.swing.JButton();
         jButton_New_ = new javax.swing.JButton();
         jButton_Save_ = new javax.swing.JButton();
         jButton_Cancel = new javax.swing.JButton();
-        jLabel_Gruid_Errors = new javax.swing.JLabel();
 
         //bindingGroup1 = new BindingGroup();
         //org.jdesktop.beansbinding.Binding binding1 = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${customerFilter.createdAtEnd}"), dateField_createDate_From, org.jdesktop.beansbinding.BeanProperty.create("value"));
@@ -641,6 +643,34 @@ public final class CustomerTopComponent extends TopComponent {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        JPanel_CruidOp.setEnabled(false);
+
+        jLabel_Cruid_Errors.setForeground(new java.awt.Color(255, 51, 0));
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel_Cruid_Errors, org.openide.util.NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.jLabel_Cruid_Errors.text")); // NOI18N
+        jLabel_Cruid_Errors.setToolTipText(jLabel_Cruid_Errors.getText());
+
+        org.openide.awt.Mnemonics.setLocalizedText(jButton_Delete, org.openide.util.NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.jButton_Delete.text")); // NOI18N
+
+        javax.swing.GroupLayout JPanel_CruidOpLayout = new javax.swing.GroupLayout(JPanel_CruidOp);
+        JPanel_CruidOp.setLayout(JPanel_CruidOpLayout);
+        JPanel_CruidOpLayout.setHorizontalGroup(
+            JPanel_CruidOpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JPanel_CruidOpLayout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(jButton_Delete)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel_Cruid_Errors, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        JPanel_CruidOpLayout.setVerticalGroup(
+            JPanel_CruidOpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JPanel_CruidOpLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(JPanel_CruidOpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel_Cruid_Errors, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton_Delete)))
+        );
+
         org.openide.awt.Mnemonics.setLocalizedText(jButton_New_, org.openide.util.NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.jButton_New_.text")); // NOI18N
         jButton_New_.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -662,34 +692,6 @@ public final class CustomerTopComponent extends TopComponent {
             }
         });
 
-        jLabel_Gruid_Errors.setForeground(new java.awt.Color(255, 51, 0));
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel_Gruid_Errors, org.openide.util.NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.jLabel_Gruid_Errors.text")); // NOI18N
-
-        javax.swing.GroupLayout JPanel_CruidOpLayout = new javax.swing.GroupLayout(JPanel_CruidOp);
-        JPanel_CruidOp.setLayout(JPanel_CruidOpLayout);
-        JPanel_CruidOpLayout.setHorizontalGroup(
-            JPanel_CruidOpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(JPanel_CruidOpLayout.createSequentialGroup()
-                .addComponent(jButton_New_)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton_Save_)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton_Cancel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel_Gruid_Errors, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        JPanel_CruidOpLayout.setVerticalGroup(
-            JPanel_CruidOpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JPanel_CruidOpLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(JPanel_CruidOpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton_New_)
-                    .addComponent(jButton_Save_)
-                    .addComponent(jButton_Cancel)
-                    .addComponent(jLabel_Gruid_Errors, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -697,7 +699,15 @@ public final class CustomerTopComponent extends TopComponent {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(JPanel_CruidOp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jButton_New_)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton_Save_)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton_Cancel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(JPanel_CruidOp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jPanel_Gruid_Data, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -715,8 +725,13 @@ public final class CustomerTopComponent extends TopComponent {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel_Gruid_Data, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(JPanel_CruidOp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(JPanel_CruidOp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton_New_)
+                        .addComponent(jButton_Save_)
+                        .addComponent(jButton_Cancel)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         //initFilterComponents();
@@ -725,7 +740,7 @@ public final class CustomerTopComponent extends TopComponent {
 
     private void jButton_Search_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Search_ActionPerformed
         jLabel_FilterError.setText("");
-        jLabel_Gruid_Errors.setText("");
+        jLabel_Cruid_Errors.setText("");
         customerAsyncFilter = new CustomerAsyncService();
         System.out.println("FILTER ID=" + customerAsFilter.getId()
                 + "FirstName=" + customerAsFilter.getFirstName());
@@ -787,8 +802,17 @@ public final class CustomerTopComponent extends TopComponent {
         System.out.println("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM");
         
     }
+    public void enableCruidOperations(boolean enabled) {
+        jButton_Delete.setEnabled(enabled);
+        jButton_New_.setEnabled(enabled);
+        jButton_Refresh_Table.setEnabled(enabled);
+        jButton_Save_.setEnabled(enabled);
+        jButton_Search_.setEnabled(enabled);
+        jTable_Customer.setEnabled(enabled);
+    } 
     private void jButton_Save_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Save_ActionPerformed
-        jLabel_Gruid_Errors.setText("");
+        jLabel_Cruid_Errors.setText("");
+        enableCruidOperations(false); 
         int r = jTable_Customer.getSelectedRow();
         if ( r < 0 ) {
             return;
@@ -804,7 +828,7 @@ public final class CustomerTopComponent extends TopComponent {
     }//GEN-LAST:event_jButton_Save_ActionPerformed
 
     private void jButton_New_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_New_ActionPerformed
-        jLabel_Gruid_Errors.setText("");
+        jLabel_Cruid_Errors.setText("");
         Customer c = new Customer();
         c.setCreatedBy(new User());
         
@@ -838,6 +862,7 @@ public final class CustomerTopComponent extends TopComponent {
     private net.sf.nachocalendar.components.DateField dateField_createDate_To;
     private javax.swing.JButton jButton_Cancel;
     private javax.swing.JButton jButton_Clear_;
+    private javax.swing.JButton jButton_Delete;
     private javax.swing.JButton jButton_FirstPage_;
     private javax.swing.JButton jButton_LastPage;
     private javax.swing.JButton jButton_New_;
@@ -864,8 +889,8 @@ public final class CustomerTopComponent extends TopComponent {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabel_Cruid_Errors;
     private javax.swing.JLabel jLabel_FilterError;
-    private javax.swing.JLabel jLabel_Gruid_Errors;
     private javax.swing.JLabel jLabel_PageNo;
     private javax.swing.JLabel jLabel_PrintResult1;
     private javax.swing.JPanel jPanel1;
@@ -919,9 +944,16 @@ public final class CustomerTopComponent extends TopComponent {
         }
         for (RemoteConstraintViolation v : e.getViolations()) {
             if ( v.getPropertyPath() != null ) {
-                m += "'" + v.getPropertyPath() + "' ";
-                if ( "javax.validation.constraints.Size".equals(v.getAnnotationClassName()) ) {
-                    m += NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.Validation.size"); // NOI                    
+                m += "'" + v.getPropertyPath() + "': ";
+                if ( "javax.validation.constraints.Size".equals(v.getAnnotationClassName()) ||
+                     "javax.validation.constraints.Min".equals(v.getAnnotationClassName())  ||
+                     "javax.validation.constraints.Max".equals(v.getAnnotationClassName())   ) {
+                    m += NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.Validation.Size"); // NOI             
+                    if ( v.getSizeExpression() != null ) {
+                        m += v.getSizeExpression();
+                    }
+                } else if ( "javax.validation.constraints.NotNull".equals(v.getAnnotationClassName()) ) {
+                    m += NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.Validation.NotNull");
                 }
             }
         }
@@ -997,17 +1029,18 @@ public final class CustomerTopComponent extends TopComponent {
                         //translate(e);
                         if (e instanceof RemoteConnectionException) {
                             jLabel_FilterError.setText(NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.jLabel_FilterError.msg.connectionrefused"));
-                        } else if (e instanceof RemoteValidationException){
-                            jLabel_Gruid_Errors.setText(buildMessageFor(e));
+                        } else if ( (e instanceof RemoteValidationException) ||
+                                     (e instanceof RemoteDataAccessException)){
+                            jLabel_Cruid_Errors.setText(buildMessageFor(e));
+                        } else {
+                            jLabel_Cruid_Errors.setText(e.getMessage());
                         }
 
                     } else {
                         Customer c = (Customer)customerAsyncSave.getResult();
                         filterResult.set(jTable_Customer.getSelectedRow(), c);
                     }
-                    
-                    jPanel_Gruid_Data.setEnabled(true);
-                    JPanel_CruidOp.setEnabled(true);
+                    enableCruidOperations(true);                    
                 }
             });
 
@@ -1024,20 +1057,21 @@ public final class CustomerTopComponent extends TopComponent {
                     //this code can work with Swing
                     if (customerAsyncInsert.getResult() instanceof Exception) {
                         Exception e = (Exception) customerAsyncInsert.getResult();
-                        //translate(e);
+
                         if (e instanceof RemoteConnectionException) {
                             jLabel_FilterError.setText(NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.jLabel_FilterError.msg.connectionrefused"));
-                        } else if (e instanceof RemoteValidationException){
-                            jLabel_Gruid_Errors.setText(buildMessageFor(e));
-                        }
+                        } else if ( (e instanceof RemoteValidationException) ||
+                                    (e instanceof RemoteDataAccessException)){
+                            jLabel_Cruid_Errors.setText(buildMessageFor(e));
+                        } else {
+                            jLabel_Cruid_Errors.setText(e.getMessage());
+                        } 
 
                     } else {
                         Customer c = (Customer)customerAsyncInsert.getResult();
                         filterResult.set(jTable_Customer.getSelectedRow(), c);
                     }
-                    
-                    jPanel_Gruid_Data.setEnabled(true);
-                    JPanel_CruidOp.setEnabled(true);
+                    enableCruidOperations(true);                    
                 }
             });
 

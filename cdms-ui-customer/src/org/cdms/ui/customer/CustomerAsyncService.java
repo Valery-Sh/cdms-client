@@ -1,10 +1,9 @@
 package org.cdms.ui.customer;
 
-import java.util.List;
 import org.cdms.entities.Customer;
 import org.cdms.remoting.CustomerService;
 import org.cdms.remoting.services.CustomerServiceProvider;
-import org.cdms.ui.shared.AsyncServiceProcessor;
+import org.cdms.ui.common.AsyncServiceProcessor;
 import org.openide.util.Lookup;
 import org.openide.util.TaskListener;
 

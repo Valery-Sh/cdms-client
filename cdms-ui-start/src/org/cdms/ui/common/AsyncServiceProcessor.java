@@ -1,4 +1,4 @@
-package org.cdms.ui.shared;
+package org.cdms.ui.common;
 
 import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
@@ -43,6 +43,9 @@ public abstract class AsyncServiceProcessor {
             public void run() {
                 try {
                     result = perform();
+// To mimic long backgroud                    for ( int i=0; i< 20000000;i++) {
+//                        int j = i +1;
+//                    }
                 } catch (Exception e) {
                     System.out.println("ERROR in Thread");
                     result = e;

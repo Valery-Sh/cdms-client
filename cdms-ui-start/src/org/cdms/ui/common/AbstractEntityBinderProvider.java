@@ -1,4 +1,4 @@
-package org.cdms.ui.shared;
+package org.cdms.ui.common;
 
 import javax.swing.JComponent;
 import org.openide.util.Lookup;

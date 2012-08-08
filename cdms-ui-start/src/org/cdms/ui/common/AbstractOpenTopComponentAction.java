@@ -1,4 +1,4 @@
-package org.cdms.ui.shared;
+package org.cdms.ui.common;
 
 import javax.swing.AbstractAction;
 import javax.swing.JMenuItem;

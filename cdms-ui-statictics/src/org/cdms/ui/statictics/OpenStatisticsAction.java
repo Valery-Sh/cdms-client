@@ -7,7 +7,7 @@ package org.cdms.ui.statictics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JMenuItem;
-import org.cdms.ui.shared.AbstractOpenTopComponentAction;
+import org.cdms.ui.common.AbstractOpenTopComponentAction;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
 import org.openide.awt.ActionRegistration;
