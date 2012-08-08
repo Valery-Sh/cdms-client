@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.prefs.Preferences;
 import org.cdms.connection.exception.RemoteConnectionException;
 import org.cdms.entities.Customer;
+import org.cdms.entities.User;
 import org.cdms.remoting.ConfigService;
 import org.cdms.remoting.CustomerService;
 import org.cdms.remoting.UserInfo;
@@ -74,19 +75,33 @@ public class HessianCustomerService implements CustomerService {
     }
     
     @Override
-    public void insert(Customer cstmr) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void update(Customer customer) {
+    public Customer insert(Customer customer) {
+        Customer result = null;
+        User u = new User();
+        u.setId(10L);
+        customer.setCreatedBy(u);
         try {
-            getService().update(customer);
+            result = getService().insert(customer);
         } catch (MalformedURLException ex) {
             Exceptions.printStackTrace(ex);
         } catch(HessianRuntimeException hre) {
-            throwHesianTranslated(hre, "findByExample");
+            throwHesianTranslated(hre, "insert");
         }
+        return result;
+
+    }
+
+    @Override
+    public Customer update(Customer customer) {
+        Customer result = null;
+        try {
+            result = getService().update(customer);
+        } catch (MalformedURLException ex) {
+            Exceptions.printStackTrace(ex);
+        } catch(HessianRuntimeException hre) {
+            throwHesianTranslated(hre, "update");
+        }
+        return result;
     }
 
     @Override

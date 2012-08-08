@@ -47,6 +47,7 @@ public abstract class AsyncServiceProcessor {
                     System.out.println("ERROR in Thread");
                     result = e;
                 } finally {
+                    
                 }
                 /*                    if (Thread.interrupted()) {
                  return;

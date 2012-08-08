@@ -39,8 +39,15 @@ public class CustomerAsyncService {
             return (Lookup.getDefault().lookup(CustomerServiceProvider.class)).getInstance();
     }
 
-    public void insert(Customer cstmr) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void insert(TaskListener taskListener,final Customer customer) {
+        processor = new AsyncServiceProcessor("Insert Customer ...") {
+            @Override
+            public Object perform() {
+                return getCustomerService().insert(customer); // TODO paging                
+            }
+        };
+        processor.run(taskListener);
+
     }
 
     public void update(TaskListener taskListener,final Customer customer) {
@@ -48,8 +55,7 @@ public class CustomerAsyncService {
         processor = new AsyncServiceProcessor("Update Customer ...") {
             @Override
             public Object perform() {
-                getCustomerService().update(customer); // TODO paging                
-                return null;
+                return getCustomerService().update(customer); // TODO paging                
             }
         };
         
