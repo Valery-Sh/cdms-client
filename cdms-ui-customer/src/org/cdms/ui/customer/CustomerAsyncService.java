@@ -43,8 +43,17 @@ public class CustomerAsyncService {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public void update(Customer cstmr) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void update(TaskListener taskListener,final Customer customer) {
+        
+        processor = new AsyncServiceProcessor("Update Customer ...") {
+            @Override
+            public Object perform() {
+                getCustomerService().update(customer); // TODO paging                
+                return null;
+            }
+        };
+        
+        processor.run(taskListener);
     }
 
     public void delete(long l) {

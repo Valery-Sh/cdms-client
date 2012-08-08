@@ -79,8 +79,14 @@ public class HessianCustomerService implements CustomerService {
     }
 
     @Override
-    public void update(Customer cstmr) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void update(Customer customer) {
+        try {
+            getService().update(customer);
+        } catch (MalformedURLException ex) {
+            Exceptions.printStackTrace(ex);
+        } catch(HessianRuntimeException hre) {
+            throwHesianTranslated(hre, "findByExample");
+        }
     }
 
     @Override

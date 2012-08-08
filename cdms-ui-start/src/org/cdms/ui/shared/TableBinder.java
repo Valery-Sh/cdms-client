@@ -2,6 +2,8 @@ package org.cdms.ui.shared;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JComponent;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -115,6 +117,48 @@ public class TableBinder {
         addBinding(b);
     }
 
+    public void addConcatTextFieldBinder(JTextField textField, String... propertyName) {
+        String concat = "";
+        for (String s : propertyName) {
+            concat += " ${selectedElement." + s + "}";
+        }
+        Binding b = Bindings.createAutoBinding(
+                AutoBinding.UpdateStrategy.READ_WRITE,
+                table,
+                //ELProperty.create("${selectedElement." + propertyName + "}"),
+                ELProperty.create(concat),
+                textField,
+                BeanProperty.create("text"));
+
+        addBinding(b);
+    }
+
+    public void addCalendarBinder(JComponent textField, String propertyName) {
+        Binding b = Bindings.createAutoBinding(
+                AutoBinding.UpdateStrategy.READ_WRITE,
+                table,
+                ELProperty.create("${selectedElement." + propertyName + "}"),
+                textField,
+                BeanProperty.create("value"));
+        addBinding(b);
+    }
+
+    public void addDateBinder(JFormattedTextField textField, String propertyName) {
+        Binding b = Bindings.createAutoBinding(
+                AutoBinding.UpdateStrategy.READ_WRITE,
+                table,
+                ELProperty.create("${selectedElement." + propertyName + "}"),
+                textField,
+                BeanProperty.create("value"));
+        addBinding(b);
+    }
+
+    /*Binding binding = Bindings.createAutoBinding(
+     AutoBinding.UpdateStrategy.READ_WRITE, 
+     dateField1,
+     ELProperty.create("${value}"), 
+     jFormattedTextField_Date, BeanProperty.create("value"));
+     */
     public void refresh() {
         if (isChild()) {
             return;
@@ -141,9 +185,9 @@ public class TableBinder {
 
     public void updateMasterColumnModel() {
         TableColumnModel cm = table.getColumnModel();
-        
+
         JTableHeader th = table.getTableHeader();
-        
+
         if (th != null) {
             if (th.getDefaultRenderer() != null) {
                 if (th.getDefaultRenderer() instanceof JLabel) {
