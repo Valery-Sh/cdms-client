@@ -143,7 +143,7 @@ public class TableBinder {
         addBinding(b);
     }
 
-    public void addDateBinder(JFormattedTextField textField, String propertyName) {
+    public void addFormattedTextFieldBinder(JFormattedTextField textField, String propertyName) {
         Binding b = Bindings.createAutoBinding(
                 AutoBinding.UpdateStrategy.READ_WRITE,
                 table,

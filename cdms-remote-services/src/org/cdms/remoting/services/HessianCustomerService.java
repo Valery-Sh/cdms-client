@@ -14,6 +14,7 @@ import org.cdms.entities.Customer;
 import org.cdms.entities.User;
 import org.cdms.remoting.ConfigService;
 import org.cdms.remoting.CustomerService;
+import org.cdms.remoting.QueryPage;
 import org.cdms.remoting.UserInfo;
 import org.openide.util.Exceptions;
 import org.openide.util.Lookup;
@@ -47,9 +48,9 @@ public class HessianCustomerService implements CustomerService {
     }
     
     @Override
-    public List<Customer> findByExample(Customer customerFilter, int start, int pageSize) {
+    public List<Customer> findByExample(Customer customerFilter, long firstRecordMaxId, int pageSize) {
         try {
-            return getService().findByExample(customerFilter, start, pageSize);
+            return getService().findByExample(customerFilter, firstRecordMaxId, pageSize);
         } catch (MalformedURLException ex) {
             Exceptions.printStackTrace(ex);
         } catch(HessianRuntimeException hre) {
@@ -58,6 +59,20 @@ public class HessianCustomerService implements CustomerService {
         return null;
         
     }
+    
+    @Override
+    public QueryPage<Customer> findByExample(QueryPage<Customer> queryPage) {
+        try {
+            return getService().findByExample(queryPage);
+        } catch (MalformedURLException ex) {
+            Exceptions.printStackTrace(ex);
+        } catch(HessianRuntimeException hre) {
+            throwHesianTranslated(hre, "findByExample");
+        }
+        return null;
+        
+    }
+    
     public void throwHesianTranslated(Exception e,String methodName) {
         RemoteConnectionException re = new RemoteConnectionException(e.getMessage());
         re.setOriginalClassName(e.getClass().getName());

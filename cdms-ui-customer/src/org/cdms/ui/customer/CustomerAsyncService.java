@@ -2,6 +2,8 @@ package org.cdms.ui.customer;
 
 import org.cdms.entities.Customer;
 import org.cdms.remoting.CustomerService;
+import org.cdms.remoting.QueryPage;
+
 import org.cdms.remoting.services.CustomerServiceProvider;
 import org.cdms.ui.common.AsyncServiceProcessor;
 import org.openide.util.Lookup;
@@ -19,12 +21,24 @@ public class CustomerAsyncService {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
-    public void findByExample(TaskListener taskListener,final Customer filter, final int firstRecord, final int pageSize) {
+    public void findByExample(TaskListener taskListener,final Customer filter, final long firstRecordMaxId, final int pageSize) {
         
         processor = new AsyncServiceProcessor("Search Customers by Filter...") {
             @Override
             public Object perform() {
-                return getCustomerService().findByExample(filter,firstRecord, pageSize); // TODO paging                
+                return getCustomerService().findByExample(filter,firstRecordMaxId, pageSize); // TODO paging                
+            }
+        };
+        
+        processor.run(taskListener);
+    }
+
+    public void findByExample(TaskListener taskListener, final QueryPage<Customer> queryPage) {
+        
+        processor = new AsyncServiceProcessor("Search Customers by Filter...") {
+            @Override
+            public Object perform() {
+                return getCustomerService().findByExample(queryPage); // TODO paging                
             }
         };
         

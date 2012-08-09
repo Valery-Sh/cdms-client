@@ -1,6 +1,7 @@
 package org.cdms.ui.common;
 
 import javax.swing.JComponent;
+import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
 import org.jdesktop.beansbinding.AutoBinding;
 import org.jdesktop.beansbinding.BeanProperty;
@@ -70,6 +71,33 @@ public class EntityBinderImpl implements EntityBinder {
                     textField, 
                     BeanProperty.create("value"));        
         addBinding(b);        
+    }
+    @Override
+    public void addFormattedTextFieldBinder(JFormattedTextField textField, String propertyName) {
+        Binding b = Bindings.createAutoBinding(
+                AutoBinding.UpdateStrategy.READ_WRITE,
+                source,
+                ELProperty.create("${" + propertyName + "}"),
+                textField,
+                BeanProperty.create("value"));
+        addBinding(b);
+    }
+    
+    @Override
+    public void addConcatTextFieldBinder(JTextField textField, String... propertyName) {
+        String concat = "";
+        for (String s : propertyName) {
+            concat += " ${" + s + "}";
+        }
+        Binding b = Bindings.createAutoBinding(
+                AutoBinding.UpdateStrategy.READ_WRITE,
+                source,
+                //ELProperty.create("${selectedElement." + propertyName + "}"),
+                ELProperty.create(concat),
+                textField,
+                BeanProperty.create("text"));
+
+        addBinding(b);
     }
     
 }
