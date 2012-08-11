@@ -75,8 +75,16 @@ public class CustomerAsyncService {
         processor.run(taskListener);
     }
 
-    public void delete(long l) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void delete(TaskListener taskListener,final Customer customer) {
+        processor = new AsyncServiceProcessor("Delete Customer ...") {
+            @Override
+            public Object perform() {
+                return getCustomerService().delete(customer.getId()); // TODO paging                
+            }
+        };
+        
+        processor.run(taskListener);
+
     }
     
     

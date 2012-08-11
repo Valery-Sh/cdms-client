@@ -9,13 +9,13 @@ import com.caucho.hessian.client.HessianRuntimeException;
 import java.net.MalformedURLException;
 import java.util.List;
 import java.util.prefs.Preferences;
-import org.cdms.connection.exception.RemoteConnectionException;
 import org.cdms.entities.Customer;
 import org.cdms.entities.User;
 import org.cdms.remoting.ConfigService;
 import org.cdms.remoting.CustomerService;
 import org.cdms.remoting.QueryPage;
 import org.cdms.remoting.UserInfo;
+import org.cdms.remoting.exception.RemoteConnectionException;
 import org.openide.util.Exceptions;
 import org.openide.util.Lookup;
 import org.openide.util.NbPreferences;
@@ -120,8 +120,17 @@ public class HessianCustomerService implements CustomerService {
     }
 
     @Override
-    public void delete(long l) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Customer delete(long id) {
+        Customer result = null;
+        try {
+            result = getService().delete(id);
+        } catch (MalformedURLException ex) {
+            Exceptions.printStackTrace(ex);
+        } catch(HessianRuntimeException hre) {
+            throwHesianTranslated(hre, "delete");
+        }
+        return result;
+
     }
     
 }

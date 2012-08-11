@@ -4,9 +4,8 @@
  */
 package org.cdms.ui.invoice;
 
+
 import org.netbeans.api.settings.ConvertAsProperties;
-import org.openide.awt.ActionID;
-import org.openide.awt.ActionReference;
 import org.openide.windows.TopComponent;
 import org.openide.util.NbBundle.Messages;
 
@@ -35,6 +34,8 @@ public final class InvoiceTopComponent extends TopComponent {
 
     public InvoiceTopComponent() {
         initComponents();
+        //EntityTablePanel tablePanel = new EntityTablePanel();
+        //this.jPanel_LoadEntityPanel.add(tablePanel,BorderLayout.CENTER);
         setName(Bundle.CTL_InvoiceTopComponent());
         setToolTipText(Bundle.HINT_InvoiceTopComponent());
 
@@ -81,6 +82,7 @@ public final class InvoiceTopComponent extends TopComponent {
         jTextField_New_CreatedBy = new javax.swing.JTextField();
         jLabel23 = new javax.swing.JLabel();
         jFormattedTextField_New_CreatedAt = new javax.swing.JFormattedTextField();
+        jPanel_LoadEntityPanel = new javax.swing.JPanel();
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel10, org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jLabel10.text")); // NOI18N
 
@@ -320,21 +322,29 @@ public final class InvoiceTopComponent extends TopComponent {
 
         jTabbedPane1.addTab(org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jPanel2.TabConstraints.tabTitle"), jPanel2); // NOI18N
 
+        jPanel_LoadEntityPanel.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel_LoadEntityPanel.setLayout(new java.awt.BorderLayout());
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 733, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 27, Short.MAX_VALUE))
+                    .addComponent(jPanel_LoadEntityPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(96, Short.MAX_VALUE)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addContainerGap()
+                .addComponent(jPanel_LoadEntityPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -359,6 +369,7 @@ public final class InvoiceTopComponent extends TopComponent {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel_Gruid_Data;
     private javax.swing.JPanel jPanel_Gruid_Data1;
+    private javax.swing.JPanel jPanel_LoadEntityPanel;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField_CreatedBy;
     private javax.swing.JTextField jTextField_Email;
