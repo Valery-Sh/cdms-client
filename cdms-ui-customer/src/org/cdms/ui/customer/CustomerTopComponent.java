@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.cdms.ui.customer;
 
 import java.awt.EventQueue;
@@ -51,28 +47,23 @@ persistenceType = TopComponent.PERSISTENCE_ALWAYS)
 })
 public final class CustomerTopComponent extends TopComponent {
 
-    private static final int NEXT = 10;
-    private static final int PRIOR = 20;
-    private static final int LAST = 30;
-    private static final int FIRST = 40;
-    //private static final  int FIRST = 40;
-    private EntityBinder customerFilterBinder;
-    private Customer customerAsFilter = new Customer();
+    private EntityBinder entityFilterBinder;
+    private Customer entityAsFilter = new Customer();
     private EntityBinder userFilterBinder;
     private User userAsFilter = new User();
-    private BindingGroup customerBindingGroup = new BindingGroup();
+    private BindingGroup entityBindingGroup = new BindingGroup();
     private BindingGroup userBindingGroup = new BindingGroup();
     private TableBinder tableBinder;
-    private int direction = FIRST;
+
     List<Customer> filterResult = null;
-    CustomerAsyncService customerAsyncFilter = new CustomerAsyncService();
-    CustomerAsyncService customerAsyncSave = new CustomerAsyncService();
-    CustomerAsyncService customerAsyncDelete = new CustomerAsyncService();
+    CustomerAsyncService entityAsyncFilter = new CustomerAsyncService();
+    CustomerAsyncService entityAsyncSave = new CustomerAsyncService();
+    CustomerAsyncService entityAsyncDelete = new CustomerAsyncService();
     // For Insert operations
-    Customer newCustomer;
-    EntityBinder newCustomerBinder;
-    BindingGroup newCustomerBindingGroup;
-    CustomerAsyncService customerAsyncInsert = new CustomerAsyncService();
+    Customer entityToInsert;
+    EntityBinder entityToInsertBinder;
+    BindingGroup entityToInsertBindingGroup;
+    CustomerAsyncService entityAsyncInsert = new CustomerAsyncService();
     private QueryPage<Customer> queryPage;
 
     public CustomerTopComponent() {
@@ -91,21 +82,21 @@ public final class CustomerTopComponent extends TopComponent {
     }
 
     protected void initNewCustomerComponents() {
-        newCustomerBindingGroup = new BindingGroup();
-        newCustomer = new Customer();
-        newCustomerBinder = new EntityBinderImpl(newCustomerBindingGroup, this);
-        newCustomerBinder.addTextFieldBinder(jTextField_New_ID, "newCustomer.id");
+        entityToInsertBindingGroup = new BindingGroup();
+        entityToInsert = new Customer();
+        entityToInsertBinder = new EntityBinderImpl(entityToInsertBindingGroup, this);
+        entityToInsertBinder.addTextFieldBinder(jTextField_New_ID, "newCustomer.id");
 
-        newCustomerBinder.addTextFieldBinder(jTextField_New_FirstName, "newCustomer.firstName");
-        newCustomerBinder.addTextFieldBinder(jTextField_New_LastName, "newCustomer.lastName");
-        newCustomerBinder.addTextFieldBinder(jTextField_New_Email, "newCustomer.email");
-        newCustomerBinder.addTextFieldBinder(jTextField_New_Phone, "newCustomer.phone");
+        entityToInsertBinder.addTextFieldBinder(jTextField_New_FirstName, "newCustomer.firstName");
+        entityToInsertBinder.addTextFieldBinder(jTextField_New_LastName, "newCustomer.lastName");
+        entityToInsertBinder.addTextFieldBinder(jTextField_New_Email, "newCustomer.email");
+        entityToInsertBinder.addTextFieldBinder(jTextField_New_Phone, "newCustomer.phone");
 
-        newCustomerBinder.addFormattedTextFieldBinder(jFormattedTextField_New_CreatedAt, "newCustomer.createdAt");
+        entityToInsertBinder.addFormattedTextFieldBinder(jFormattedTextField_New_CreatedAt, "newCustomer.createdAt");
 
-        newCustomerBinder.addConcatTextFieldBinder(jTextField_New_CreatedBy, "newCustomer.createdBy.firstName", "newCustomer.createdBy.lastName");
+        entityToInsertBinder.addConcatTextFieldBinder(jTextField_New_CreatedBy, "newCustomer.createdBy.firstName", "newCustomer.createdBy.lastName");
 
-        newCustomerBindingGroup.bind();
+        entityToInsertBindingGroup.bind();
 
     }
 
@@ -149,22 +140,22 @@ public final class CustomerTopComponent extends TopComponent {
     }
 
     protected void initFilterComponents() {
-        customerFilterBinder = new EntityBinderImpl(customerBindingGroup, this);
-        customerFilterBinder.addTextFieldBinder(jTextField_ID_Filter, "customerAsFilter.idFilter");
-        customerFilterBinder.addTextFieldBinder(jTextField_FirstName_Filter, "customerAsFilter.firstName");
-        customerFilterBinder.addTextFieldBinder(jTextField_LastName_Filter, "customerAsFilter.lastName");
-        customerFilterBinder.addTextFieldBinder(jTextField_Email_Filter, "customerAsFilter.email");
-        customerFilterBinder.addTextFieldBinder(jTextField_Phone_Filter, "customerAsFilter.phone");
-        customerFilterBinder.addCalendarBinder(dateField_createDate_From, "customerAsFilter.createdAt");
-        customerFilterBinder.addCalendarBinder(dateField_createDate_To, "customerAsFilter.createdAtEnd");
+        entityFilterBinder = new EntityBinderImpl(entityBindingGroup, this);
+        entityFilterBinder.addTextFieldBinder(jTextField_ID_Filter, "customerAsFilter.idFilter");
+        entityFilterBinder.addTextFieldBinder(jTextField_FirstName_Filter, "customerAsFilter.firstName");
+        entityFilterBinder.addTextFieldBinder(jTextField_LastName_Filter, "customerAsFilter.lastName");
+        entityFilterBinder.addTextFieldBinder(jTextField_Email_Filter, "customerAsFilter.email");
+        entityFilterBinder.addTextFieldBinder(jTextField_Phone_Filter, "customerAsFilter.phone");
+        entityFilterBinder.addCalendarBinder(dateField_createDate_From, "customerAsFilter.createdAt");
+        entityFilterBinder.addCalendarBinder(dateField_createDate_To, "customerAsFilter.createdAtEnd");
 
-        customerAsFilter.setCreatedBy(userAsFilter);
+        entityAsFilter.setCreatedBy(userAsFilter);
 
         userFilterBinder = new EntityBinderImpl(userBindingGroup, this);
         userFilterBinder.addTextFieldBinder(jTextField_User_firstName, "userAsFilter.firstName");
         userFilterBinder.addTextFieldBinder(jTextField_User_lastName, "userAsFilter.lastName");
 
-        customerBindingGroup.bind();
+        entityBindingGroup.bind();
         userBindingGroup.bind();
 
         dateField_createDate_From.getFormattedTextField().setHorizontalAlignment(JTextField.CENTER);
@@ -251,19 +242,19 @@ public final class CustomerTopComponent extends TopComponent {
     }
 
     public Customer getNewCustomer() {
-        return newCustomer;
+        return entityToInsert;
     }
 
     public void setNewCustomer(Customer newCustomer) {
-        this.newCustomer = newCustomer;
+        this.entityToInsert = newCustomer;
     }
 
     public Customer getCustomerAsFilter() {
-        return customerAsFilter;
+        return entityAsFilter;
     }
 
     public void setCustomerAsFilter(Customer customerFilter) {
-        this.customerAsFilter = customerFilter;
+        this.entityAsFilter = customerFilter;
     }
 
     public User getUserAsFilter() {
@@ -1100,15 +1091,15 @@ public final class CustomerTopComponent extends TopComponent {
         jLabel_FilterError.setText("");
         showGruidErrors(false);
         //jLabel_Cruid_Errors.setText("");
-        customerAsyncFilter = new CustomerAsyncService();
-        System.out.println("FILTER ID=" + customerAsFilter.getId()
-                + "FirstName=" + customerAsFilter.getFirstName());
+        entityAsyncFilter = new CustomerAsyncService();
+        System.out.println("FILTER ID=" + entityAsFilter.getId()
+                + "FirstName=" + entityAsFilter.getFirstName());
         jButton_Search_.setEnabled(false);
 
         try {
-            queryPage.setEntityAsExample(customerAsFilter);
+            queryPage.setEntityAsExample(entityAsFilter);
             queryPage.setQueryResult(new ArrayList<Customer>());
-            customerAsyncFilter.findByExample(new FilterSeachHandler(), queryPage); // TODO paging
+            entityAsyncFilter.findByExample(new FilterSeachHandler(), queryPage); // TODO paging
         } catch (Exception e) {
             System.out.println("ERROR");
         }
@@ -1155,13 +1146,13 @@ public final class CustomerTopComponent extends TopComponent {
 
     private void jButton_New_New_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_New_New_ActionPerformed
         enableInserOperations(true);
-        if (newCustomerBindingGroup == null) {
+        if (entityToInsertBindingGroup == null) {
             initNewCustomerComponents();
             
         } else {
-            newCustomerBindingGroup.unbind();
-            newCustomer = new Customer();
-            newCustomerBindingGroup.bind();
+            entityToInsertBindingGroup.unbind();
+            entityToInsert = new Customer();
+            entityToInsertBindingGroup.bind();
         }
 
 
@@ -1225,10 +1216,10 @@ public final class CustomerTopComponent extends TopComponent {
 
     }//GEN-LAST:event_jButton_Delete_ActionPerformed
     private void insertCustomer() {
-        customerAsyncInsert = new CustomerAsyncService();
-        customerAsyncInsert.insert(new InsertHandler(), newCustomer); // TODO paging
+        entityAsyncInsert = new CustomerAsyncService();
+        entityAsyncInsert.insert(new InsertHandler(), entityToInsert); // TODO paging
 /*        try {
-         customerAsyncInsert.insert(new InsertHandler(), newCustomer); // TODO paging
+         entityAsyncInsert.insert(new InsertHandler(), entityToInsert); // TODO paging
          } catch (Exception e) {
          System.out.println("ERROR: ");
          }
@@ -1236,7 +1227,7 @@ public final class CustomerTopComponent extends TopComponent {
     }
 
     private void updateCustomer() {
-        customerAsyncSave = new CustomerAsyncService();
+        entityAsyncSave = new CustomerAsyncService();
         jPanel_Gruid_Data.setEnabled(false);
 
         int r = jTable_Customer.getSelectedRow();
@@ -1245,7 +1236,7 @@ public final class CustomerTopComponent extends TopComponent {
         }
         Customer toUpdate = filterResult.get(r);
         try {
-            customerAsyncSave.update(new SaveHandler(), toUpdate); // TODO paging
+            entityAsyncSave.update(new SaveHandler(), toUpdate); // TODO paging
         } catch (Exception e) {
             System.out.println("ERROR");
         }
@@ -1254,7 +1245,7 @@ public final class CustomerTopComponent extends TopComponent {
     }
 
     private void deleteCustomer() {
-        customerAsyncDelete = new CustomerAsyncService();
+        entityAsyncDelete = new CustomerAsyncService();
         //jPanel_Gruid_Data.setEnabled(false);
 
         int r = jTable_Customer.getSelectedRow();
@@ -1263,7 +1254,7 @@ public final class CustomerTopComponent extends TopComponent {
         }
         Customer c = filterResult.get(r);
         try {
-            customerAsyncDelete.delete(new DeleteHandler(), c); // TODO paging
+            entityAsyncDelete.delete(new DeleteHandler(), c); // TODO paging
         } catch (Exception e) {
             System.out.println("ERROR");
         }
@@ -1493,12 +1484,12 @@ public final class CustomerTopComponent extends TopComponent {
                 @Override
                 public void run() {
                     //this code can work with Swing
-                    if (customerAsyncFilter.getResult() instanceof Exception) {
-                        Exception e = (Exception) customerAsyncFilter.getResult();
+                    if (entityAsyncFilter.getResult() instanceof Exception) {
+                        Exception e = (Exception) entityAsyncFilter.getResult();
                         jLabel_FilterError.setText(ErrorMessageBuilder.get(e));
                     } else {
 
-                        QueryPage<Customer> q = (QueryPage<Customer>) customerAsyncFilter.getResult();
+                        QueryPage<Customer> q = (QueryPage<Customer>) entityAsyncFilter.getResult();
                         if (q != null) {
                             queryPage = q;
                         }
@@ -1543,15 +1534,15 @@ public final class CustomerTopComponent extends TopComponent {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    if (customerAsyncSave.getResult() instanceof Exception) {
-                        Exception e = (Exception) customerAsyncSave.getResult();
+                    if (entityAsyncSave.getResult() instanceof Exception) {
+                        Exception e = (Exception) entityAsyncSave.getResult();
                         //jLabel_Cruid_Errors.setText(buildMessageFor(e));
                         jLabel_Cruid_Errors.setText(ErrorMessageBuilder.get(e));
                         errorDetailsHandler.setException(e);
                         showGruidErrors(true);
 
                     } else {
-                        Customer c = (Customer) customerAsyncSave.getResult();
+                        Customer c = (Customer) entityAsyncSave.getResult();
                         filterResult.set(jTable_Customer.getSelectedRow(), c);
                     }
                     enableCruidOperations(true);
@@ -1569,15 +1560,15 @@ public final class CustomerTopComponent extends TopComponent {
                 @Override
                 public void run() {
                     //this code can work with Swing
-                    if (customerAsyncInsert.getResult() instanceof Exception) {
-                        Exception e = (Exception) customerAsyncInsert.getResult();
+                    if (entityAsyncInsert.getResult() instanceof Exception) {
+                        Exception e = (Exception) entityAsyncInsert.getResult();
                         jLabel_Cruid_Errors.setText(ErrorMessageBuilder.get(e));
                         errorDetailsHandler.setException(e);
                         showGruidErrors(true);
                     } else {
-                        newCustomerBindingGroup.unbind();
-                        newCustomer = (Customer) customerAsyncInsert.getResult();
-                        newCustomerBindingGroup.bind();
+                        entityToInsertBindingGroup.unbind();
+                        entityToInsert = (Customer) entityAsyncInsert.getResult();
+                        entityToInsertBindingGroup.bind();
                     }
                     enableCruidOperations(true);
                 }
@@ -1594,13 +1585,13 @@ public final class CustomerTopComponent extends TopComponent {
                 @Override
                 public void run() {
                     //this code can work with Swing
-                    if (customerAsyncDelete.getResult() instanceof Exception) {
-                        Exception e = (Exception) customerAsyncDelete.getResult();
+                    if (entityAsyncDelete.getResult() instanceof Exception) {
+                        Exception e = (Exception) entityAsyncDelete.getResult();
                         jLabel_Cruid_Errors.setText(ErrorMessageBuilder.get(e));
                         errorDetailsHandler.setException(e);
                         showGruidErrors(true);
                     } else {
-                        //Customer c = (Customer) customerAsyncDelete.getResult();
+                        //Customer c = (Customer) entityAsyncDelete.getResult();
                         int row = jTable_Customer.getSelectedRow();
                         filterResult.remove(jTable_Customer.getSelectedRow());
                         if ( ! filterResult.isEmpty() ) {

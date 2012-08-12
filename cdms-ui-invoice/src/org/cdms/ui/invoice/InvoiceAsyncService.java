@@ -1,18 +1,18 @@
-package org.cdms.ui.customer;
+package org.cdms.ui.invoice;
 
 import org.cdms.entities.Customer;
 import org.cdms.remoting.CustomerService;
 import org.cdms.remoting.QueryPage;
-import org.cdms.remoting.services.CustomerServiceProvider;
+
 import org.cdms.ui.common.AsyncServiceProcessor;
 import org.openide.util.Lookup;
 import org.openide.util.TaskListener;
 
-/**
+/**Invoice
  *
  * @author V. Shyshkin
  */
-public class CustomerAsyncService {
+public class InvoiceAsyncService {
 
     protected AsyncServiceProcessor processor;
     

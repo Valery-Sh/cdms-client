@@ -45,6 +45,7 @@
                 <package>org.jdesktop.el.impl</package>
                 <package>org.jdesktop.el.impl.lang</package>
                 <package>org.jdesktop.el.impl.parser</package>
+                <package>org.jdesktop.el.impl.util</package>
                 <package>org.jdesktop.observablecollections</package>
                 <package>org.jdesktop.swingbinding</package>
                 <package>org.jdesktop.swingbinding.adapters</package>

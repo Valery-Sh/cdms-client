@@ -18,7 +18,14 @@ public class DeleteConfirmDialog {
     public static boolean confirm(String entityName, long id) {
         Object[] options = {DialogDescriptor.CANCEL_OPTION,DialogDescriptor.OK_OPTION}; 
         String title = "Confirm Delete for " + entityName;
-        String message = "The " + entityName + " with an id equals to " + id + " wilbe be deleted. Please, confirm.";
+        String addMsg = "";
+        if ( "Customer".equals(entityName)) {
+            addMsg = "\nAll bound Invoices will be deleted too.";
+        } else if ( "Invoice".equals(entityName)) {
+            addMsg = "\nAll bound Invoice Items will be deleted too.";
+        }
+
+        String message = "The " + entityName + " with an id equals to " + id + " will be be deleted." + addMsg + "\nPlease, confirm.";
         NotifyDescriptor nd = new NotifyDescriptor(
                 message,  //  message 
                 title, //  title 
