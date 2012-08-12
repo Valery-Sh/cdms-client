@@ -178,7 +178,7 @@ public final class CustomerTopComponent extends TopComponent {
 
     }
 
-    protected void emptyCustomer() {
+    protected void emptyEditComponents() {
         jTextField_ID.setText(null);
         jTextField_Email.setText(null);
         jTextField_FirstName.setText(null);
@@ -1497,7 +1497,7 @@ public final class CustomerTopComponent extends TopComponent {
                         initTableComponents();
                         initPageNavigator();
                         if (filterResult.isEmpty()) {
-                            emptyCustomer();
+                            emptyEditComponents();
                         }
                     }
                     jButton_Search_.setEnabled(true);
@@ -1506,22 +1506,6 @@ public final class CustomerTopComponent extends TopComponent {
 
         }
 
-        /**
-         * ClassName = com.caucho.hessian.client.HessianRuntimeException --- msg
-         * = java.net.ConnectException: Connection refused: connect Cause
-         * ClassName = java.net.ConnectException --- cause msg=Connection
-         * refused: connect
-         *
-         * @param e
-         */
-        private void translate(Exception e) {
-            System.out.println("ClassName = " + e.getClass().getName());
-            System.out.println(" --- msg = " + e.getMessage());
-
-            System.out.println("Cause ClassName = " + e.getCause().getClass().getName());
-            System.out.println(" --- cause msg=" + e.getCause().getMessage());
-
-        }
     }//inner FilterSearchHandler
 
     protected class SaveHandler implements TaskListener {

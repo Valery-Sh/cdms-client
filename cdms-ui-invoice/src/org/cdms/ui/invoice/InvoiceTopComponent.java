@@ -5,16 +5,27 @@
 package org.cdms.ui.invoice;
 
 
+import java.awt.EventQueue;
+import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JTextField;
+import javax.swing.text.DateFormatter;
+import javax.swing.text.DefaultFormatterFactory;
+import org.cdms.entities.Customer;
 import org.cdms.entities.Invoice;
 import org.cdms.entities.User;
 import org.cdms.remoting.QueryPage;
 import org.cdms.ui.common.EntityBinder;
+import org.cdms.ui.common.EntityBinderImpl;
+import org.cdms.ui.common.ErrorMessageBuilder;
 import org.cdms.ui.common.TableBinder;
 import org.jdesktop.beansbinding.BindingGroup;
 import org.netbeans.api.settings.ConvertAsProperties;
 import org.openide.windows.TopComponent;
 import org.openide.util.NbBundle.Messages;
+import org.openide.util.Task;
+import org.openide.util.TaskListener;
 /**
  * Top component which displays something.
  */
@@ -40,28 +51,149 @@ public final class InvoiceTopComponent extends TopComponent {
     private EntityBinder entityFilterBinder;
     private Invoice entityAsFilter = new Invoice();
     private EntityBinder userFilterBinder;
+    private EntityBinder customerFilterBinder;
     private User userAsFilter = new User();
+    private Customer customerAsFilter = new Customer();    
     private BindingGroup entityBindingGroup = new BindingGroup();
     private BindingGroup userBindingGroup = new BindingGroup();
+    private BindingGroup customerBindingGroup = new BindingGroup();
     private TableBinder tableBinder;
 
     List<Invoice> filterResult = null;
-    CustomerAsyncService entityAsyncFilter = new CustomerAsyncService();
-    CustomerAsyncService entityAsyncSave = new CustomerAsyncService();
-    CustomerAsyncService entityAsyncDelete = new CustomerAsyncService();
+    InvoiceAsyncService entityAsyncFilter = new InvoiceAsyncService();
+    InvoiceAsyncService entityAsyncSave = new InvoiceAsyncService();
+    InvoiceAsyncService entityAsyncDelete = new InvoiceAsyncService();
     // For Insert operations
     Invoice entityToInsert;
     EntityBinder entityToInsertBinder;
     BindingGroup entityToInsertBindingGroup;
-    CustomerAsyncService entityAsyncInsert = new CustomerAsyncService();
+    InvoiceAsyncService entityAsyncInsert = new InvoiceAsyncService();
     private QueryPage<Invoice> queryPage;
 
     public InvoiceTopComponent() {
         initComponents();
+
+        initFilterComponents();
+        showGruidErrors(false);
+        queryPage = new QueryPage<Invoice>();
+
+        initPageNavigator();
+        
         //EntityTablePanel tablePanel = new EntityTablePanel();
         //this.jPanel_LoadEntityPanel.add(tablePanel,BorderLayout.CENTER);
         setName(Bundle.CTL_InvoiceTopComponent());
         setToolTipText(Bundle.HINT_InvoiceTopComponent());
+
+    }
+    protected void initPageNavigator() {
+        int pageSize = Integer.parseInt(jFormattedTextField_PageSize.getText());
+        queryPage.setPageSize(pageSize);
+
+        jTextField_PageNo.setText("" + queryPage.getPageNo());
+        jTextField_RowCount.setText("" + queryPage.getRowCount());
+
+
+        if (queryPage.getRowCount() == 0) {
+            jButton_FirstPage_.setEnabled(false);
+            jButton_LastPage_.setEnabled(false);
+            jButton_NextPage_.setEnabled(false);
+            jButton_PriorPage_.setEnabled(false);
+            return;
+        }
+
+
+        int lastPage = (int) (queryPage.getRowCount() / queryPage.getPageSize() - 1);
+        if (queryPage.getRowCount() % queryPage.getPageSize() != 0) {
+            lastPage++;
+        }
+        if (queryPage.getPageNo() == lastPage) {
+            jButton_LastPage_.setEnabled(false);
+            jButton_NextPage_.setEnabled(false);
+            jButton_FirstPage_.setEnabled(true);
+            jButton_PriorPage_.setEnabled(true);
+        } else if (queryPage.getPageNo() == 0) {
+            jButton_LastPage_.setEnabled(true);
+            jButton_NextPage_.setEnabled(true);
+            jButton_FirstPage_.setEnabled(false);
+            jButton_PriorPage_.setEnabled(false);
+        } else {
+            jButton_LastPage_.setEnabled(true);
+            jButton_NextPage_.setEnabled(true);
+            jButton_FirstPage_.setEnabled(true);
+            jButton_PriorPage_.setEnabled(true);
+        }
+    }
+
+    protected void initFilterComponents() {
+        entityFilterBinder = new EntityBinderImpl(entityBindingGroup, this);
+        entityFilterBinder.addCalendarBinder(dateField_createDate_From, "entityAsFilter.createdAt");
+        entityFilterBinder.addCalendarBinder(dateField_createDate_To, "entityAsFilter.createdAtEnd");
+
+        entityAsFilter.setCreatedBy(userAsFilter);
+
+        userFilterBinder = new EntityBinderImpl(userBindingGroup, this);
+        userFilterBinder.addTextFieldBinder(jTextField_User_firstName, "userAsFilter.firstName");
+        userFilterBinder.addTextFieldBinder(jTextField_User_lastName, "userAsFilter.lastName");
+
+        entityAsFilter.setCustomer(customerAsFilter);
+        customerFilterBinder = new EntityBinderImpl(customerBindingGroup, this);
+        customerFilterBinder.addTextFieldBinder(jTextField_FirstName_Filter, "customerAsFilter.firstName");
+        customerFilterBinder.addTextFieldBinder(jTextField_LastName_Filter, "entityAsFilter.lastName");
+        customerFilterBinder.addTextFieldBinder(jTextField_Email_Filter, "entityAsFilter.email");
+        customerFilterBinder.addTextFieldBinder(jTextField_Phone_Filter, "entityAsFilter.phone");
+                
+        entityBindingGroup.bind();
+        userBindingGroup.bind();
+        customerBindingGroup.bind();
+        
+        dateField_createDate_From.getFormattedTextField().setHorizontalAlignment(JTextField.CENTER);
+        dateField_createDate_From.getFormattedTextField()
+                .setFormatterFactory(
+                new DefaultFormatterFactory(
+                new DateFormatter(DateFormat.getDateInstance(DateFormat.MEDIUM))));
+
+        dateField_createDate_To.getFormattedTextField().setHorizontalAlignment(JTextField.CENTER);
+        dateField_createDate_To.getFormattedTextField()
+                .setFormatterFactory(
+                new DefaultFormatterFactory(
+                new DateFormatter(DateFormat.getDateInstance(DateFormat.MEDIUM))));
+
+    }
+    
+    protected void showGruidErrors(boolean visible) {
+        //jLabel_Cruid_Errors.setVisible(visible);
+        //jButton_Gruid_Errors_Details.setVisible(visible);
+
+    }
+    protected void emptyEditComponents() {
+/*        jTextField_ID.setText(null);
+        jTextField_Email.setText(null);
+        jTextField_FirstName.setText(null);
+        jTextField_LastName.setText(null);
+        jTextField_Phone.setText(null);
+        jFormattedTextField_CreatedAt.setValue(null);
+        jTextField_CreatedBy.setText(null);
+        */ 
+    }
+    
+    protected void doFilter() {
+        jLabel_FilterError.setText("");
+        showGruidErrors(false);
+        //jLabel_Cruid_Errors.setText("");
+        entityAsyncFilter = new InvoiceAsyncService();
+        System.out.println("FILTER ID=" + entityAsFilter.getId()
+                + "FirstName=" + entityAsFilter.getCustomer().getFirstName());
+        jButton_Search_.setEnabled(false);
+
+        try {
+            queryPage.setEntityAsExample(entityAsFilter);
+            queryPage.setQueryResult(new ArrayList<Invoice>());
+            entityAsyncFilter.findByExample(new FilterSeachHandler(), queryPage); // TODO paging
+        } catch (Exception e) {
+            System.out.println("ERROR");
+        }
+        System.out.println("RRRRRRRRRRRRRRRRRRRRRRRRRRRRR");
+
 
     }
 
@@ -579,4 +711,37 @@ public final class InvoiceTopComponent extends TopComponent {
         String version = p.getProperty("version");
         // TODO read your settings according to their version
     }
+    
+    protected class FilterSeachHandler implements TaskListener {
+
+        @Override
+        public void taskFinished(Task task) {
+            EventQueue.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    //this code can work with Swing
+                    if (entityAsyncFilter.getResult() instanceof Exception) {
+                        Exception e = (Exception) entityAsyncFilter.getResult();
+                        jLabel_FilterError.setText(ErrorMessageBuilder.get(e));
+                    } else {
+
+                        QueryPage<Invoice> q = (QueryPage<Invoice>) entityAsyncFilter.getResult();
+                        if (q != null) {
+                            queryPage = q;
+                        }
+                        filterResult = q.getQueryResult();
+                        //initTableComponents();
+                        initPageNavigator();
+                        if (filterResult.isEmpty()) {
+                            emptyEditComponents();
+                        }
+                    }
+                    jButton_Search_.setEnabled(true);
+                }
+            });
+
+        }
+
+    }//inner FilterSearchHandler
+    
 }

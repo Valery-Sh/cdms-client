@@ -7,12 +7,11 @@ package org.cdms.remoting.services;
 import com.caucho.hessian.client.HessianProxyFactory;
 import com.caucho.hessian.client.HessianRuntimeException;
 import java.net.MalformedURLException;
-import java.util.List;
 import java.util.prefs.Preferences;
-import org.cdms.entities.Customer;
+import org.cdms.entities.Invoice;
 import org.cdms.entities.User;
 import org.cdms.remoting.ConfigService;
-import org.cdms.remoting.CustomerService;
+import org.cdms.remoting.InvoiceService;
 import org.cdms.remoting.QueryPage;
 import org.cdms.remoting.UserInfo;
 import org.cdms.remoting.exception.RemoteConnectionException;
@@ -24,14 +23,14 @@ import org.openide.util.NbPreferences;
  *
  * @author V.Shyshkin
  */
-public class HessianInvoiceService implements CustomerService {
+public class HessianInvoiceService implements InvoiceService {
 
     @Override
-    public Customer findById(long l) {
+    public Invoice findById(long l) {
         return null;
     }
 
-    private CustomerService getService() throws MalformedURLException {
+    private InvoiceService getService() throws MalformedURLException {
         
         UserInfo info = ((ConfigService)Lookup.getDefault().lookup(ConfigService.class)).getConfig();
         HessianProxyFactory factory = new HessianProxyFactory();
@@ -39,29 +38,17 @@ public class HessianInvoiceService implements CustomerService {
         String serverName = node.get("server.name", "localhost");
         int port = node.getInt("server.port", 8080);
         
-        String url = "http://" + serverName + ":" + port + "/cdms-server/remoting/CustomerService";
+        String url = "http://" + serverName + ":" + port + "/cdms-server/remoting/InvoiceService";
 //            factory.setUser(userName);
 //            factory.setPassword(password);
         factory.setUser(info.getUserName());
         factory.setPassword(info.getTicket()); // TODO in production
-        return (CustomerService) factory.create(CustomerService.class, url);
+        return (InvoiceService) factory.create(InvoiceService.class, url);
     }
     
-    @Override
-    public List<Customer> findByExample(Customer customerFilter, long firstRecordMaxId, int pageSize) {
-        try {
-            return getService().findByExample(customerFilter, firstRecordMaxId, pageSize);
-        } catch (MalformedURLException ex) {
-            Exceptions.printStackTrace(ex);
-        } catch(HessianRuntimeException hre) {
-            throwHesianTranslated(hre, "findByExample");
-        }
-        return null;
-        
-    }
     
     @Override
-    public QueryPage<Customer> findByExample(QueryPage<Customer> queryPage) {
+    public QueryPage<Invoice> findByExample(QueryPage<Invoice> queryPage) {
         try {
             return getService().findByExample(queryPage);
         } catch (MalformedURLException ex) {
@@ -76,8 +63,8 @@ public class HessianInvoiceService implements CustomerService {
     public void throwHesianTranslated(Exception e,String methodName) {
         RemoteConnectionException re = new RemoteConnectionException(e.getMessage());
         re.setOriginalClassName(e.getClass().getName());
-        re.setEntityName("Customer");
-        re.setServiceName("HessianCustomerService");
+        re.setEntityName("Invoice");
+        re.setServiceName("HessianInvoiceService");
         re.setServiceMethodName(methodName);
         if ( re.getCause() != null ) {
             re.setCauseClassName(e.getCause().getClass().getName());
@@ -90,13 +77,13 @@ public class HessianInvoiceService implements CustomerService {
     }
     
     @Override
-    public Customer insert(Customer customer) {
-        Customer result = null;
+    public Invoice insert(Invoice entity) {
+        Invoice result = null;
         User u = new User();
         u.setId(10L);
-        customer.setCreatedBy(u);
+        entity.setCreatedBy(u);
         try {
-            result = getService().insert(customer);
+            result = getService().insert(entity);
         } catch (MalformedURLException ex) {
             Exceptions.printStackTrace(ex);
         } catch(HessianRuntimeException hre) {
@@ -107,10 +94,10 @@ public class HessianInvoiceService implements CustomerService {
     }
 
     @Override
-    public Customer update(Customer customer) {
-        Customer result = null;
+    public Invoice update(Invoice entity) {
+        Invoice result = null;
         try {
-            result = getService().update(customer);
+            result = getService().update(entity);
         } catch (MalformedURLException ex) {
             Exceptions.printStackTrace(ex);
         } catch(HessianRuntimeException hre) {
@@ -120,8 +107,8 @@ public class HessianInvoiceService implements CustomerService {
     }
 
     @Override
-    public Customer delete(long id) {
-        Customer result = null;
+    public Invoice delete(long id) {
+        Invoice result = null;
         try {
             result = getService().delete(id);
         } catch (MalformedURLException ex) {
