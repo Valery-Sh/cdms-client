@@ -20,7 +20,7 @@ public class CustomerAsyncService {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
-    public void findByExample(TaskListener taskListener,final Customer filter, final long firstRecordMaxId, final int pageSize) {
+/*    public void findByExample(TaskListener taskListener,final Customer filter, final long firstRecordMaxId, final int pageSize) {
         
         processor = new AsyncServiceProcessor("Search Customers by Filter...") {
             @Override
@@ -31,7 +31,7 @@ public class CustomerAsyncService {
         
         processor.run(taskListener);
     }
-
+*/
     public void findByExample(TaskListener taskListener, final QueryPage<Customer> queryPage) {
         
         processor = new AsyncServiceProcessor("Search Customers by Filter...") {

@@ -8,10 +8,8 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.plaf.metal.MetalBorders;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
-import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import org.jdesktop.beansbinding.AutoBinding;
@@ -85,7 +83,8 @@ public class TableBinder {
         return columnBinding;
     }
 
-    public JTableBinding.ColumnBinding addColumn(String name, Class columnType, String header) {
+    public JTableBinding.ColumnBinding addColumn(String name,Class columnType, String header) {
+        
         JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(ELProperty.create("${" + name + "}"));
         columnBinding.setColumnName(header);
         columnBinding.setColumnClass(columnType);

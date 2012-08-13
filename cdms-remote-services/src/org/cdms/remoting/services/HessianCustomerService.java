@@ -47,7 +47,7 @@ public class HessianCustomerService implements CustomerService {
         return (CustomerService) factory.create(CustomerService.class, url);
     }
     
-    @Override
+/*    @Override
     public List<Customer> findByExample(Customer customerFilter, long firstRecordMaxId, int pageSize) {
         try {
             return getService().findByExample(customerFilter, firstRecordMaxId, pageSize);
@@ -59,7 +59,7 @@ public class HessianCustomerService implements CustomerService {
         return null;
         
     }
-    
+  */  
     @Override
     public QueryPage<Customer> findByExample(QueryPage<Customer> queryPage) {
         try {

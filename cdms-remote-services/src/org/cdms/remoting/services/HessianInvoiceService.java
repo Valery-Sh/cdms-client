@@ -6,9 +6,12 @@ package org.cdms.remoting.services;
 
 import com.caucho.hessian.client.HessianProxyFactory;
 import com.caucho.hessian.client.HessianRuntimeException;
+import java.math.BigDecimal;
 import java.net.MalformedURLException;
+import java.util.List;
 import java.util.prefs.Preferences;
 import org.cdms.entities.Invoice;
+import org.cdms.entities.InvoiceItem;
 import org.cdms.entities.User;
 import org.cdms.remoting.ConfigService;
 import org.cdms.remoting.InvoiceService;
@@ -43,6 +46,7 @@ public class HessianInvoiceService implements InvoiceService {
 //            factory.setPassword(password);
         factory.setUser(info.getUserName());
         factory.setPassword(info.getTicket()); // TODO in production
+        
         return (InvoiceService) factory.create(InvoiceService.class, url);
     }
     
@@ -50,7 +54,9 @@ public class HessianInvoiceService implements InvoiceService {
     @Override
     public QueryPage<Invoice> findByExample(QueryPage<Invoice> queryPage) {
         try {
-            return getService().findByExample(queryPage);
+             return getService().findByExample(queryPage);
+             //convertPrice(p);
+             //return p;
         } catch (MalformedURLException ex) {
             Exceptions.printStackTrace(ex);
         } catch(HessianRuntimeException hre) {
@@ -60,6 +66,23 @@ public class HessianInvoiceService implements InvoiceService {
         
     }
     
+  /*  protected void convertPrice(QueryPage<Invoice> p) {
+        List<Invoice> l = p.getQueryResult();
+        for ( Invoice inv : l) {
+            if ( inv != null ) {
+                for ( InvoiceItem ii : inv.getInvoiceItems()){
+                    if ( ii != null ) {
+                        String s = ii.getProductItem().getStringPrice();
+                        if ( s != null ) {
+                            ii.getProductItem().setPrice(new BigDecimal(s));
+                        }
+                    }
+                }
+            }
+        }
+        
+    }
+    */ 
     public void throwHesianTranslated(Exception e,String methodName) {
         RemoteConnectionException re = new RemoteConnectionException(e.getMessage());
         re.setOriginalClassName(e.getClass().getName());

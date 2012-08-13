@@ -1094,8 +1094,8 @@ public final class CustomerTopComponent extends TopComponent {
         entityAsyncFilter = new CustomerAsyncService();
         System.out.println("FILTER ID=" + entityAsFilter.getId()
                 + "FirstName=" + entityAsFilter.getFirstName());
-        jButton_Search_.setEnabled(false);
-
+        //jButton_Search_.setEnabled(false);
+        enableNavigateOperations(false);
         try {
             queryPage.setEntityAsExample(entityAsFilter);
             queryPage.setQueryResult(new ArrayList<Customer>());
@@ -1111,7 +1111,7 @@ public final class CustomerTopComponent extends TopComponent {
         int pageSize = Integer.parseInt(jFormattedTextField_PageSize.getText());
         queryPage.setPageSize(pageSize);
         queryPage.setPageNo(0);
-
+        
         doFilter();
     }//GEN-LAST:event_jButton_Search_ActionPerformed
 
@@ -1269,6 +1269,18 @@ public final class CustomerTopComponent extends TopComponent {
 
     public void clearInserErrorMessages() {
         
+    }
+
+    public void enableNavigateOperations(boolean enabled) {
+        jButton_Search_.setEnabled(enabled);
+        jButton_FirstPage_.setEnabled(enabled);
+        jButton_LastPage_.setEnabled(enabled);
+        jButton_NextPage_.setEnabled(enabled);
+        jButton_PriorPage_.setEnabled(enabled);
+        jButton_Refresh_Table.setEnabled(enabled);
+        if ( enabled ) {
+            initPageNavigator();
+        }
     }
 
     public void enableCruidOperations(boolean enabled) {
@@ -1500,7 +1512,9 @@ public final class CustomerTopComponent extends TopComponent {
                             emptyEditComponents();
                         }
                     }
-                    jButton_Search_.setEnabled(true);
+//                    jButton_Search_.setEnabled(true);
+                    enableNavigateOperations(true);
+                    
                 }
             });
 
