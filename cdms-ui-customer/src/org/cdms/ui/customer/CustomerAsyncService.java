@@ -78,7 +78,7 @@ public class CustomerAsyncService {
         processor = new AsyncServiceProcessor("Delete Customer ...") {
             @Override
             public Object perform() {
-                return getCustomerService().delete(customer.getId()); // TODO paging                
+                return getCustomerService().delete(customer); // TODO paging                
             }
         };
         

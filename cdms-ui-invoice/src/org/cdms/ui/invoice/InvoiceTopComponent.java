@@ -17,6 +17,7 @@ import javax.swing.text.DefaultFormatterFactory;
 import org.cdms.entities.Customer;
 import org.cdms.entities.Invoice;
 import org.cdms.entities.InvoiceItem;
+import org.cdms.entities.ProductItem;
 import org.cdms.entities.User;
 import org.cdms.remoting.QueryPage;
 import org.cdms.ui.common.EntityBinder;
@@ -74,7 +75,20 @@ public final class InvoiceTopComponent extends TopComponent {
     BindingGroup entityToInsertBindingGroup;
     InvoiceAsyncService entityAsyncInsert = new InvoiceAsyncService();
     private QueryPage<Invoice> queryPage;
-
+    
+    /*-------------------------------------------------------------
+     * ProductItem fields, properties and variables
+     --------------------------------------------------------------*/
+    InvoiceItem invoiceItemToInsert;
+    EntityBinder invoiceItemToInsertBinder;
+    //BindingGroup invoiceItemToInsertBindingGroup;
+    
+//    InvoiceItemAsyncService invoiceItemAsyncInsert = new InvoiceItemAsyncService();
+    
+    
+    private QueryPage<ProductItem> productItemQueryPage;
+//    ProductItemAsyncService productItemAsyncFilter = new ProductItemAsyncService();
+    
     public InvoiceTopComponent() {
         initComponents();
 
@@ -168,10 +182,11 @@ public final class InvoiceTopComponent extends TopComponent {
         entityAsFilter.setCustomer(customerAsFilter);
         
         customerFilterBinder = new EntityBinderImpl(customerBindingGroup, this);
+        customerFilterBinder.addTextFieldBinder(jTextField_CustomerId_Filter, "customerAsFilter.idFilter");        
         customerFilterBinder.addTextFieldBinder(jTextField_FirstName_Filter, "customerAsFilter.firstName");
-        customerFilterBinder.addTextFieldBinder(jTextField_LastName_Filter, "entityAsFilter.lastName");
-        customerFilterBinder.addTextFieldBinder(jTextField_Email_Filter, "entityAsFilter.email");
-        customerFilterBinder.addTextFieldBinder(jTextField_Phone_Filter, "entityAsFilter.phone");
+        customerFilterBinder.addTextFieldBinder(jTextField_LastName_Filter, "customerAsFilter.lastName");
+        customerFilterBinder.addTextFieldBinder(jTextField_Email_Filter, "customerAsFilter.email");
+        customerFilterBinder.addTextFieldBinder(jTextField_Phone_Filter, "customerAsFilter.phone");
                 
         entityBindingGroup.bind();
         userBindingGroup.bind();
@@ -299,6 +314,24 @@ public final class InvoiceTopComponent extends TopComponent {
 
     }
 
+    protected void doItemFilter() {
+        
+        showGruidErrors(false);
+        
+    /*    productItemAsyncFilter = new ProductItemAsyncService();
+
+        enableProductItemNavigateOperations(false);
+
+        try {
+            productItemQueryPage.setEntityAsExample(itemAsFilter);
+            productItemQueryPage.setQueryResult(new ArrayList<Invoice>());
+            productItemAsyncFilter.findByExample(new ProductItemFilterSeachHandler(), productItemQueryPage); // TODO paging
+        } catch (Exception e) {
+            System.out.println("ERROR");
+        }
+*/
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -308,7 +341,7 @@ public final class InvoiceTopComponent extends TopComponent {
     private void initComponents() {
 
         jPanel_Table = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
+        jPanel_Invoice_Navigator = new javax.swing.JPanel();
         jButton_FirstPage_ = new javax.swing.JButton();
         jButton_PriorPage_ = new javax.swing.JButton();
         jButton_NextPage_ = new javax.swing.JButton();
@@ -323,6 +356,18 @@ public final class InvoiceTopComponent extends TopComponent {
         jTable_MasterEntity = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable_ChildEntity = new javax.swing.JTable();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel20 = new javax.swing.JLabel();
+        jTextField_InvoiceItem_Id_Edit = new javax.swing.JTextField();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jButton_InvoiceItem_Edit_Save_ = new javax.swing.JButton();
+        jTextField_InvoiceItem_Barcode_Edit = new javax.swing.JTextField();
+        jTextField_InvoiceItem_ItemName_Edit = new javax.swing.JTextField();
+        jTextField_InvoiceItem_Price_Edit = new javax.swing.JTextField();
+        jTextField_InvoiceItem_ItemCount_Edit = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jTextField_ID_Filter = new javax.swing.JTextField();
@@ -339,7 +384,7 @@ public final class InvoiceTopComponent extends TopComponent {
         jLabel9 = new javax.swing.JLabel();
         dateField_createDate_To = new net.sf.nachocalendar.components.DateField();
         jLabel8 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jTextField_CustomerId_Filter = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jTextField_FirstName_Filter = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -351,13 +396,47 @@ public final class InvoiceTopComponent extends TopComponent {
         jButton_Search_ = new javax.swing.JButton();
         jButton_Clear_ = new javax.swing.JButton();
         jLabel_FilterError = new javax.swing.JLabel();
+        jPanel_ProductItems = new javax.swing.JPanel();
+        jPanel_ProductItem_Navigator = new javax.swing.JPanel();
+        jButton__Items_FirstPage_ = new javax.swing.JButton();
+        jButton__Items_PriorPage_ = new javax.swing.JButton();
+        jButton__Items_NextPage_ = new javax.swing.JButton();
+        jButton__Items_LastPage_ = new javax.swing.JButton();
+        jButton_Refresh_Items_Table = new javax.swing.JButton();
+        jLabel19 = new javax.swing.JLabel();
+        jFormattedTextField_Items_PageSize = new javax.swing.JFormattedTextField();
+        jLabel_PageNo1 = new javax.swing.JLabel();
+        jTextField__Items_PageNo = new javax.swing.JTextField();
+        jTextField_Items_RowCount = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable_ProductItems = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel28 = new javax.swing.JLabel();
+        jTextField_Item_Id_Add = new javax.swing.JTextField();
+        jLabel29 = new javax.swing.JLabel();
+        jTextField_Item_Barcode_Add = new javax.swing.JTextField();
+        jLabel30 = new javax.swing.JLabel();
+        jTextField_Item_ItemName_Add = new javax.swing.JTextField();
+        jLabel31 = new javax.swing.JLabel();
+        jTextField_Item_Price_Add = new javax.swing.JTextField();
+        jLabel32 = new javax.swing.JLabel();
+        jTextField_Item_ItemCount_Add = new javax.swing.JTextField();
+        jButton_Item_Add_To_Invoice = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jTextField_Item_Id_Filter = new javax.swing.JTextField();
+        jTextField_Item_Barcode_Filter = new javax.swing.JTextField();
+        jTextField_Item_ItemName_Filter = new javax.swing.JTextField();
+        jButton_Item_Search_Filter = new javax.swing.JButton();
 
         jPanel_Table.setBorder(javax.swing.BorderFactory.createTitledBorder(org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jPanel_Table.border.title"))); // NOI18N
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        jPanel1.setMinimumSize(new java.awt.Dimension(0, 37));
-        jPanel1.setPreferredSize(new java.awt.Dimension(788, 37));
-        jPanel1.setRequestFocusEnabled(false);
+        jPanel_Invoice_Navigator.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel_Invoice_Navigator.setMinimumSize(new java.awt.Dimension(0, 37));
+        jPanel_Invoice_Navigator.setPreferredSize(new java.awt.Dimension(788, 37));
+        jPanel_Invoice_Navigator.setRequestFocusEnabled(false);
 
         jButton_FirstPage_.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/cdms/ui/images/navigate_beginning.png"))); // NOI18N
         org.openide.awt.Mnemonics.setLocalizedText(jButton_FirstPage_, org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jButton_FirstPage_.text")); // NOI18N
@@ -441,11 +520,11 @@ public final class InvoiceTopComponent extends TopComponent {
         jTextField_RowCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField_RowCount.setText(org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jTextField_RowCount.text")); // NOI18N
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel_Invoice_NavigatorLayout = new javax.swing.GroupLayout(jPanel_Invoice_Navigator);
+        jPanel_Invoice_Navigator.setLayout(jPanel_Invoice_NavigatorLayout);
+        jPanel_Invoice_NavigatorLayout.setHorizontalGroup(
+            jPanel_Invoice_NavigatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_Invoice_NavigatorLayout.createSequentialGroup()
                 .addComponent(jButton_Refresh_Table, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton_FirstPage_, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -467,14 +546,14 @@ public final class InvoiceTopComponent extends TopComponent {
                 .addComponent(jTextField_RowCount, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        jPanel_Invoice_NavigatorLayout.setVerticalGroup(
+            jPanel_Invoice_NavigatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_Invoice_NavigatorLayout.createSequentialGroup()
+                .addGroup(jPanel_Invoice_NavigatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel_Invoice_NavigatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jTextField_PageNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jTextField_RowCount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addGroup(jPanel_Invoice_NavigatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jFormattedTextField_PageSize)
                         .addComponent(jLabel18)
                         .addComponent(jLabel_PageNo))
@@ -514,6 +593,87 @@ public final class InvoiceTopComponent extends TopComponent {
         ));
         jScrollPane2.setViewportView(jTable_ChildEntity);
 
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jPanel3.border.title"))); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel20, org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jLabel20.text")); // NOI18N
+
+        jTextField_InvoiceItem_Id_Edit.setEditable(false);
+        jTextField_InvoiceItem_Id_Edit.setText(org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jTextField_InvoiceItem_Id_Edit.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel21, org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jLabel21.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel22, org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jLabel22.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel23, org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jLabel23.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel24, org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jLabel24.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(jButton_InvoiceItem_Edit_Save_, org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jButton_InvoiceItem_Edit_Save_.text")); // NOI18N
+
+        jTextField_InvoiceItem_Barcode_Edit.setEditable(false);
+        jTextField_InvoiceItem_Barcode_Edit.setText(org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jTextField_InvoiceItem_Barcode_Edit.text")); // NOI18N
+
+        jTextField_InvoiceItem_ItemName_Edit.setEditable(false);
+        jTextField_InvoiceItem_ItemName_Edit.setText(org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jTextField_InvoiceItem_ItemName_Edit.text")); // NOI18N
+
+        jTextField_InvoiceItem_Price_Edit.setEditable(false);
+        jTextField_InvoiceItem_Price_Edit.setText(org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jTextField_InvoiceItem_Price_Edit.text")); // NOI18N
+
+        jTextField_InvoiceItem_ItemCount_Edit.setText(org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jTextField_InvoiceItem_ItemCount_Edit.text")); // NOI18N
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel22)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextField_InvoiceItem_ItemName_Edit, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel20)
+                            .addComponent(jLabel21)
+                            .addComponent(jLabel24)
+                            .addComponent(jLabel23))
+                        .addGap(28, 28, 28)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextField_InvoiceItem_Price_Edit, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField_InvoiceItem_ItemCount_Edit, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField_InvoiceItem_Barcode_Edit, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField_InvoiceItem_Id_Edit, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jButton_InvoiceItem_Edit_Save_, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap(99, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel20)
+                    .addComponent(jTextField_InvoiceItem_Id_Edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(4, 4, 4)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel21)
+                    .addComponent(jTextField_InvoiceItem_Barcode_Edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel22)
+                    .addComponent(jTextField_InvoiceItem_ItemName_Edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel23)
+                    .addComponent(jTextField_InvoiceItem_Price_Edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel24)
+                    .addComponent(jTextField_InvoiceItem_ItemCount_Edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton_InvoiceItem_Edit_Save_))
+        );
+
         javax.swing.GroupLayout jPanel_TableLayout = new javax.swing.GroupLayout(jPanel_Table);
         jPanel_Table.setLayout(jPanel_TableLayout);
         jPanel_TableLayout.setHorizontalGroup(
@@ -523,19 +683,23 @@ public final class InvoiceTopComponent extends TopComponent {
                     .addGroup(jPanel_TableLayout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1028, Short.MAX_VALUE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel_Invoice_Navigator, javax.swing.GroupLayout.DEFAULT_SIZE, 1028, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel_TableLayout.setVerticalGroup(
             jPanel_TableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_TableLayout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel_Invoice_Navigator, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel_TableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addGroup(jPanel_TableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel_TableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jPanel2.border.title"))); // NOI18N
@@ -637,7 +801,7 @@ public final class InvoiceTopComponent extends TopComponent {
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel8, org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jLabel8.text")); // NOI18N
 
-        jTextField1.setText(org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jTextField1.text")); // NOI18N
+        jTextField_CustomerId_Filter.setText(org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jTextField_CustomerId_Filter.text")); // NOI18N
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel3, org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jLabel3.text")); // NOI18N
 
@@ -688,7 +852,7 @@ public final class InvoiceTopComponent extends TopComponent {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel8)
                                 .addGap(36, 36, 36)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextField_CustomerId_Filter, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(91, 91, 91)
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -730,7 +894,7 @@ public final class InvoiceTopComponent extends TopComponent {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField_CustomerId_Filter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(jTextField_FirstName_Filter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
@@ -746,6 +910,323 @@ public final class InvoiceTopComponent extends TopComponent {
                     .addComponent(jLabel_FilterError)))
         );
 
+        jPanel_ProductItems.setBorder(javax.swing.BorderFactory.createTitledBorder(org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jPanel_ProductItems.border.title"))); // NOI18N
+
+        jPanel_ProductItem_Navigator.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel_ProductItem_Navigator.setMinimumSize(new java.awt.Dimension(0, 37));
+        jPanel_ProductItem_Navigator.setPreferredSize(new java.awt.Dimension(788, 37));
+        jPanel_ProductItem_Navigator.setRequestFocusEnabled(false);
+
+        jButton__Items_FirstPage_.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/cdms/ui/images/navigate_beginning.png"))); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jButton__Items_FirstPage_, org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jButton__Items_FirstPage_.text")); // NOI18N
+        jButton__Items_FirstPage_.setToolTipText(org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jButton__Items_FirstPage_.toolTipText")); // NOI18N
+        jButton__Items_FirstPage_.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jButton__Items_FirstPage_.setContentAreaFilled(false);
+        jButton__Items_FirstPage_.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButton__Items_FirstPage_.setMaximumSize(new java.awt.Dimension(16, 16));
+        jButton__Items_FirstPage_.setMinimumSize(new java.awt.Dimension(16, 16));
+        jButton__Items_FirstPage_.setPreferredSize(new java.awt.Dimension(16, 16));
+        jButton__Items_FirstPage_.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton__Items_FirstPage_ActionPerformed(evt);
+            }
+        });
+
+        jButton__Items_PriorPage_.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/cdms/ui/images/navigate_left.png"))); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jButton__Items_PriorPage_, org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jButton__Items_PriorPage_.text")); // NOI18N
+        jButton__Items_PriorPage_.setToolTipText(org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jButton__Items_PriorPage_.toolTipText")); // NOI18N
+        jButton__Items_PriorPage_.setBorder(null);
+        jButton__Items_PriorPage_.setContentAreaFilled(false);
+        jButton__Items_PriorPage_.setMaximumSize(new java.awt.Dimension(16, 16));
+        jButton__Items_PriorPage_.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton__Items_PriorPage_ActionPerformed(evt);
+            }
+        });
+
+        jButton__Items_NextPage_.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/cdms/ui/images/navigate_right.png"))); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jButton__Items_NextPage_, org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jButton__Items_NextPage_.text")); // NOI18N
+        jButton__Items_NextPage_.setToolTipText(org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jButton__Items_NextPage_.toolTipText")); // NOI18N
+        jButton__Items_NextPage_.setContentAreaFilled(false);
+        jButton__Items_NextPage_.setMaximumSize(new java.awt.Dimension(16, 16));
+        jButton__Items_NextPage_.setMinimumSize(new java.awt.Dimension(16, 16));
+        jButton__Items_NextPage_.setPreferredSize(new java.awt.Dimension(16, 16));
+        jButton__Items_NextPage_.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton__Items_NextPage_ActionPerformed(evt);
+            }
+        });
+
+        jButton__Items_LastPage_.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/cdms/ui/images/navigate_end.png"))); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jButton__Items_LastPage_, org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jButton__Items_LastPage_.text")); // NOI18N
+        jButton__Items_LastPage_.setToolTipText(org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jButton__Items_LastPage_.toolTipText")); // NOI18N
+        jButton__Items_LastPage_.setContentAreaFilled(false);
+        jButton__Items_LastPage_.setMaximumSize(new java.awt.Dimension(16, 16));
+        jButton__Items_LastPage_.setMinimumSize(new java.awt.Dimension(16, 16));
+        jButton__Items_LastPage_.setPreferredSize(new java.awt.Dimension(16, 16));
+        jButton__Items_LastPage_.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton__Items_LastPage_ActionPerformed(evt);
+            }
+        });
+
+        jButton_Refresh_Items_Table.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/cdms/ui/images/refresh.png"))); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jButton_Refresh_Items_Table, org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jButton_Refresh_Items_Table.text")); // NOI18N
+        jButton_Refresh_Items_Table.setToolTipText(org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jButton_Refresh_Items_Table.toolTipText")); // NOI18N
+        jButton_Refresh_Items_Table.setContentAreaFilled(false);
+        jButton_Refresh_Items_Table.setMaximumSize(new java.awt.Dimension(16, 16));
+        jButton_Refresh_Items_Table.setMinimumSize(new java.awt.Dimension(16, 16));
+        jButton_Refresh_Items_Table.setPreferredSize(new java.awt.Dimension(16, 16));
+        jButton_Refresh_Items_Table.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_Refresh_Items_TableActionPerformed(evt);
+            }
+        });
+
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel19, org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jLabel19.text")); // NOI18N
+
+        jFormattedTextField_Items_PageSize.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("######"))));
+        jFormattedTextField_Items_PageSize.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jFormattedTextField_Items_PageSize.setText(org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jFormattedTextField_Items_PageSize.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel_PageNo1, org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jLabel_PageNo1.text")); // NOI18N
+
+        jTextField__Items_PageNo.setEditable(false);
+        jTextField__Items_PageNo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField__Items_PageNo.setText(org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jTextField__Items_PageNo.text")); // NOI18N
+
+        jTextField_Items_RowCount.setEditable(false);
+        jTextField_Items_RowCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField_Items_RowCount.setText(org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jTextField_Items_RowCount.text")); // NOI18N
+
+        javax.swing.GroupLayout jPanel_ProductItem_NavigatorLayout = new javax.swing.GroupLayout(jPanel_ProductItem_Navigator);
+        jPanel_ProductItem_Navigator.setLayout(jPanel_ProductItem_NavigatorLayout);
+        jPanel_ProductItem_NavigatorLayout.setHorizontalGroup(
+            jPanel_ProductItem_NavigatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_ProductItem_NavigatorLayout.createSequentialGroup()
+                .addComponent(jButton_Refresh_Items_Table, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton__Items_FirstPage_, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton__Items_PriorPage_, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton__Items_NextPage_, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton__Items_LastPage_, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel19)
+                .addGap(18, 18, 18)
+                .addComponent(jFormattedTextField_Items_PageSize, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel_PageNo1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTextField__Items_PageNo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTextField_Items_RowCount, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel_ProductItem_NavigatorLayout.setVerticalGroup(
+            jPanel_ProductItem_NavigatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_ProductItem_NavigatorLayout.createSequentialGroup()
+                .addGroup(jPanel_ProductItem_NavigatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel_ProductItem_NavigatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTextField__Items_PageNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextField_Items_RowCount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel_ProductItem_NavigatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jFormattedTextField_Items_PageSize)
+                        .addComponent(jLabel19)
+                        .addComponent(jLabel_PageNo1))
+                    .addComponent(jButton__Items_LastPage_, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton__Items_NextPage_, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton__Items_PriorPage_, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton__Items_FirstPage_, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton_Refresh_Items_Table, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        jTable_ProductItems.setAutoCreateRowSorter(true);
+        jTable_ProductItems.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jTable_ProductItems.setGridColor(new java.awt.Color(204, 204, 204));
+        jScrollPane3.setViewportView(jTable_ProductItems);
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jPanel1.border.title"))); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel28, org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jLabel28.text")); // NOI18N
+
+        jTextField_Item_Id_Add.setEditable(false);
+        jTextField_Item_Id_Add.setText(org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jTextField_Item_Id_Add.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel29, org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jLabel29.text")); // NOI18N
+
+        jTextField_Item_Barcode_Add.setEditable(false);
+        jTextField_Item_Barcode_Add.setText(org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jTextField_Item_Barcode_Add.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel30, org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jLabel30.text")); // NOI18N
+
+        jTextField_Item_ItemName_Add.setEditable(false);
+        jTextField_Item_ItemName_Add.setText(org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jTextField_Item_ItemName_Add.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel31, org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jLabel31.text")); // NOI18N
+
+        jTextField_Item_Price_Add.setEditable(false);
+        jTextField_Item_Price_Add.setText(org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jTextField_Item_Price_Add.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel32, org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jLabel32.text")); // NOI18N
+
+        jTextField_Item_ItemCount_Add.setText(org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jTextField_Item_ItemCount_Add.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(jButton_Item_Add_To_Invoice, org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jButton_Item_Add_To_Invoice.text")); // NOI18N
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel30)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextField_Item_ItemName_Add, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel28)
+                            .addComponent(jLabel29)
+                            .addComponent(jLabel32)
+                            .addComponent(jLabel31))
+                        .addGap(28, 28, 28)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextField_Item_Price_Add, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField_Item_ItemCount_Add, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField_Item_Barcode_Add, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField_Item_Id_Add, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jButton_Item_Add_To_Invoice, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap(91, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel28)
+                    .addComponent(jTextField_Item_Id_Add, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(4, 4, 4)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel29)
+                    .addComponent(jTextField_Item_Barcode_Add, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel30)
+                    .addComponent(jTextField_Item_ItemName_Add, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel31)
+                    .addComponent(jTextField_Item_Price_Add, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel32)
+                    .addComponent(jTextField_Item_ItemCount_Add, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton_Item_Add_To_Invoice)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jPanel6.border.title"))); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel25, org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jLabel25.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel26, org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jLabel26.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel27, org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jLabel27.text")); // NOI18N
+
+        jTextField_Item_Id_Filter.setText(org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jTextField_Item_Id_Filter.text")); // NOI18N
+
+        jTextField_Item_Barcode_Filter.setText(org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jTextField_Item_Barcode_Filter.text")); // NOI18N
+
+        jTextField_Item_ItemName_Filter.setText(org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jTextField_Item_ItemName_Filter.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(jButton_Item_Search_Filter, org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jButton_Item_Search_Filter.text")); // NOI18N
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton_Item_Search_Filter)
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel6Layout.createSequentialGroup()
+                            .addComponent(jLabel27)
+                            .addGap(18, 18, 18)
+                            .addComponent(jTextField_Item_ItemName_Filter, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel6Layout.createSequentialGroup()
+                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel25)
+                                .addComponent(jLabel26))
+                            .addGap(31, 31, 31)
+                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jTextField_Item_Barcode_Filter, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextField_Item_Id_Filter, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(70, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel25)
+                    .addComponent(jTextField_Item_Id_Filter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel26)
+                    .addComponent(jTextField_Item_Barcode_Filter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel27)
+                    .addComponent(jTextField_Item_ItemName_Filter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton_Item_Search_Filter)
+                .addGap(24, 24, 24))
+        );
+
+        javax.swing.GroupLayout jPanel_ProductItemsLayout = new javax.swing.GroupLayout(jPanel_ProductItems);
+        jPanel_ProductItems.setLayout(jPanel_ProductItemsLayout);
+        jPanel_ProductItemsLayout.setHorizontalGroup(
+            jPanel_ProductItemsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_ProductItemsLayout.createSequentialGroup()
+                .addGroup(jPanel_ProductItemsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel_ProductItem_Navigator, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel_ProductItemsLayout.setVerticalGroup(
+            jPanel_ProductItemsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_ProductItemsLayout.createSequentialGroup()
+                .addGroup(jPanel_ProductItemsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel_ProductItemsLayout.createSequentialGroup()
+                        .addComponent(jPanel_ProductItem_Navigator, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -754,6 +1235,7 @@ public final class InvoiceTopComponent extends TopComponent {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel_ProductItems, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel_Table, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -763,7 +1245,9 @@ public final class InvoiceTopComponent extends TopComponent {
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel_Table, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel_Table, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel_ProductItems, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -824,24 +1308,67 @@ public final class InvoiceTopComponent extends TopComponent {
         dateField_createDate_To.setValue(null);
     }//GEN-LAST:event_jButton_Clear_ActionPerformed
 
+    private void jButton__Items_FirstPage_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton__Items_FirstPage_ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton__Items_FirstPage_ActionPerformed
+
+    private void jButton__Items_PriorPage_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton__Items_PriorPage_ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton__Items_PriorPage_ActionPerformed
+
+    private void jButton__Items_NextPage_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton__Items_NextPage_ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton__Items_NextPage_ActionPerformed
+
+    private void jButton__Items_LastPage_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton__Items_LastPage_ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton__Items_LastPage_ActionPerformed
+
+    private void jButton_Refresh_Items_TableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Refresh_Items_TableActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton_Refresh_Items_TableActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private net.sf.nachocalendar.components.DateField dateField_createDate_From;
     private net.sf.nachocalendar.components.DateField dateField_createDate_To;
     private javax.swing.JButton jButton_Clear_;
     private javax.swing.JButton jButton_FirstPage_;
+    private javax.swing.JButton jButton_InvoiceItem_Edit_Save_;
+    private javax.swing.JButton jButton_Item_Add_To_Invoice;
+    private javax.swing.JButton jButton_Item_Search_Filter;
     private javax.swing.JButton jButton_LastPage_;
     private javax.swing.JButton jButton_NextPage_;
     private javax.swing.JButton jButton_PriorPage_;
+    private javax.swing.JButton jButton_Refresh_Items_Table;
     private javax.swing.JButton jButton_Refresh_Table;
     private javax.swing.JButton jButton_Search_;
+    private javax.swing.JButton jButton__Items_FirstPage_;
+    private javax.swing.JButton jButton__Items_LastPage_;
+    private javax.swing.JButton jButton__Items_NextPage_;
+    private javax.swing.JButton jButton__Items_PriorPage_;
+    private javax.swing.JFormattedTextField jFormattedTextField_Items_PageSize;
     private javax.swing.JFormattedTextField jFormattedTextField_PageSize;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -850,25 +1377,48 @@ public final class InvoiceTopComponent extends TopComponent {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabel_FilterError;
     private javax.swing.JLabel jLabel_PageNo;
+    private javax.swing.JLabel jLabel_PageNo1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel_Invoice_Navigator;
+    private javax.swing.JPanel jPanel_ProductItem_Navigator;
+    private javax.swing.JPanel jPanel_ProductItems;
     private javax.swing.JPanel jPanel_Table;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable_ChildEntity;
     private javax.swing.JTable jTable_MasterEntity;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable jTable_ProductItems;
+    private javax.swing.JTextField jTextField_CustomerId_Filter;
     private javax.swing.JTextField jTextField_Email_Filter;
     private javax.swing.JTextField jTextField_FirstName_Filter;
     private javax.swing.JTextField jTextField_ID_Filter;
+    private javax.swing.JTextField jTextField_InvoiceItem_Barcode_Edit;
+    private javax.swing.JTextField jTextField_InvoiceItem_Id_Edit;
+    private javax.swing.JTextField jTextField_InvoiceItem_ItemCount_Edit;
+    private javax.swing.JTextField jTextField_InvoiceItem_ItemName_Edit;
+    private javax.swing.JTextField jTextField_InvoiceItem_Price_Edit;
+    private javax.swing.JTextField jTextField_Item_Barcode_Add;
+    private javax.swing.JTextField jTextField_Item_Barcode_Filter;
+    private javax.swing.JTextField jTextField_Item_Id_Add;
+    private javax.swing.JTextField jTextField_Item_Id_Filter;
+    private javax.swing.JTextField jTextField_Item_ItemCount_Add;
+    private javax.swing.JTextField jTextField_Item_ItemName_Add;
+    private javax.swing.JTextField jTextField_Item_ItemName_Filter;
+    private javax.swing.JTextField jTextField_Item_Price_Add;
+    private javax.swing.JTextField jTextField_Items_RowCount;
     private javax.swing.JTextField jTextField_LastName_Filter;
     private javax.swing.JTextField jTextField_PageNo;
     private javax.swing.JTextField jTextField_Phone_Filter;
     private javax.swing.JTextField jTextField_RowCount;
     private javax.swing.JTextField jTextField_User_firstName;
     private javax.swing.JTextField jTextField_User_lastName;
+    private javax.swing.JTextField jTextField__Items_PageNo;
     // End of variables declaration//GEN-END:variables
     @Override
     public void componentOpened() {
@@ -891,7 +1441,18 @@ public final class InvoiceTopComponent extends TopComponent {
         String version = p.getProperty("version");
         // TODO read your settings according to their version
     }
-    
+    protected void fixResult() {
+       
+       for (Invoice invoice : filterResult) {
+            for ( InvoiceItem it : invoice.getInvoiceItems() ) {
+                String s = it.getProductItem().getStringPrice();
+                if ( s != null ) {
+                    it.getProductItem().setPrice(new BigDecimal(s));
+                }
+            }
+        }
+
+    }
     protected class FilterSeachHandler implements TaskListener {
 
         @Override
@@ -910,6 +1471,7 @@ public final class InvoiceTopComponent extends TopComponent {
                             queryPage = q;
                         }
                         filterResult = q.getQueryResult();
+                        fixResult();
                         initTableComponents();
                         initPageNavigator();
                         if (filterResult.isEmpty()) {

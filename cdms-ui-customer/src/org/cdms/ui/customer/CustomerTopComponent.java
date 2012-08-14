@@ -11,6 +11,7 @@ import javax.swing.text.DefaultFormatterFactory;
 import org.cdms.auth.UserLookup;
 import org.cdms.entities.Customer;
 import org.cdms.entities.User;
+import org.cdms.remoting.ConfigService;
 import org.cdms.remoting.QueryPage;
 import org.cdms.remoting.UserInfo;
 import org.cdms.ui.common.EntityBinder;
@@ -22,6 +23,7 @@ import org.cdms.ui.common.dialog.ErrorDetailsHandler;
 import org.jdesktop.beansbinding.BindingGroup;
 import org.jdesktop.observablecollections.ObservableCollections;
 import org.netbeans.api.settings.ConvertAsProperties;
+import org.openide.util.Lookup;
 import org.openide.util.NbBundle;
 import org.openide.util.NbBundle.Messages;
 import org.openide.util.Task;
@@ -1217,6 +1219,11 @@ public final class CustomerTopComponent extends TopComponent {
     }//GEN-LAST:event_jButton_Delete_ActionPerformed
     private void insertCustomer() {
         entityAsyncInsert = new CustomerAsyncService();
+        //UserInfo info = UserLookup.getDefault().lookup(UserInfo.class);        
+        UserInfo info = ((ConfigService)Lookup.getDefault().lookup(ConfigService.class)).getConfig();        
+        User u = new User();
+        u.setId(info.getId());
+        entityToInsert.setCreatedBy(u);
         entityAsyncInsert.insert(new InsertHandler(), entityToInsert); // TODO paging
 /*        try {
          entityAsyncInsert.insert(new InsertHandler(), entityToInsert); // TODO paging
