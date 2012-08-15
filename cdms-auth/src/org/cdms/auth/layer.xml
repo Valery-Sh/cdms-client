@@ -3,7 +3,10 @@
 <filesystem>
     
     <!-- We left Tools menu in order to be able to config proxy -->
-    
+    <folder name="Toolbars">
+        <folder name="File_hidden"/>
+        <folder name="UndoRedo_hidden"/>
+    </folder>
     <folder name="Menu">
         <folder name="Applications">
             <!--file name="org-cdms-auth-action-SomeAction.shadow">

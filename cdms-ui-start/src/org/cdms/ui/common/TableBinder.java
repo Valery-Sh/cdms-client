@@ -64,6 +64,8 @@ public class TableBinder {
         }
         childs.add(tb);
 
+//JTableBinding tt;
+//SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, table, eLProperty, childTable);
         return tb;
 
     }
@@ -72,7 +74,8 @@ public class TableBinder {
         jTableBinding = SwingBindings.createJTableBinding(
                 AutoBinding.UpdateStrategy.READ_WRITE, masterList, table);
         table.setAutoscrolls(true);
-        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        //table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
 
     }
 
@@ -151,6 +154,8 @@ public class TableBinder {
                 BeanProperty.create("value"));
         addBinding(b);
     }
+    
+    
 
     /*Binding binding = Bindings.createAutoBinding(
      AutoBinding.UpdateStrategy.READ_WRITE, 
@@ -208,4 +213,35 @@ public class TableBinder {
             }
         }
     }
+    
+    public void updateColumnModel(JTable tb) {
+        TableColumnModel cm = tb.getColumnModel();
+
+        JTableHeader th = tb.getTableHeader();
+
+        if (th != null) {
+            if (th.getDefaultRenderer() != null) {
+                if (th.getDefaultRenderer() instanceof JLabel) {
+                    ((JLabel) th.getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
+                }
+            }
+        }
+
+        for (int i = 0; i < cm.getColumnCount(); i++) {
+            TableColumn c = cm.getColumn(i);
+            if ( c.getIdentifier() == null ) {
+                continue;
+            }
+            if ("ID".equals(c.getIdentifier().toString().toUpperCase()) 
+                || "VERSION".equals(c.getIdentifier().toString().toUpperCase())) {
+                if (c.getCellRenderer() == null) {
+                    DefaultTableCellRenderer r0 = new DefaultTableCellRenderer();
+                    c.setCellRenderer(r0);
+                    r0.setOpaque(true);
+                    r0.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                }
+            }
+        }
+    }
+    
 }

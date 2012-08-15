@@ -23,20 +23,19 @@
                   <Component id="jPanel_ProductItems" alignment="0" max="32767" attributes="0"/>
                   <Component id="jPanel_Table" alignment="0" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPanel_Table" min="-2" pref="232" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jPanel_Table" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="jPanel_ProductItems" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -57,17 +56,24 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
+                  <Component id="jPanel_Invoice_Navigator" pref="947" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <Component id="jScrollPane1" min="-2" pref="250" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jScrollPane2" min="-2" pref="421" max="-2" attributes="0"/>
+                  <EmptySpace pref="12" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="jScrollPane1" min="-2" pref="250" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                          <Component id="jButton_InvoiceItem_Edit_Save_" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jScrollPane2" min="-2" pref="463" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jPanel3" max="32767" attributes="0"/>
+                          <Component id="jButton_InvoiceItem_Edit_Delete_" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="jPanel_Invoice_Navigator" pref="1028" max="32767" attributes="0"/>
+                      <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -77,13 +83,17 @@
                   <Component id="jPanel_Invoice_Navigator" min="-2" pref="25" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jPanel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="jScrollPane2" alignment="0" pref="168" max="32767" attributes="0"/>
-                          <Component id="jScrollPane1" alignment="0" pref="0" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="jScrollPane1" alignment="0" pref="148" max="32767" attributes="0"/>
+                          <Component id="jScrollPane2" alignment="0" pref="0" max="32767" attributes="0"/>
                       </Group>
+                      <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jButton_InvoiceItem_Edit_Delete_" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButton_InvoiceItem_Edit_Save_" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
           </Group>
         </DimensionLayout>
@@ -128,6 +138,8 @@
                       <Component id="jTextField_PageNo" min="-2" pref="50" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jTextField_RowCount" min="-2" pref="84" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="jPanel_Error_Msg" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -135,21 +147,24 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                              <Component id="jTextField_PageNo" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextField_RowCount" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="jPanel_Error_Msg" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                  <Component id="jTextField_PageNo" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jTextField_RowCount" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jFormattedTextField_PageSize" alignment="3" max="32767" attributes="0"/>
+                                  <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel_PageNo" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="jButton_LastPage_" alignment="1" max="32767" attributes="0"/>
+                              <Component id="jButton_NextPage_" alignment="1" max="32767" attributes="0"/>
+                              <Component id="jButton_PriorPage_" alignment="1" max="32767" attributes="0"/>
+                              <Component id="jButton_FirstPage_" alignment="1" max="32767" attributes="0"/>
+                              <Component id="jButton_Refresh_Table" alignment="1" max="32767" attributes="0"/>
                           </Group>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jFormattedTextField_PageSize" alignment="3" max="32767" attributes="0"/>
-                              <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel_PageNo" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="jButton_LastPage_" alignment="1" max="32767" attributes="0"/>
-                          <Component id="jButton_NextPage_" alignment="1" max="32767" attributes="0"/>
-                          <Component id="jButton_PriorPage_" alignment="1" max="32767" attributes="0"/>
-                          <Component id="jButton_FirstPage_" alignment="1" max="32767" attributes="0"/>
-                          <Component id="jButton_Refresh_Table" alignment="1" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
@@ -335,6 +350,56 @@
                 </Property>
               </Properties>
             </Component>
+            <Container class="javax.swing.JPanel" name="jPanel_Error_Msg">
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jLabel_Errors" pref="152" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jButton_Errors_Details" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="59" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                          <Component id="jButton_Errors_Details" alignment="3" pref="0" max="32767" attributes="0"/>
+                          <Component id="jLabel_Errors" alignment="3" pref="23" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+              <SubComponents>
+                <Component class="javax.swing.JLabel" name="jLabel_Errors">
+                  <Properties>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="0" green="33" red="ff" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                      <ResourceString bundle="org/cdms/ui/invoice/Bundle.properties" key="InvoiceTopComponent.jLabel_Errors.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+                    </Property>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JButton" name="jButton_Errors_Details">
+                  <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/org/cdms/ui/images/action_stop.gif"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                      <ResourceString bundle="org/cdms/ui/invoice/Bundle.properties" key="InvoiceTopComponent.jButton_Errors_Details.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+                    </Property>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_Errors_DetailsActionPerformed"/>
+                  </Events>
+                </Component>
+              </SubComponents>
+            </Container>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JScrollPane" name="jScrollPane1">
@@ -344,7 +409,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="jTable_MasterEntity">
+            <Component class="javax.swing.JTable" name="jTable_Invoice">
               <Properties>
                 <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
@@ -369,7 +434,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="jTable_ChildEntity">
+            <Component class="javax.swing.JTable" name="jTable__Child_InvoiceItem">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="4" rowCount="4">
@@ -420,16 +485,14 @@
                                   <Component id="jTextField_InvoiceItem_Id_Edit" min="-2" pref="96" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <Component id="jButton_InvoiceItem_Edit_Save_" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="99" max="32767" attributes="0"/>
+                      <EmptySpace pref="37" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel20" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jTextField_InvoiceItem_Id_Edit" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -454,8 +517,7 @@
                           <Component id="jLabel24" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jTextField_InvoiceItem_ItemCount_Edit" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jButton_InvoiceItem_Edit_Save_" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -504,13 +566,6 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton_InvoiceItem_Edit_Save_">
-              <Properties>
-                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/cdms/ui/invoice/Bundle.properties" key="InvoiceTopComponent.jButton_InvoiceItem_Edit_Save_.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
-                </Property>
-              </Properties>
-            </Component>
             <Component class="javax.swing.JTextField" name="jTextField_InvoiceItem_Barcode_Edit">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
@@ -544,6 +599,23 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JButton" name="jButton_InvoiceItem_Edit_Save_">
+          <Properties>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="org/cdms/ui/invoice/Bundle.properties" key="InvoiceTopComponent.jButton_InvoiceItem_Edit_Save_.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_InvoiceItem_Edit_Save_ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButton_InvoiceItem_Edit_Delete_">
+          <Properties>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="org/cdms/ui/invoice/Bundle.properties" key="InvoiceTopComponent.jButton_InvoiceItem_Edit_Delete_.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+            </Property>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="jPanel2">
@@ -571,14 +643,28 @@
                           <Component id="jLabel_FilterError" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                                  <Component id="jTextField_CustomerId_Filter" min="-2" pref="65" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
-                                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jTextField_CustomerId_Filter" min="-2" pref="65" max="-2" attributes="0"/>
+                              <Component id="jTextField_ID_Filter" alignment="0" min="-2" pref="64" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+                                  <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
+                                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="jTextField_FirstName_Filter" min="-2" pref="82" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
@@ -591,19 +677,10 @@
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="jTextField_Email_Filter" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                                  <Component id="jTextField_ID_Filter" min="-2" pref="64" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jTextField_Email_Filter" min="-2" pref="143" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="0" pref="61" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -613,36 +690,41 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jPanel5" max="32767" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="jPanel5" max="32767" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jTextField_ID_Filter" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Component id="jPanel4" alignment="0" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextField_ID_Filter" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTextField_FirstName_Filter" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTextField_LastName_Filter" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTextField_User_lastName" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTextField_Email_Filter" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Component id="jPanel4" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jTextField_CustomerId_Filter" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextField_CustomerId_Filter" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextField_FirstName_Filter" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextField_LastName_Filter" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextField_User_lastName" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextField_Email_Filter" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace pref="16" max="32767" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jButton_Search_" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jButton_Clear_" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel_FilterError" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -677,17 +759,17 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jTextField_User_firstName" min="-2" pref="82" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jTextField_Phone_Filter" min="-2" pref="89" max="-2" attributes="0"/>
-                      <EmptySpace pref="20" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -968,24 +1050,19 @@
                   <Component id="jPanel6" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jPanel1" max="32767" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="jPanel1" alignment="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="jPanel6" alignment="0" max="32767" attributes="0"/>
-                      <Group type="102" attributes="0">
-                          <Component id="jPanel_ProductItem_Navigator" min="-2" pref="25" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane3" min="-2" pref="158" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+              <Group type="102" attributes="0">
+                  <Component id="jPanel_ProductItem_Navigator" min="-2" pref="25" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jScrollPane3" pref="0" max="32767" attributes="0"/>
               </Group>
+              <Component id="jPanel1" pref="200" max="32767" attributes="0"/>
+              <Component id="jPanel6" alignment="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -1012,13 +1089,13 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jButton_Refresh_Items_Table" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jButton__Items_FirstPage_" min="-2" pref="22" max="-2" attributes="0"/>
+                      <Component id="jButton_Items_FirstPage_" min="-2" pref="22" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButton__Items_PriorPage_" min="-2" pref="21" max="-2" attributes="0"/>
+                      <Component id="jButton_Items_PriorPage_" min="-2" pref="21" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButton__Items_NextPage_" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButton_Items_NextPage_" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButton__Items_LastPage_" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButton_Items_LastPage_" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -1046,10 +1123,10 @@
                               <Component id="jLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel_PageNo1" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jButton__Items_LastPage_" alignment="1" max="32767" attributes="0"/>
-                          <Component id="jButton__Items_NextPage_" alignment="1" max="32767" attributes="0"/>
-                          <Component id="jButton__Items_PriorPage_" alignment="1" max="32767" attributes="0"/>
-                          <Component id="jButton__Items_FirstPage_" alignment="1" max="32767" attributes="0"/>
+                          <Component id="jButton_Items_LastPage_" alignment="1" max="32767" attributes="0"/>
+                          <Component id="jButton_Items_NextPage_" alignment="1" max="32767" attributes="0"/>
+                          <Component id="jButton_Items_PriorPage_" alignment="1" max="32767" attributes="0"/>
+                          <Component id="jButton_Items_FirstPage_" alignment="1" max="32767" attributes="0"/>
                           <Component id="jButton_Refresh_Items_Table" alignment="1" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -1058,16 +1135,16 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="jButton__Items_FirstPage_">
+            <Component class="javax.swing.JButton" name="jButton_Items_FirstPage_">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/org/cdms/ui/images/navigate_beginning.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/cdms/ui/invoice/Bundle.properties" key="InvoiceTopComponent.jButton__Items_FirstPage_.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/cdms/ui/invoice/Bundle.properties" key="InvoiceTopComponent.jButton_Items_FirstPage_.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/cdms/ui/invoice/Bundle.properties" key="InvoiceTopComponent.jButton__Items_FirstPage_.toolTipText" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/cdms/ui/invoice/Bundle.properties" key="InvoiceTopComponent.jButton_Items_FirstPage_.toolTipText" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
                 </Property>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
@@ -1089,19 +1166,19 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton__Items_FirstPage_ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_Items_FirstPage_ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton__Items_PriorPage_">
+            <Component class="javax.swing.JButton" name="jButton_Items_PriorPage_">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/org/cdms/ui/images/navigate_left.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/cdms/ui/invoice/Bundle.properties" key="InvoiceTopComponent.jButton__Items_PriorPage_.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/cdms/ui/invoice/Bundle.properties" key="InvoiceTopComponent.jButton_Items_PriorPage_.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/cdms/ui/invoice/Bundle.properties" key="InvoiceTopComponent.jButton__Items_PriorPage_.toolTipText" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/cdms/ui/invoice/Bundle.properties" key="InvoiceTopComponent.jButton_Items_PriorPage_.toolTipText" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
                 </Property>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="null"/>
@@ -1112,19 +1189,19 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton__Items_PriorPage_ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_Items_PriorPage_ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton__Items_NextPage_">
+            <Component class="javax.swing.JButton" name="jButton_Items_NextPage_">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/org/cdms/ui/images/navigate_right.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/cdms/ui/invoice/Bundle.properties" key="InvoiceTopComponent.jButton__Items_NextPage_.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/cdms/ui/invoice/Bundle.properties" key="InvoiceTopComponent.jButton_Items_NextPage_.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/cdms/ui/invoice/Bundle.properties" key="InvoiceTopComponent.jButton__Items_NextPage_.toolTipText" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/cdms/ui/invoice/Bundle.properties" key="InvoiceTopComponent.jButton_Items_NextPage_.toolTipText" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
                 </Property>
                 <Property name="contentAreaFilled" type="boolean" value="false"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -1138,19 +1215,19 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton__Items_NextPage_ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_Items_NextPage_ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton__Items_LastPage_">
+            <Component class="javax.swing.JButton" name="jButton_Items_LastPage_">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/org/cdms/ui/images/navigate_end.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/cdms/ui/invoice/Bundle.properties" key="InvoiceTopComponent.jButton__Items_LastPage_.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/cdms/ui/invoice/Bundle.properties" key="InvoiceTopComponent.jButton_Items_LastPage_.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/cdms/ui/invoice/Bundle.properties" key="InvoiceTopComponent.jButton__Items_LastPage_.toolTipText" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/cdms/ui/invoice/Bundle.properties" key="InvoiceTopComponent.jButton_Items_LastPage_.toolTipText" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
                 </Property>
                 <Property name="contentAreaFilled" type="boolean" value="false"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -1164,7 +1241,7 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton__Items_LastPage_ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_Items_LastPage_ActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButton_Refresh_Items_Table">
@@ -1292,29 +1369,45 @@
                                   <Component id="jLabel32" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel31" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jTextField_Item_Price_Add" alignment="0" min="-2" pref="96" max="-2" attributes="0"/>
-                                  <Component id="jTextField_Item_ItemCount_Add" alignment="0" min="-2" pref="96" max="-2" attributes="0"/>
-                                  <Component id="jTextField_Item_Barcode_Add" alignment="0" min="-2" pref="96" max="-2" attributes="0"/>
-                                  <Component id="jTextField_Item_Id_Add" alignment="0" min="-2" pref="96" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jTextField_Item_Price_Add" alignment="0" min="-2" pref="96" max="-2" attributes="0"/>
+                                          <Component id="jTextField_Item_ItemCount_Add" alignment="0" min="-2" pref="96" max="-2" attributes="0"/>
+                                          <Component id="jTextField_Item_Barcode_Add" alignment="0" min="-2" pref="96" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jTextField_Item_Id_Add" min="-2" pref="96" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
-                          <Component id="jButton_Item_Add_To_Invoice" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="91" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jButton_Item_Add_To_Invoice" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel28" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextField_Item_Id_Add" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="jLabel28" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="jTextField_Item_Id_Add" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel29" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jTextField_Item_Barcode_Add" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -1334,9 +1427,9 @@
                           <Component id="jLabel32" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jTextField_Item_ItemCount_Add" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jButton_Item_Add_To_Invoice" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jButton_Item_Add_To_Invoice" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1462,14 +1555,14 @@
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace pref="70" max="32767" attributes="0"/>
+                      <EmptySpace pref="34" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="30" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel25" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jTextField_Item_Id_Filter" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -1540,6 +1633,9 @@
                   <ResourceString bundle="org/cdms/ui/invoice/Bundle.properties" key="InvoiceTopComponent.jButton_Item_Search_Filter.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_Item_Search_FilterActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

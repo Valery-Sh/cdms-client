@@ -49,6 +49,8 @@ persistenceType = TopComponent.PERSISTENCE_ALWAYS)
 })
 public final class CustomerTopComponent extends TopComponent {
 
+    private ErrorDetailsHandler errorDetailsHandler = new ErrorDetailsHandler();
+    
     private EntityBinder entityFilterBinder;
     private Customer entityAsFilter = new Customer();
     private EntityBinder userFilterBinder;
@@ -72,7 +74,7 @@ public final class CustomerTopComponent extends TopComponent {
         initComponents();
 
         initFilterComponents();
-        showGruidErrors(false);
+        showErrors(false);
         queryPage = new QueryPage<Customer>();
 
         initPageNavigator();
@@ -174,7 +176,7 @@ public final class CustomerTopComponent extends TopComponent {
 
     }
 
-    protected void showGruidErrors(boolean visible) {
+    protected void showErrors(boolean visible) {
         jLabel_Cruid_Errors.setVisible(visible);
         jButton_Gruid_Errors_Details.setVisible(visible);
 
@@ -1091,7 +1093,7 @@ public final class CustomerTopComponent extends TopComponent {
 
     protected void doFilter() {
         jLabel_FilterError.setText("");
-        showGruidErrors(false);
+        showErrors(false);
         //jLabel_Cruid_Errors.setText("");
         entityAsyncFilter = new CustomerAsyncService();
         System.out.println("FILTER ID=" + entityAsFilter.getId()
@@ -1134,7 +1136,7 @@ public final class CustomerTopComponent extends TopComponent {
         int row = jTable_Customer.getSelectedRow();
         if (row < 0) {
             jLabel_Cruid_Errors.setText(NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.Internal.NoSelectedRow"));
-            showGruidErrors(true);
+            showErrors(true);
             return;
         }
         enableCruidOperations(false);
@@ -1185,7 +1187,7 @@ public final class CustomerTopComponent extends TopComponent {
         doFilter();
 
     }//GEN-LAST:event_jButton_LastPage_ActionPerformed
-    private ErrorDetailsHandler errorDetailsHandler = new ErrorDetailsHandler();
+    
     private void jButton_Gruid_Errors_DetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Gruid_Errors_DetailsActionPerformed
         errorDetailsHandler.show();
     }//GEN-LAST:event_jButton_Gruid_Errors_DetailsActionPerformed
@@ -1207,7 +1209,7 @@ public final class CustomerTopComponent extends TopComponent {
         int row = jTable_Customer.getSelectedRow();
         if (row < 0) {
             jLabel_Cruid_Errors.setText(NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.Internal.NoSelectedRow"));
-            showGruidErrors(true);
+            showErrors(true);
             return;
         }
         if ( ! DeleteConfirmDialog.confirm("Customer", filterResult.get(row).getId())) {
@@ -1270,8 +1272,8 @@ public final class CustomerTopComponent extends TopComponent {
     }
     
     public void clearEditErrorMessages() {
-        jLabel_Cruid_Errors.setText("");
-        showGruidErrors(false);
+   //     jLabel_Cruid_Errors.setText("");
+        showErrors(false);
     }
 
     public void clearInserErrorMessages() {
@@ -1544,7 +1546,7 @@ public final class CustomerTopComponent extends TopComponent {
                         //jLabel_Cruid_Errors.setText(buildMessageFor(e));
                         jLabel_Cruid_Errors.setText(ErrorMessageBuilder.get(e));
                         errorDetailsHandler.setException(e);
-                        showGruidErrors(true);
+                        showErrors(true);
 
                     } else {
                         Customer c = (Customer) entityAsyncSave.getResult();
@@ -1569,7 +1571,7 @@ public final class CustomerTopComponent extends TopComponent {
                         Exception e = (Exception) entityAsyncInsert.getResult();
                         jLabel_Cruid_Errors.setText(ErrorMessageBuilder.get(e));
                         errorDetailsHandler.setException(e);
-                        showGruidErrors(true);
+                        showErrors(true);
                     } else {
                         entityToInsertBindingGroup.unbind();
                         entityToInsert = (Customer) entityAsyncInsert.getResult();
@@ -1594,7 +1596,7 @@ public final class CustomerTopComponent extends TopComponent {
                         Exception e = (Exception) entityAsyncDelete.getResult();
                         jLabel_Cruid_Errors.setText(ErrorMessageBuilder.get(e));
                         errorDetailsHandler.setException(e);
-                        showGruidErrors(true);
+                        showErrors(true);
                     } else {
                         //Customer c = (Customer) entityAsyncDelete.getResult();
                         int row = jTable_Customer.getSelectedRow();

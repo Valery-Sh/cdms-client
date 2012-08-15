@@ -1,7 +1,7 @@
 
 package org.cdms.remoting.services;
 
-import org.cdms.remoting.InvoiceService;
+import org.cdms.remoting.ProductItemService;
 import org.openide.util.Lookup;
 
 /**
@@ -10,7 +10,7 @@ import org.openide.util.Lookup;
  */
 public abstract class ProductItemServiceProvider    {
 
-    public abstract InvoiceService getInstance();
+    public abstract ProductItemService getInstance();
     
     public static ProductItemServiceProvider getDefault() {
 
