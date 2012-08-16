@@ -1,9 +1,8 @@
 
-package org.cdms.ui.invoice;
+package org.cdms.ui.common;
 
 import org.cdms.remoting.EntityService;
 import org.cdms.remoting.QueryPage;
-import org.cdms.ui.common.AsyncServiceProcessor;
 import org.openide.util.TaskListener;
 
 /**
@@ -32,12 +31,9 @@ public abstract class EntityAsyncService<E> {
         processor.run(taskListener);
     }
     
-    protected Object getResult() {
+    public Object getResult() {
         return processor.getResult();
     }
-//    protected ProductItemService getEntityService() {
-//            return (Lookup.getDefault().lookup(ProductItemProvider.class)).getInstance();
-//    }
 
     public void insert(TaskListener taskListener,final E entity) {
         String msg = "Insert " + entity.getClass().getSimpleName() + " ...";

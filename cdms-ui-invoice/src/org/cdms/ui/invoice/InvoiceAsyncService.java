@@ -4,6 +4,7 @@ package org.cdms.ui.invoice;
 import org.cdms.entities.Invoice;
 import org.cdms.remoting.EntityService;
 import org.cdms.remoting.services.InvoiceServiceProvider;
+import org.cdms.ui.common.EntityAsyncService;
 import org.openide.util.Lookup;
 
 /**Invoice

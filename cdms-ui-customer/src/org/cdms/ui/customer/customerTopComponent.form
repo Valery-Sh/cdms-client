@@ -21,7 +21,7 @@
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="jPanel_Table" alignment="0" max="32767" attributes="0"/>
                   <Component id="jPanel_Filter" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jTabbedPane1" alignment="1" max="32767" attributes="0"/>
+                  <Component id="jTabbedPane_Edit_Insert" alignment="1" max="32767" attributes="0"/>
                   <Component id="jPanel_Error_Msg" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="jPanel4" alignment="0" max="32767" attributes="0"/>
               </Group>
@@ -39,7 +39,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel_Error_Msg" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jTabbedPane1" min="-2" pref="157" max="-2" attributes="0"/>
+              <Component id="jTabbedPane_Edit_Insert" min="-2" pref="157" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
               <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
@@ -667,16 +667,16 @@
         </Container>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
+    <Container class="javax.swing.JTabbedPane" name="jTabbedPane_Edit_Insert">
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
-        <Container class="javax.swing.JPanel" name="jPanel2">
+        <Container class="javax.swing.JPanel" name="jPanel_Edit_Customer">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Edit Customer">
                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/cdms/ui/customer/Bundle.properties" key="CustomerTopComponent.jPanel2.TabConstraints.tabTitle" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/cdms/ui/customer/Bundle.properties" key="CustomerTopComponent.jPanel_Edit_Customer.TabConstraints.tabTitle" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
                 </Property>
               </JTabbedPaneConstraints>
             </Constraint>
@@ -906,7 +906,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jButton_Save_" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jButton_Cancel1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButton_Cancel" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jButton_Delete_" min="-2" max="-2" attributes="0"/>
                               <EmptySpace pref="527" max="32767" attributes="0"/>
@@ -917,7 +917,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jButton_Save_" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButton_Cancel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButton_Cancel" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jButton_Delete_" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -934,7 +934,7 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_Save_ActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="jButton_Cancel1">
+                    <Component class="javax.swing.JButton" name="jButton_Cancel">
                       <Properties>
                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                           <ResourceString bundle="org/cdms/ui/customer/Bundle.properties" key="CustomerTopComponent.jButton_Cancel.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
@@ -957,12 +957,15 @@
             </Container>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="jPanel3">
+        <Container class="javax.swing.JPanel" name="jPanel_Add_Customer">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Add Customer">
                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/cdms/ui/customer/Bundle.properties" key="CustomerTopComponent.jPanel3.TabConstraints.tabTitle" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/cdms/ui/customer/Bundle.properties" key="CustomerTopComponent.jPanel_Add_Customer.TabConstraints.tabTitle" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
                 </Property>
               </JTabbedPaneConstraints>
             </Constraint>
