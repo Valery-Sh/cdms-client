@@ -1,7 +1,8 @@
 
-package org.cdms.remoting.services;
+package org.cdms.remoting.services.hessian;
 
 import org.cdms.remoting.AuthService;
+import org.cdms.remoting.services.AuthServiceProvider;
 import org.openide.util.lookup.ServiceProvider;
 
 /**

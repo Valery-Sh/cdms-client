@@ -98,7 +98,7 @@ public final class InvoiceTopComponent extends TopComponent {
     public InvoiceTopComponent() {
         initComponents();
 
-        initFilterComponents();
+        initInvoiceFilterComponents();
         initProductItemFilterComponents();
         hideErrors();
         invoiceQueryPage = new QueryPage<Invoice>();
@@ -225,12 +225,12 @@ public final class InvoiceTopComponent extends TopComponent {
         }
     }
 
-    protected void initFilterComponents() {
+    protected void initInvoiceFilterComponents() {
         invoiceFilterBinder = new EntityBinderImpl(invoiceFilterBindingGroup, this);
-        invoiceFilterBinder.addTextFieldBinder(jTextField_ID_Filter, "entityAsFilter.idFilter");
+        invoiceFilterBinder.addTextFieldBinder(jTextField_ID_Filter, "invoiceAsFilter.idFilter");
 
-        invoiceFilterBinder.addCalendarBinder(dateField_createDate_From, "entityAsFilter.createdAt");
-        invoiceFilterBinder.addCalendarBinder(dateField_createDate_To, "entityAsFilter.createdAtEnd");
+        invoiceFilterBinder.addCalendarBinder(dateField_createDate_From, "invoiceAsFilter.createdAt");
+        invoiceFilterBinder.addCalendarBinder(dateField_createDate_To, "invoiceAsFilter.createdAtEnd");
 
         invoiceAsFilter.setCreatedBy(userAsFilter);
 
@@ -247,6 +247,7 @@ public final class InvoiceTopComponent extends TopComponent {
         customerFilterBinder.addTextFieldBinder(jTextField_Email_Filter, "customerAsFilter.email");
         customerFilterBinder.addTextFieldBinder(jTextField_Phone_Filter, "customerAsFilter.phone");
 
+        
         invoiceFilterBindingGroup.bind();
         userBindingGroup.bind();
         customerBindingGroup.bind();
@@ -598,7 +599,7 @@ public final class InvoiceTopComponent extends TopComponent {
         jLabel10 = new javax.swing.JLabel();
         jTextField_User_firstName = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        jTextField_Phone_Filter = new javax.swing.JTextField();
+        jTextField_User_lastName = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -612,7 +613,6 @@ public final class InvoiceTopComponent extends TopComponent {
         jLabel4 = new javax.swing.JLabel();
         jTextField_LastName_Filter = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField_User_lastName = new javax.swing.JTextField();
         jTextField_Email_Filter = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jButton_Search_ = new javax.swing.JButton();
@@ -620,6 +620,7 @@ public final class InvoiceTopComponent extends TopComponent {
         jPanel_Error_Msg = new javax.swing.JPanel();
         jLabel_Errors = new javax.swing.JLabel();
         jButton_Errors_Details = new javax.swing.JButton();
+        jTextField_Phone_Filter = new javax.swing.JTextField();
         jPanel_ProductItems = new javax.swing.JPanel();
         jPanel_ProductItem_Navigator = new javax.swing.JPanel();
         jButton_PageItem_FirstPage_ = new javax.swing.JButton();
@@ -964,7 +965,7 @@ public final class InvoiceTopComponent extends TopComponent {
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel11, org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jLabel11.text")); // NOI18N
 
-        jTextField_Phone_Filter.setText(org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jTextField_Phone_Filter.text")); // NOI18N
+        jTextField_User_lastName.setText(org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jTextField_User_lastName.text")); // NOI18N
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -980,7 +981,7 @@ public final class InvoiceTopComponent extends TopComponent {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField_Phone_Filter, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextField_User_lastName, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -992,7 +993,7 @@ public final class InvoiceTopComponent extends TopComponent {
                     .addComponent(jTextField_User_firstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10)
                     .addComponent(jLabel11)
-                    .addComponent(jTextField_Phone_Filter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField_User_lastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -1057,8 +1058,6 @@ public final class InvoiceTopComponent extends TopComponent {
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel6, org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jLabel6.text")); // NOI18N
 
-        jTextField_User_lastName.setText(org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jTextField_User_lastName.text")); // NOI18N
-
         jTextField_Email_Filter.setText(org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jTextField_Email_Filter.text")); // NOI18N
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel5, org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jLabel5.text")); // NOI18N
@@ -1107,6 +1106,8 @@ public final class InvoiceTopComponent extends TopComponent {
                 .addComponent(jLabel_Errors, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE))
         );
 
+        jTextField_Phone_Filter.setText(org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jTextField_Phone_Filter.text")); // NOI18N
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -1148,8 +1149,8 @@ public final class InvoiceTopComponent extends TopComponent {
                                         .addGap(18, 18, 18)
                                         .addComponent(jLabel6)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jTextField_User_lastName, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
+                                        .addComponent(jTextField_Phone_Filter, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(21, 21, 21)
                                         .addComponent(jLabel5)
                                         .addGap(18, 18, 18)
                                         .addComponent(jTextField_Email_Filter, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
@@ -1176,9 +1177,9 @@ public final class InvoiceTopComponent extends TopComponent {
                             .addComponent(jLabel4)
                             .addComponent(jTextField_LastName_Filter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6)
-                            .addComponent(jTextField_User_lastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextField_Email_Filter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5)))
+                            .addComponent(jLabel5)
+                            .addComponent(jTextField_Phone_Filter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jTextField_CustomerId_Filter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

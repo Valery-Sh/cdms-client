@@ -1,5 +1,5 @@
 
-package org.cdms.remoting.services;
+package org.cdms.remoting.services.hessian;
 
 import org.cdms.entities.Customer;
 import org.cdms.remoting.CustomerService;

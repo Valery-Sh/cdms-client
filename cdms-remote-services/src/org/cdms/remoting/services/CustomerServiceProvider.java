@@ -1,6 +1,6 @@
 package org.cdms.remoting.services;
 
-import org.cdms.entities.Customer;
+import org.cdms.remoting.services.hessian.HessianCustomerService;
 import org.cdms.remoting.CustomerService;
 import org.openide.util.Lookup;
 

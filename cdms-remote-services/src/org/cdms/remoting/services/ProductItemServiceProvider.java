@@ -1,6 +1,7 @@
 
 package org.cdms.remoting.services;
 
+import org.cdms.remoting.services.hessian.HessianProductItemService;
 import org.cdms.remoting.ProductItemService;
 import org.openide.util.Lookup;
 

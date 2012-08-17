@@ -1,6 +1,7 @@
-package org.cdms.remoting.services;
+package org.cdms.remoting.services.hessian;
 
 import org.cdms.remoting.InvoiceItemService;
+import org.cdms.remoting.services.InvoiceItemServiceProvider;
 import org.openide.util.lookup.ServiceProvider;
 
 /**

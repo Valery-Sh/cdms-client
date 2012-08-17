@@ -4,6 +4,7 @@
  */
 package org.cdms.remoting.services;
 
+import org.cdms.remoting.services.hessian.HessianInvoiceService;
 import org.cdms.remoting.InvoiceService;
 import org.openide.util.Lookup;
 
