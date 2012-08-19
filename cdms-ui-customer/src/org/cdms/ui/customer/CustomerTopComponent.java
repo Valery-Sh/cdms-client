@@ -51,7 +51,6 @@ persistenceType = TopComponent.PERSISTENCE_ALWAYS)
 public final class CustomerTopComponent extends TopComponent {
 
     private ErrorDetailsHandler errorDetailsHandler = new ErrorDetailsHandler();
-    
     private EntityBinder customerFilterBinder;
     private Customer customerAsFilter = new Customer();
     private EntityBinder userFilterBinder;
@@ -59,9 +58,8 @@ public final class CustomerTopComponent extends TopComponent {
     private BindingGroup customerBindingGroup = new BindingGroup();
     private BindingGroup userBindingGroup = new BindingGroup();
     private TableBinder tableBinder;
-
     private List<Customer> filterResult = null;
-    private  EntityAsyncService customerAsyncFilter = new CustomerAsyncService();
+    private EntityAsyncService customerAsyncFilter = new CustomerAsyncService();
     private EntityAsyncService customerAsyncSave = new CustomerAsyncService();
     private EntityAsyncService customerAsyncDelete = new CustomerAsyncService();
     // For Insert operations
@@ -79,10 +77,12 @@ public final class CustomerTopComponent extends TopComponent {
         queryPage = new QueryPage<Customer>();
 
         initPageNavigator();
-        initTableComponents();       
+        initTableComponents();
+
+        initDateFields();
 
         hideCRUIDPanel();
-        
+
         setName(Bundle.CTL_customerTopComponent());
         setToolTipText(Bundle.HINT_customerTopComponent());
 
@@ -131,11 +131,21 @@ public final class CustomerTopComponent extends TopComponent {
         if (queryPage.getPageNo() == lastPage) {
             jButton_LastPage_.setEnabled(false);
             jButton_NextPage_.setEnabled(false);
-            jButton_FirstPage_.setEnabled(true);
-            jButton_PriorPage_.setEnabled(true);
+            boolean b = true;
+            if (lastPage == 0) {
+                b = false;
+            }
+
+            jButton_FirstPage_.setEnabled(b);
+            jButton_PriorPage_.setEnabled(b);
         } else if (queryPage.getPageNo() == 0) {
-            jButton_LastPage_.setEnabled(true);
-            jButton_NextPage_.setEnabled(true);
+            boolean b = true;
+            if (lastPage == 0) {
+                b = false;
+            }
+
+            jButton_LastPage_.setEnabled(b);
+            jButton_NextPage_.setEnabled(b);
             jButton_FirstPage_.setEnabled(false);
             jButton_PriorPage_.setEnabled(false);
         } else {
@@ -144,6 +154,20 @@ public final class CustomerTopComponent extends TopComponent {
             jButton_FirstPage_.setEnabled(true);
             jButton_PriorPage_.setEnabled(true);
         }
+    }
+
+    protected void initDateFields() {
+        dateField_createDate_From.getFormattedTextField().setHorizontalAlignment(JTextField.CENTER);
+        dateField_createDate_From.getFormattedTextField()
+                .setFormatterFactory(
+                new DefaultFormatterFactory(
+                new DateFormatter(DateFormat.getDateInstance(DateFormat.MEDIUM))));
+
+        dateField_createDate_To.getFormattedTextField().setHorizontalAlignment(JTextField.CENTER);
+        dateField_createDate_To.getFormattedTextField()
+                .setFormatterFactory(
+                new DefaultFormatterFactory(
+                new DateFormatter(DateFormat.getDateInstance(DateFormat.MEDIUM))));
     }
 
     protected void initFilterComponents() {
@@ -165,7 +189,8 @@ public final class CustomerTopComponent extends TopComponent {
         customerBindingGroup.bind();
         userBindingGroup.bind();
 
-        dateField_createDate_From.getFormattedTextField().setHorizontalAlignment(JTextField.CENTER);
+        
+/*        dateField_createDate_From.getFormattedTextField().setHorizontalAlignment(JTextField.CENTER);
         dateField_createDate_From.getFormattedTextField()
                 .setFormatterFactory(
                 new DefaultFormatterFactory(
@@ -176,7 +201,7 @@ public final class CustomerTopComponent extends TopComponent {
                 .setFormatterFactory(
                 new DefaultFormatterFactory(
                 new DateFormatter(DateFormat.getDateInstance(DateFormat.MEDIUM))));
-
+*/
     }
 
     protected void hideErrors() {
@@ -184,7 +209,8 @@ public final class CustomerTopComponent extends TopComponent {
         jButton_Gruid_Errors_Details.setVisible(false);
 
     }
-    protected void showErrors(String message ) {
+
+    protected void showErrors(String message) {
         jLabel_Cruid_Errors.setVisible(true);
         jButton_Gruid_Errors_Details.setVisible(true);
 
@@ -204,10 +230,10 @@ public final class CustomerTopComponent extends TopComponent {
         if (tableBinder != null) {
             tableBinder.getBindingGroup().unbind();
         }
-        if ( filterResult == null ) {
+        if (filterResult == null) {
             filterResult = ObservableCollections.observableList(
                     new ArrayList<Customer>());
-            
+
         } else {
             filterResult = ObservableCollections.observableList(
                     filterResult);
@@ -245,9 +271,9 @@ public final class CustomerTopComponent extends TopComponent {
     }
 
     protected void hideCRUIDPanel() {
-        
-        UserInfo info = ((ConfigService)Lookup.getDefault().lookup(ConfigService.class)).getConfig();
-        
+
+        UserInfo info = ((ConfigService) Lookup.getDefault().lookup(ConfigService.class)).getConfig();
+
         if (!info.inRole("edit")) {
             this.jButton_Save_.setEnabled(false);
             this.jButton_Cancel.setEnabled(false);
@@ -451,18 +477,6 @@ public final class CustomerTopComponent extends TopComponent {
                         .addGap(30, 30, 30)
                         .addGroup(jPanel_FilterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel_FilterLayout.createSequentialGroup()
-                                .addComponent(dateField_createDate_From, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(dateField_createDate_To, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField_User_firstName, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextField_User_lastName, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel_FilterLayout.createSequentialGroup()
                                 .addGroup(jPanel_FilterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel_FilterLayout.createSequentialGroup()
                                         .addComponent(jTextField_ID_Filter, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -478,14 +492,32 @@ public final class CustomerTopComponent extends TopComponent {
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel_FilterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jTextField_LastName_Filter)
-                                    .addComponent(jTextField_Phone_Filter)))))
-                    .addComponent(jLabel2)
+                                    .addComponent(jTextField_Phone_Filter)))
+                            .addGroup(jPanel_FilterLayout.createSequentialGroup()
+                                .addComponent(dateField_createDate_From, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel_FilterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel_FilterLayout.createSequentialGroup()
+                                        .addGap(108, 108, 108)
+                                        .addComponent(jLabel_FilterError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(jPanel_FilterLayout.createSequentialGroup()
+                                        .addComponent(dateField_createDate_To, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jTextField_User_firstName, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jTextField_User_lastName, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                     .addGroup(jPanel_FilterLayout.createSequentialGroup()
-                        .addComponent(jButton_Search_)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton_Clear_, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel_FilterError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(jPanel_FilterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addGroup(jPanel_FilterLayout.createSequentialGroup()
+                                .addComponent(jButton_Search_)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton_Clear_, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel_FilterLayout.setVerticalGroup(
@@ -528,7 +560,8 @@ public final class CustomerTopComponent extends TopComponent {
                 .addGroup(jPanel_FilterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton_Search_)
                     .addComponent(jButton_Clear_)
-                    .addComponent(jLabel_FilterError)))
+                    .addComponent(jLabel_FilterError))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel_Table.setBorder(javax.swing.BorderFactory.createTitledBorder(org.openide.util.NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.jPanel_Table.border.title"))); // NOI18N
@@ -653,6 +686,7 @@ public final class CustomerTopComponent extends TopComponent {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(2, 2, 2)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jFormattedTextField_PageSize)
@@ -666,7 +700,7 @@ public final class CustomerTopComponent extends TopComponent {
                     .addComponent(jButton_PriorPage_, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton_FirstPage_, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton_Refresh_Table, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTable_Customer.setAutoCreateRowSorter(true);
@@ -1127,7 +1161,7 @@ public final class CustomerTopComponent extends TopComponent {
         int pageSize = Integer.parseInt(jFormattedTextField_PageSize.getText());
         queryPage.setPageSize(pageSize);
         queryPage.setPageNo(0);
-        
+
         doFilter();
     }//GEN-LAST:event_jButton_Search_ActionPerformed
 
@@ -1156,7 +1190,7 @@ public final class CustomerTopComponent extends TopComponent {
 
     private void jButton_New_Save_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_New_Save_ActionPerformed
         hideErrors();
-        enableCruidOperations(false);        
+        enableCruidOperations(false);
         insertCustomer();
     }//GEN-LAST:event_jButton_New_Save_ActionPerformed
 
@@ -1164,7 +1198,7 @@ public final class CustomerTopComponent extends TopComponent {
         enableInserOperations(true);
         if (customerToInsertBindingGroup == null) {
             initNewCustomerComponents();
-            
+
         } else {
             customerToInsertBindingGroup.unbind();
             customerToInsert = new Customer();
@@ -1197,7 +1231,7 @@ public final class CustomerTopComponent extends TopComponent {
         doFilter();
 
     }//GEN-LAST:event_jButton_LastPage_ActionPerformed
-    
+
     private void jButton_Gruid_Errors_DetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Gruid_Errors_DetailsActionPerformed
         errorDetailsHandler.show();
     }//GEN-LAST:event_jButton_Gruid_Errors_DetailsActionPerformed
@@ -1221,7 +1255,7 @@ public final class CustomerTopComponent extends TopComponent {
             showErrors(NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.Internal.NoSelectedRow"));
             return;
         }
-        if ( ! DeleteConfirmDialog.confirm("Customer", filterResult.get(row).getId())) {
+        if (!DeleteConfirmDialog.confirm("Customer", filterResult.get(row).getId())) {
             return;
         }
         enableCruidOperations(false);
@@ -1230,7 +1264,7 @@ public final class CustomerTopComponent extends TopComponent {
     }//GEN-LAST:event_jButton_Delete_ActionPerformed
     private void insertCustomer() {
         entityAsyncInsert = new CustomerAsyncService();
-        UserInfo info = ((ConfigService)Lookup.getDefault().lookup(ConfigService.class)).getConfig();        
+        UserInfo info = ((ConfigService) Lookup.getDefault().lookup(ConfigService.class)).getConfig();
         User u = new User();
         u.setId(info.getId());
         customerToInsert.setCreatedBy(u);
@@ -1271,7 +1305,6 @@ public final class CustomerTopComponent extends TopComponent {
         }
 
     }
-    
 
     public void enableNavigateOperations(boolean enabled) {
         jButton_Search_.setEnabled(enabled);
@@ -1280,7 +1313,7 @@ public final class CustomerTopComponent extends TopComponent {
         jButton_NextPage_.setEnabled(enabled);
         jButton_PriorPage_.setEnabled(enabled);
         jButton_Refresh_Table.setEnabled(enabled);
-        if ( enabled ) {
+        if (enabled) {
             initPageNavigator();
         }
     }
@@ -1293,6 +1326,7 @@ public final class CustomerTopComponent extends TopComponent {
         jButton_Search_.setEnabled(enabled);
         jTable_Customer.setEnabled(enabled);
     }
+
     public void enableInserOperations(boolean enabled) {
 
         jButton_New_New_.setEnabled(enabled);
@@ -1302,10 +1336,9 @@ public final class CustomerTopComponent extends TopComponent {
         jTextField_New_LastName.setEnabled(enabled);
         jTextField_New_Phone.setEnabled(enabled);
         jTextField_New_Phone.setEnabled(enabled);
-        
-        
+
+
     }
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel JPanel_CruidOp1;
     private net.sf.nachocalendar.components.DateField dateField_createDate_From;
@@ -1413,83 +1446,83 @@ public final class CustomerTopComponent extends TopComponent {
         // TODO read your settings according to their version
     }
 
-/*    protected String buildValidationMessageFor(Exception exception) {
-        RemoteValidationException e = (RemoteValidationException) exception;
-        String m = "";
-        if (e.getViolations() == null || e.getViolations().isEmpty()) {
-            m = ""; //TODO
-            return m;
-        }
-        for (RemoteConstraintViolation v : e.getViolations()) {
-            if (v.getPropertyPath() != null) {
-                m += "'" + v.getPropertyPath() + "': ";
-                if ("javax.validation.constraints.Size".equals(v.getAnnotationClassName())
-                        || "javax.validation.constraints.Min".equals(v.getAnnotationClassName())
-                        || "javax.validation.constraints.Max".equals(v.getAnnotationClassName())) {
-                    m += NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.Validation.Size"); // NOI             
-                    if (v.getSizeExpression() != null) {
-                        m += v.getSizeExpression();
-                    }
-                } else if ("javax.validation.constraints.NotNull".equals(v.getAnnotationClassName())) {
-                    m += NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.Validation.NotNull");
-                }
-            }
-        }
+    /*    protected String buildValidationMessageFor(Exception exception) {
+     RemoteValidationException e = (RemoteValidationException) exception;
+     String m = "";
+     if (e.getViolations() == null || e.getViolations().isEmpty()) {
+     m = ""; //TODO
+     return m;
+     }
+     for (RemoteConstraintViolation v : e.getViolations()) {
+     if (v.getPropertyPath() != null) {
+     m += "'" + v.getPropertyPath() + "': ";
+     if ("javax.validation.constraints.Size".equals(v.getAnnotationClassName())
+     || "javax.validation.constraints.Min".equals(v.getAnnotationClassName())
+     || "javax.validation.constraints.Max".equals(v.getAnnotationClassName())) {
+     m += NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.Validation.Size"); // NOI             
+     if (v.getSizeExpression() != null) {
+     m += v.getSizeExpression();
+     }
+     } else if ("javax.validation.constraints.NotNull".equals(v.getAnnotationClassName())) {
+     m += NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.Validation.NotNull");
+     }
+     }
+     }
 
-        return m;
-    }
+     return m;
+     }
 
-    protected String buildConnectionMessageFor(Exception exception) {
-        RemoteConnectionException e = (RemoteConnectionException) exception;
-        String m = NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.RemoteConnection.Refused"); // NOI             
-        return m;
-    }
+     protected String buildConnectionMessageFor(Exception exception) {
+     RemoteConnectionException e = (RemoteConnectionException) exception;
+     String m = NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.RemoteConnection.Refused"); // NOI             
+     return m;
+     }
 
-    protected String buildOtherMessageFor(Exception exception) {
-        String m = NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.Exception.Other"); // NOI             
-        return m;
-    }
+     protected String buildOtherMessageFor(Exception exception) {
+     String m = NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.Exception.Other"); // NOI             
+     return m;
+     }
 
-    protected String buildDataAccessMessageFor(Exception exception) {
-        RemoteDataAccessException e = (RemoteDataAccessException) exception;
-        String m = NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.Exception.Other"); // NOI                     
-        switch (e.getErrorCode() ) {
-            case RemoteDataAccessException.OPTIMISTIC_LOCKING :
-                m = NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.RemoteDataAccessException.OPTIMISTIC_LOCKING");
-                break;
-            case RemoteDataAccessException.OBJECT_RETRIEVAL :
-                m = NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.RemoteDataAccessException.OBJECT_RETRIEVAL");
-                m += " " + e.getIdentifier();
-                break;
-            case RemoteDataAccessException.QUERY :
-                m = NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.RemoteDataAccessException.QUERY");
-                break;
-            case RemoteDataAccessException.SYSTEM :
-                m = NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.RemoteDataAccessException.SYSTEM");
-                break;
-            case RemoteDataAccessException.JDBC :
-                m = NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.RemoteDataAccessException.JDBC");
-                break;
+     protected String buildDataAccessMessageFor(Exception exception) {
+     RemoteDataAccessException e = (RemoteDataAccessException) exception;
+     String m = NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.Exception.Other"); // NOI                     
+     switch (e.getErrorCode() ) {
+     case RemoteDataAccessException.OPTIMISTIC_LOCKING :
+     m = NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.RemoteDataAccessException.OPTIMISTIC_LOCKING");
+     break;
+     case RemoteDataAccessException.OBJECT_RETRIEVAL :
+     m = NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.RemoteDataAccessException.OBJECT_RETRIEVAL");
+     m += " " + e.getIdentifier();
+     break;
+     case RemoteDataAccessException.QUERY :
+     m = NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.RemoteDataAccessException.QUERY");
+     break;
+     case RemoteDataAccessException.SYSTEM :
+     m = NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.RemoteDataAccessException.SYSTEM");
+     break;
+     case RemoteDataAccessException.JDBC :
+     m = NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.RemoteDataAccessException.JDBC");
+     break;
                 
-        }
-        return m;
-    }
+     }
+     return m;
+     }
 
-    protected String buildMessageFor(Exception e) {
-        String m;
-        if (e instanceof RemoteConnectionException) {
-            m = buildConnectionMessageFor(e);
-        } else if (e instanceof RemoteValidationException) {
-            return buildValidationMessageFor(e);
-        } else  if (e instanceof RemoteDataAccessException) {
-             m = buildDataAccessMessageFor(e);
-        } else {
-            m = buildOtherMessageFor(e);
-        }
+     protected String buildMessageFor(Exception e) {
+     String m;
+     if (e instanceof RemoteConnectionException) {
+     m = buildConnectionMessageFor(e);
+     } else if (e instanceof RemoteValidationException) {
+     return buildValidationMessageFor(e);
+     } else  if (e instanceof RemoteDataAccessException) {
+     m = buildDataAccessMessageFor(e);
+     } else {
+     m = buildOtherMessageFor(e);
+     }
 
-        return m;
-    }
-*/
+     return m;
+     }
+     */
     protected class FilterSeachHandler implements TaskListener {
 
         @Override
@@ -1516,12 +1549,11 @@ public final class CustomerTopComponent extends TopComponent {
                     }
 //                    jButton_Search_.setEnabled(true);
                     enableNavigateOperations(true);
-                    
+
                 }
             });
 
         }
-
     }//inner FilterSearchHandler
 
     protected class SaveHandler implements TaskListener {
@@ -1574,7 +1606,7 @@ public final class CustomerTopComponent extends TopComponent {
 
         }
     }//InsertHandler
-    
+
     protected class DeleteHandler implements TaskListener {
 
         @Override
@@ -1591,11 +1623,11 @@ public final class CustomerTopComponent extends TopComponent {
                         //Customer c = (Customer) entityAsyncDelete.getResult();
                         int row = jTable_Customer.getSelectedRow();
                         filterResult.remove(jTable_Customer.getSelectedRow());
-                        if ( ! filterResult.isEmpty() ) {
-                            
-                            if ( row >= filterResult.size() ) {
-                                row = filterResult.size()-1 ;
-                            } 
+                        if (!filterResult.isEmpty()) {
+
+                            if (row >= filterResult.size()) {
+                                row = filterResult.size() - 1;
+                            }
                             jTable_Customer.setRowSelectionInterval(row, row);
                         }
                     }
@@ -1605,5 +1637,4 @@ public final class CustomerTopComponent extends TopComponent {
 
         }
     }
-    
 }

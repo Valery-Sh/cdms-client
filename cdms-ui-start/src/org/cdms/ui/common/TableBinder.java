@@ -51,7 +51,21 @@ public class TableBinder {
         this.table = childTable;
         this.linkProperty = linkProperty;
     }
+    
+    public int getSelectedRow() {
+        if ( table == null ) {
+            return -1;
+        }
+        return table.getSelectedRow();
+    }
 
+    public void setSelectedRow(int row) {
+        if ( table == null || row < 0 || row >= table.getModel().getRowCount() ) {
+            return;
+        }
+        table.setRowSelectionInterval(row, row);
+    }
+    
     public TableBinder addChild(JTable childTable, String linkProperty) {
         TableBinder tb = new TableBinder(childTable, linkProperty);
         tb.parentTableBinder = this;
@@ -119,6 +133,27 @@ public class TableBinder {
         addBinding(b);
     }
 
+    public void addDatePickerBinder(JComponent textField, String propertyName) {
+        Binding b = Bindings.createAutoBinding(
+                AutoBinding.UpdateStrategy.READ_WRITE,
+                table,
+                ELProperty.create("${" + propertyName + "}"),
+                textField,
+                BeanProperty.create("value"));
+        addBinding(b);
+    }
+
+/*    public <T> void addIdBinder(T object, String propertyName) {
+        Binding b = Bindings.createAutoBinding(
+                AutoBinding.UpdateStrategy.READ_WRITE,
+                table,
+                ELProperty.create("${selectedElement." + propertyName + "}"),
+                object,
+                BeanProperty.create("selectedEntityId"));
+
+        addBinding(b);
+    }
+*/    
     public void addConcatTextFieldBinder(JTextField textField, String... propertyName) {
         String concat = "";
         for (String s : propertyName) {

@@ -4,6 +4,7 @@
  */
 package org.cdms.ui.invoice;
 
+import com.vns.comp.DatePickerEx;
 import java.awt.EventQueue;
 import java.math.BigDecimal;
 import java.text.DateFormat;
@@ -107,8 +108,9 @@ public final class InvoiceTopComponent extends TopComponent {
         initProductItemPageNavigator();
         initInvoiceTableComponents();
         initProductItemTableComponents();
-        //EntityTablePanel tablePanel = new EntityTablePanel();
-        //this.jPanel_LoadEntityPanel.add(tablePanel,BorderLayout.CENTER);
+DatePickerEx dp;        
+        initDateFields();
+
         setName(Bundle.CTL_InvoiceTopComponent());
         setToolTipText(Bundle.HINT_InvoiceTopComponent());
 
@@ -170,8 +172,14 @@ public final class InvoiceTopComponent extends TopComponent {
         if (invoiceQueryPage.getPageNo() == lastPage) {
             jButton_Invoice_LastPage_.setEnabled(false);
             jButton_Invoice_NextPage_.setEnabled(false);
-            jButton_Invoice_FirstPage_.setEnabled(true);
-            jButton_Invoice_PriorPage_.setEnabled(true);
+
+            boolean b = true;
+            if (lastPage == 0) {
+                b = false;
+            }
+
+            jButton_Invoice_FirstPage_.setEnabled(b);
+            jButton_Invoice_PriorPage_.setEnabled(b);
         } else if (invoiceQueryPage.getPageNo() == 0) {
             jButton_Invoice_LastPage_.setEnabled(true);
             jButton_Invoice_NextPage_.setEnabled(true);
@@ -210,11 +218,20 @@ public final class InvoiceTopComponent extends TopComponent {
         if (productItemQueryPage.getPageNo() == lastPage) {
             jButton_PageItem_LastPage_.setEnabled(false);
             jButton_PageItem_NextPage_.setEnabled(false);
-            jButton_PageItem_FirstPage_.setEnabled(true);
-            jButton_PageItem_PriorPage_.setEnabled(true);
+            boolean b = true;
+            if (lastPage == 0) {
+                b = false;
+            }
+
+            jButton_PageItem_FirstPage_.setEnabled(b);
+            jButton_PageItem_PriorPage_.setEnabled(b);
         } else if (productItemQueryPage.getPageNo() == 0) {
-            jButton_PageItem_LastPage_.setEnabled(true);
-            jButton_PageItem_NextPage_.setEnabled(true);
+            boolean b = true;
+            if (lastPage == 0) {
+                b = false;
+            }
+            jButton_PageItem_LastPage_.setEnabled(b);
+            jButton_PageItem_NextPage_.setEnabled(b);
             jButton_PageItem_FirstPage_.setEnabled(false);
             jButton_PageItem_PriorPage_.setEnabled(false);
         } else {
@@ -223,6 +240,20 @@ public final class InvoiceTopComponent extends TopComponent {
             jButton_PageItem_FirstPage_.setEnabled(true);
             jButton_PageItem_PriorPage_.setEnabled(true);
         }
+    }
+
+    protected void initDateFields() {
+        dateField_createDate_From.getFormattedTextField().setHorizontalAlignment(JTextField.CENTER);
+        dateField_createDate_From.getFormattedTextField()
+                .setFormatterFactory(
+                new DefaultFormatterFactory(
+                new DateFormatter(DateFormat.getDateInstance(DateFormat.MEDIUM))));
+
+        dateField_createDate_To.getFormattedTextField().setHorizontalAlignment(JTextField.CENTER);
+        dateField_createDate_To.getFormattedTextField()
+                .setFormatterFactory(
+                new DefaultFormatterFactory(
+                new DateFormatter(DateFormat.getDateInstance(DateFormat.MEDIUM))));
     }
 
     protected void initInvoiceFilterComponents() {
@@ -247,12 +278,13 @@ public final class InvoiceTopComponent extends TopComponent {
         customerFilterBinder.addTextFieldBinder(jTextField_Email_Filter, "customerAsFilter.email");
         customerFilterBinder.addTextFieldBinder(jTextField_Phone_Filter, "customerAsFilter.phone");
 
-        
+
         invoiceFilterBindingGroup.bind();
         userBindingGroup.bind();
         customerBindingGroup.bind();
 
-        dateField_createDate_From.getFormattedTextField().setHorizontalAlignment(JTextField.CENTER);
+        
+/*        dateField_createDate_From.getFormattedTextField().setHorizontalAlignment(JTextField.CENTER);
         dateField_createDate_From.getFormattedTextField()
                 .setFormatterFactory(
                 new DefaultFormatterFactory(
@@ -263,7 +295,7 @@ public final class InvoiceTopComponent extends TopComponent {
                 .setFormatterFactory(
                 new DefaultFormatterFactory(
                 new DateFormatter(DateFormat.getDateInstance(DateFormat.MEDIUM))));
-
+*/
     }
 
     protected void initProductItemFilterComponents() {
@@ -276,13 +308,12 @@ public final class InvoiceTopComponent extends TopComponent {
     }
 
     protected void initInvoiceTableComponents() {
-        
         if (invoiceTableBinder != null) {
             invoiceTableBinder.getBindingGroup().unbind();
         }
-        if ( invoiceFilterResult == null ) {
+        if (invoiceFilterResult == null) {
             invoiceFilterResult = ObservableCollections.observableList(
-                new ArrayList<Invoice>());
+                    new ArrayList<Invoice>());
 
         }
         invoiceFilterResult = ObservableCollections.observableList(
@@ -294,14 +325,14 @@ public final class InvoiceTopComponent extends TopComponent {
 
         invoiceTableBinder.addColumn("customer.firstName", String.class, "First Name");
         invoiceTableBinder.addColumn("customer.lastName", String.class, "Last Name");
-        
-        
-        
+
+
+
         if (!(invoiceFilterResult == null || invoiceFilterResult.isEmpty())) {
             invoiceItemAsChildTableBinder = invoiceTableBinder.addChild(jTable_InvoiceItem, "invoiceItems");
         } else {
             List<InvoiceItem> ol = ObservableCollections.observableList(
-                new ArrayList<InvoiceItem>());
+                    new ArrayList<InvoiceItem>());
             invoiceItemAsChildTableBinder = new TableBinder(jTable_InvoiceItem, ol);
 
         }
@@ -323,7 +354,7 @@ public final class InvoiceTopComponent extends TopComponent {
         invoiceTableBinder.refresh();
 
         emptyInvoiceItemEditComponents();
-        
+
         if (!invoiceFilterResult.isEmpty()) {
             jTable_Invoice.setRowSelectionInterval(0, 0);
             if (!invoiceFilterResult.get(0).getInvoiceItems().isEmpty()) {
@@ -350,13 +381,13 @@ public final class InvoiceTopComponent extends TopComponent {
         }
         if (productItemFilterResult == null || productItemFilterResult.isEmpty()) {
             productItemFilterResult = ObservableCollections.observableList(
-                new ArrayList<ProductItem>());
-            
+                    new ArrayList<ProductItem>());
+
         } else {
             productItemFilterResult = ObservableCollections.observableList(
-                productItemFilterResult);
+                    productItemFilterResult);
         }
-        
+
         productItemTableBinder = new TableBinder(jTable_ProductItems, productItemFilterResult);
 
 
@@ -1137,7 +1168,7 @@ public final class InvoiceTopComponent extends TopComponent {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(81, 81, 81)
                                 .addComponent(jLabel3)
-                                .addGap(18, 18, 18)
+                                .addGap(20, 20, 20)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jPanel_Error_Msg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
