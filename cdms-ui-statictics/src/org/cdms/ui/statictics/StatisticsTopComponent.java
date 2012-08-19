@@ -315,7 +315,7 @@ public final class StatisticsTopComponent extends TopComponent {
         try {
             invoiceQueryPage.setQueryResult(new ArrayList());
             Object[] param = new Object[]{id, invoiceStatisticsParams.getStartDate(), invoiceStatisticsParams.getEndDate()};
-            invoiceQueryPage.setParam(param);
+            invoiceQueryPage.setParams(param);
             statisticsAsyncService.requestInvoice(new InvoiceStatisticsHandler(), invoiceQueryPage); // TODO paging            
         } catch (Exception e) {
             System.out.println("ERROR");
@@ -867,36 +867,32 @@ public final class StatisticsTopComponent extends TopComponent {
     }//GEN-LAST:event_jButton_Errors_DetailsActionPerformed
 
     private void jButton_Invoice_FirstPage_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Invoice_FirstPage_ActionPerformed
-        invoiceQueryPage.setPageNo(0);
+        invoiceQueryPage.setNavigateOperation(QueryPage.FIRST);
         doStatistics();
     }//GEN-LAST:event_jButton_Invoice_FirstPage_ActionPerformed
 
     private void jButton_Invoice_PriorPage_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Invoice_PriorPage_ActionPerformed
-        invoiceQueryPage.setPageNo(invoiceQueryPage.getPageNo() - 1);
+        invoiceQueryPage.setNavigateOperation(QueryPage.PRIOR);
         doStatistics();
     }//GEN-LAST:event_jButton_Invoice_PriorPage_ActionPerformed
 
     private void jButton_Invoice_NextPage_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Invoice_NextPage_ActionPerformed
-        invoiceQueryPage.setPageNo(invoiceQueryPage.getPageNo() + 1);
+        invoiceQueryPage.setNavigateOperation(QueryPage.NEXT);
         doStatistics();
     }//GEN-LAST:event_jButton_Invoice_NextPage_ActionPerformed
 
     private void jButton_Invoice_LastPage_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Invoice_LastPage_ActionPerformed
-         int lastPage = (int) (invoiceQueryPage.getRowCount() / invoiceQueryPage.getPageSize() - 1);
-         if (invoiceQueryPage.getRowCount() % invoiceQueryPage.getPageSize() != 0) {
-            lastPage++;
-         }
-
-         invoiceQueryPage.setPageNo(lastPage);
+        invoiceQueryPage.setNavigateOperation(QueryPage.LAST);
         doStatistics();
     }//GEN-LAST:event_jButton_Invoice_LastPage_ActionPerformed
 
     private void jButton_Refresh_Invoice_TableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Refresh_Invoice_TableActionPerformed
+        invoiceQueryPage.setNavigateOperation(QueryPage.REFRESH);            
         doStatistics();
     }//GEN-LAST:event_jButton_Refresh_Invoice_TableActionPerformed
 
     private void jButton_doStatisticsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_doStatisticsActionPerformed
-        Object v = datePicker_From.getValue();
+        invoiceQueryPage.setNavigateOperation(QueryPage.SEARCH);        
         doStatistics();
     }//GEN-LAST:event_jButton_doStatisticsActionPerformed
 

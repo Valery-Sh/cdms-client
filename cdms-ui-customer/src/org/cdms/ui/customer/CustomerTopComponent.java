@@ -273,9 +273,7 @@ public final class CustomerTopComponent extends TopComponent {
     protected void prohibitEditOperations() {
 
         UserInfo info = ((ConfigService) Lookup.getDefault().lookup(ConfigService.class)).getConfig();
-        if ( true ){
-            return;
-        }
+
         if (!info.inRole("edit")) {
             this.jButton_Save_.setEnabled(false);
             this.jButton_Cancel.setEnabled(false);
