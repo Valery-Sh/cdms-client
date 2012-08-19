@@ -1,15 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.cdms.auth;
 
 import java.util.prefs.Preferences;
 import org.openide.util.NbPreferences;
 
 /**
- *
- * @author Valery
+ * Allows a user to authenticate.
+ * @author V. Shyshkin
  */
 public class LoginPane extends javax.swing.JPanel {
 

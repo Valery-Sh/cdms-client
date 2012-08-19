@@ -18,15 +18,18 @@ import org.openide.util.Lookup;
 import org.openide.util.NbPreferences;
 
 /**
- *
+ * Handles the application authentication providing a dialog to input
+ * a user name and a password.
+ * The dialog lets you specify the http server address and port.
  * @author V. Shyshkin
  */
 public class Installer extends ModuleInstall implements ActionListener {
 
-//    private LoginPanel panel = new LoginPanel();
     private LoginPane pane = new LoginPane();
     private DialogDescriptor descr = null;
-
+    /**
+     * Defines and creates the authentication dialog.
+     */
     @Override
     public void restored() {
         
@@ -44,14 +47,18 @@ public class Installer extends ModuleInstall implements ActionListener {
         descr.addPropertyChangeListener(pcl);
         DialogDisplayer.getDefault().notifyLater(descr);
     }
-
+    /**
+     * Handles the user's actions.
+     * @param event the object of type <code>ActionEvent</code> 
+     */
     @Override
     public void actionPerformed(ActionEvent event) {
         if (event.getSource() == DialogDescriptor.CANCEL_OPTION) {
             LifecycleManager.getDefault().exit();
         } else {
             pane.setLoginMsg("");
-            AuthServiceProvider rs = Lookup.getDefault().lookup(AuthServiceProvider.class);
+            //AuthServiceProvider rs = Lookup.getDefault().lookup(AuthServiceProvider.class);
+            AuthServiceProvider rs = AuthServiceProvider.getDefault();
             AuthService authService = rs.getInstance();
             Authenticator.setDefault(null); // to disable pop up window
             UserInfo userInfo = authService.authenticate(pane.getUsername(), pane.getPassword());
@@ -61,10 +68,6 @@ public class Installer extends ModuleInstall implements ActionListener {
             } else {
                 descr.setClosingOptions(null);
                 UserLookup.getDefault().set(userInfo);
-                UserInfo info = UserLookup.getDefault().lookup(UserInfo.class);                
-                if ( info == null ) {
-                    int a = 0;
-                }
             }
 
         }

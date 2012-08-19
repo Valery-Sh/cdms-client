@@ -1,13 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.cdms.remoting.services.hessian;
 
 import com.caucho.hessian.client.HessianProxyFactory;
 import com.caucho.hessian.client.HessianRuntimeException;
 import java.net.MalformedURLException;
-import java.util.List;
 import java.util.prefs.Preferences;
 import org.cdms.entities.InvoiceStatView;
 import org.cdms.remoting.ConfigService;

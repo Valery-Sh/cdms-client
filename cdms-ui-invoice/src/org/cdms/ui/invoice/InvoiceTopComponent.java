@@ -18,7 +18,9 @@ import org.cdms.entities.Invoice;
 import org.cdms.entities.InvoiceItem;
 import org.cdms.entities.ProductItem;
 import org.cdms.entities.User;
+import org.cdms.remoting.ConfigService;
 import org.cdms.remoting.QueryPage;
+import org.cdms.remoting.UserInfo;
 import org.cdms.ui.common.EntityBinder;
 import org.cdms.ui.common.EntityBinderImpl;
 import org.cdms.ui.common.ErrorMessageBuilder;
@@ -28,6 +30,7 @@ import org.cdms.ui.common.dialog.ErrorDetailsHandler;
 import org.jdesktop.beansbinding.BindingGroup;
 import org.jdesktop.observablecollections.ObservableCollections;
 import org.netbeans.api.settings.ConvertAsProperties;
+import org.openide.util.Lookup;
 import org.openide.util.NbBundle;
 import org.openide.util.NbBundle.Messages;
 import org.openide.util.Task;
@@ -108,12 +111,24 @@ public final class InvoiceTopComponent extends TopComponent {
         initProductItemPageNavigator();
         initInvoiceTableComponents();
         initProductItemTableComponents();
-DatePickerEx dp;        
-        initDateFields();
 
+        initDateFields();
+        
+        prohibitEditOperations();
+        
         setName(Bundle.CTL_InvoiceTopComponent());
         setToolTipText(Bundle.HINT_InvoiceTopComponent());
 
+    }
+    protected void prohibitEditOperations() {
+
+        UserInfo info = ((ConfigService) Lookup.getDefault().lookup(ConfigService.class)).getConfig();
+
+        if (!info.inRole("edit")) {
+            jButton_InvoiceItem_Edit_Save_.setEnabled(false);
+            jButton_InvoiceItem_Edit_Delete_.setEnabled(false);
+            jButton_InvoiceItem_Add_To_Invoice.setEnabled(false);
+        }
     }
 
     public Invoice getInvoiceAsFilter() {

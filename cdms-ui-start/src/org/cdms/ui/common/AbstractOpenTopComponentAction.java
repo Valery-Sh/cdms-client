@@ -2,9 +2,10 @@ package org.cdms.ui.common;
 
 import javax.swing.AbstractAction;
 import javax.swing.JMenuItem;
-import org.cdms.auth.UserLookup;
+import org.cdms.remoting.ConfigService;
 import org.cdms.remoting.UserInfo;
 import org.openide.util.ImageUtilities;
+import org.openide.util.Lookup;
 import org.openide.util.actions.Presenter;
 import org.openide.windows.TopComponent;
 import org.openide.windows.WindowManager;
@@ -31,7 +32,8 @@ public abstract class AbstractOpenTopComponentAction extends AbstractAction impl
         menuItem.setText(menuText);
         menuItem.setIcon(ImageUtilities.loadImageIcon(iconPath, true));
         
-        UserInfo info = UserLookup.getDefault().lookup(UserInfo.class);
+        //UserInfo info = UserLookup.getDefault().lookup(UserInfo.class);
+        UserInfo info = ((ConfigService) Lookup.getDefault().lookup(ConfigService.class)).getConfig();
         boolean enable = false;
         if ( info.inRole(role)) {
             enable = true;

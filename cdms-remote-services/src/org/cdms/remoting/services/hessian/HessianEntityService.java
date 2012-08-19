@@ -1,14 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.cdms.remoting.services.hessian;
 
 import com.caucho.hessian.client.HessianProxyFactory;
 import com.caucho.hessian.client.HessianRuntimeException;
 import java.net.MalformedURLException;
 import java.util.prefs.Preferences;
-import org.cdms.entities.User;
 import org.cdms.remoting.ConfigService;
 import org.cdms.remoting.EntityService;
 import org.cdms.remoting.QueryPage;
@@ -19,17 +14,30 @@ import org.openide.util.Lookup;
 import org.openide.util.NbPreferences;
 
 /**
- *
+ * Implements <code>EntityService</code> interface  to access it's remote methods
+ * trough <code>Hessian Remote Protocol</code>.
+ * 
+ * Subclasses should implement the single method {@link #getServiceClass() }.  
+ * @see HessianAuthService
+ * @see HessianCustomerService
+ * @see HessianInvoiceService
+ * @see HessianInvoiceItemService
+ * 
  * @author Valery
  */
 public abstract class HessianEntityService<E> implements EntityService<E>{
-
-    @Override
-    public E findById(long l) {
-        return null;
-    }
+    /**
+     * Subclasses must implement this method  to provide an actual service class.
+     * 
+     * @return the actual service class  who is responsible for the maintenance
+     *     of an entity of the concrete type.
+     */
     protected abstract Class getServiceClass();
-
+    /**
+     * @return the Hessian <code>stub</code> for a class that the method 
+     * <code>getServiceClass</code> returns
+     * @throws MalformedURLException 
+     */
     private EntityService getService() throws MalformedURLException {
         
         UserInfo info = ((ConfigService)Lookup.getDefault().lookup(ConfigService.class)).getConfig();

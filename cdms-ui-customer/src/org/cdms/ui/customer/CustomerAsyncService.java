@@ -4,7 +4,6 @@ import org.cdms.entities.Customer;
 import org.cdms.remoting.EntityService;
 import org.cdms.remoting.services.CustomerServiceProvider;
 import org.cdms.ui.common.EntityAsyncService;
-import org.openide.util.Lookup;
 
 /**
  *
@@ -14,7 +13,8 @@ public class CustomerAsyncService<E extends Customer> extends EntityAsyncService
 
     @Override
     public EntityService getEntityService() {
-        return (Lookup.getDefault().lookup(CustomerServiceProvider.class)).getInstance();
+        //return (Lookup.getDefault().lookup(CustomerServiceProvider.class)).getInstance();
+        return CustomerServiceProvider.getDefault().getInstance();        
     }
 
 }

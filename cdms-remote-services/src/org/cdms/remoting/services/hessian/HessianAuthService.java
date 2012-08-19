@@ -7,14 +7,24 @@ import org.cdms.remoting.UserInfo;
 import org.openide.util.NbPreferences;
 
 /**
- *
+ * Implements the <code>AuthService</code> interface to access it's remote methods
+ * trough <code>Hessian Remote Protocol</code>.
+ * @see org.cdms.remoting.AuthService
  * @author V. Shyshkin
  */
-
 public class HessianAuthService implements AuthService {
 
-    //static String url = "http://127.0.0.1:8084/cdms-server/remoting/AuthService";
-
+    // TEMPLATE: static String url = "http://127.0.0.1:8084/cdms-server/remoting/AuthService";
+    
+    /**
+     * Performs authentication  with the given <code>userName</code>
+     * and <code>password</code>.
+     * @param userName the name of the user to be authenticated
+     * @param password the password of the user to be authenticated
+     * @return the object of type {@link org.cdms.remoting.UserInfo } when 
+     *    authentication success or <code>null</code> otherwise
+     * @see org.cdms.remoting.AuthService
+     */
     @Override
     public UserInfo authenticate(String userName, String password) {
         HessianProxyFactory factory = new HessianProxyFactory();

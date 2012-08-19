@@ -24,7 +24,8 @@ public class StatisticsAsyncService {
     
     
     public StatisticsService getStatisticsService() {
-        return (Lookup.getDefault().lookup(InvoiceStatisticsServiceProvider.class)).getInstance();
+        //return (Lookup.getDefault().lookup(InvoiceStatisticsServiceProvider.class)).getInstance();
+        return InvoiceStatisticsServiceProvider.getDefault().getInstance();        
     }
 
     public void requestInvoice(TaskListener taskListener, final QueryPage<InvoiceStatView> queryPage) {
