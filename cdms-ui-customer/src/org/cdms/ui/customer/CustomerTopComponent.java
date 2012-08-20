@@ -189,19 +189,6 @@ public final class CustomerTopComponent extends TopComponent {
         customerBindingGroup.bind();
         userBindingGroup.bind();
 
-        
-/*        dateField_createDate_From.getFormattedTextField().setHorizontalAlignment(JTextField.CENTER);
-        dateField_createDate_From.getFormattedTextField()
-                .setFormatterFactory(
-                new DefaultFormatterFactory(
-                new DateFormatter(DateFormat.getDateInstance(DateFormat.MEDIUM))));
-
-        dateField_createDate_To.getFormattedTextField().setHorizontalAlignment(JTextField.CENTER);
-        dateField_createDate_To.getFormattedTextField()
-                .setFormatterFactory(
-                new DefaultFormatterFactory(
-                new DateFormatter(DateFormat.getDateInstance(DateFormat.MEDIUM))));
-*/
     }
 
     protected void hideErrors() {
@@ -1233,11 +1220,6 @@ public final class CustomerTopComponent extends TopComponent {
     }//GEN-LAST:event_jButton_Gruid_Errors_DetailsActionPerformed
 
     private void jButton_Refresh_TableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Refresh_TableActionPerformed
-        //int pageSize = Integer.parseInt(jFormattedTextField_PageSize.getText());
-        //queryPage.setPageSize(pageSize);
-        //
-        //queryPage.setPageNo(0);
-
         //TODO in production. A user may change page size. 
         //     So we must  keep it im mind
         doFilter();
@@ -1281,8 +1263,6 @@ public final class CustomerTopComponent extends TopComponent {
         } catch (Exception e) {
             System.out.println("ERROR");
         }
-        System.out.println("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM");
-
     }
 
     private void deleteCustomer() {
@@ -1442,83 +1422,6 @@ public final class CustomerTopComponent extends TopComponent {
         // TODO read your settings according to their version
     }
 
-    /*    protected String buildValidationMessageFor(Exception exception) {
-     RemoteValidationException e = (RemoteValidationException) exception;
-     String m = "";
-     if (e.getViolations() == null || e.getViolations().isEmpty()) {
-     m = ""; //TODO
-     return m;
-     }
-     for (RemoteConstraintViolation v : e.getViolations()) {
-     if (v.getPropertyPath() != null) {
-     m += "'" + v.getPropertyPath() + "': ";
-     if ("javax.validation.constraints.Size".equals(v.getAnnotationClassName())
-     || "javax.validation.constraints.Min".equals(v.getAnnotationClassName())
-     || "javax.validation.constraints.Max".equals(v.getAnnotationClassName())) {
-     m += NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.Validation.Size"); // NOI             
-     if (v.getSizeExpression() != null) {
-     m += v.getSizeExpression();
-     }
-     } else if ("javax.validation.constraints.NotNull".equals(v.getAnnotationClassName())) {
-     m += NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.Validation.NotNull");
-     }
-     }
-     }
-
-     return m;
-     }
-
-     protected String buildConnectionMessageFor(Exception exception) {
-     RemoteConnectionException e = (RemoteConnectionException) exception;
-     String m = NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.RemoteConnection.Refused"); // NOI             
-     return m;
-     }
-
-     protected String buildOtherMessageFor(Exception exception) {
-     String m = NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.Exception.Other"); // NOI             
-     return m;
-     }
-
-     protected String buildDataAccessMessageFor(Exception exception) {
-     RemoteDataAccessException e = (RemoteDataAccessException) exception;
-     String m = NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.Exception.Other"); // NOI                     
-     switch (e.getErrorCode() ) {
-     case RemoteDataAccessException.OPTIMISTIC_LOCKING :
-     m = NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.RemoteDataAccessException.OPTIMISTIC_LOCKING");
-     break;
-     case RemoteDataAccessException.OBJECT_RETRIEVAL :
-     m = NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.RemoteDataAccessException.OBJECT_RETRIEVAL");
-     m += " " + e.getIdentifier();
-     break;
-     case RemoteDataAccessException.QUERY :
-     m = NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.RemoteDataAccessException.QUERY");
-     break;
-     case RemoteDataAccessException.SYSTEM :
-     m = NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.RemoteDataAccessException.SYSTEM");
-     break;
-     case RemoteDataAccessException.JDBC :
-     m = NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.RemoteDataAccessException.JDBC");
-     break;
-                
-     }
-     return m;
-     }
-
-     protected String buildMessageFor(Exception e) {
-     String m;
-     if (e instanceof RemoteConnectionException) {
-     m = buildConnectionMessageFor(e);
-     } else if (e instanceof RemoteValidationException) {
-     return buildValidationMessageFor(e);
-     } else  if (e instanceof RemoteDataAccessException) {
-     m = buildDataAccessMessageFor(e);
-     } else {
-     m = buildOtherMessageFor(e);
-     }
-
-     return m;
-     }
-     */
     protected class FilterSeachHandler implements TaskListener {
 
         @Override
@@ -1543,7 +1446,6 @@ public final class CustomerTopComponent extends TopComponent {
                             emptyEditComponents();
                         }
                     }
-//                    jButton_Search_.setEnabled(true);
                     enableNavigateOperations(true);
 
                 }

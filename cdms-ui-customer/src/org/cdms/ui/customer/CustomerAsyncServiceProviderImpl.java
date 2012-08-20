@@ -5,7 +5,7 @@ import org.cdms.ui.common.EntityAsyncService;
 import org.openide.util.lookup.ServiceProvider;
 
 /**
- *
+ * The service is exposed, as it is used in the <code>Statistics</code> module.
  * @author V. Shyshkin
  */
 @ServiceProvider(service=CustomerAsyncServiceProvider.class)

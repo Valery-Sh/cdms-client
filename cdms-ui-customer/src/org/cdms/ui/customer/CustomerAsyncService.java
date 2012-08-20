@@ -13,7 +13,6 @@ public class CustomerAsyncService<E extends Customer> extends EntityAsyncService
 
     @Override
     public EntityService getEntityService() {
-        //return (Lookup.getDefault().lookup(CustomerServiceProvider.class)).getInstance();
         return CustomerServiceProvider.getDefault().getInstance();        
     }
 

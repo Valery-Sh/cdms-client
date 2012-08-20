@@ -1,9 +1,8 @@
 
 package org.cdms.remoting.services;
 
-import org.cdms.remoting.services.hessian.HessianInvoiceItemService;
 import org.cdms.remoting.InvoiceItemService;
-import org.cdms.remoting.ProductItemService;
+import org.cdms.remoting.services.hessian.HessianInvoiceItemService;
 import org.openide.util.Lookup;
 
 /**

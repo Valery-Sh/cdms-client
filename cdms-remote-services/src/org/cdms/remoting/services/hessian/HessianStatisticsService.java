@@ -16,7 +16,7 @@ import org.openide.util.NbPreferences;
 
 /**
  *
- * @author Valery
+ * @author V. Shyshkin
  */
 public  abstract class HessianStatisticsService implements StatisticsService {
     

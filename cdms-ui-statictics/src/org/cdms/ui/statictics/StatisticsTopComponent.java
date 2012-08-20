@@ -3,12 +3,8 @@ package org.cdms.ui.statictics;
 
 import java.awt.EventQueue;
 import java.math.BigDecimal;
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JTextField;
-import javax.swing.text.DateFormatter;
-import javax.swing.text.DefaultFormatterFactory;
 import org.cdms.entities.Customer;
 import org.cdms.entities.InvoiceStatView;
 import org.cdms.entities.User;
@@ -75,8 +71,6 @@ public final class StatisticsTopComponent extends TopComponent {
         initComponents();
 
         hideErrors();
-        initDateFields();
-
 
         invoiceQueryPage = new QueryPage<InvoiceStatView>();
         customerQueryPage = new QueryPage<Customer>();
@@ -90,35 +84,15 @@ public final class StatisticsTopComponent extends TopComponent {
         setToolTipText(Bundle.HINT_StatisticsTopComponent());
     }
     protected void initInvoiceStatisticsParams() {
-        
-        
         invoiceStatisticsBinder = new EntityBinderImpl(invoiceStatisticsBindingGroup, this);
         invoiceStatisticsBinder.addCheckBoxBinder(jCheckBox_OnlyCustomerSelected, "invoiceStatisticsParams.onlySelectedEntity");        
 
-//        invoiceStatisticsBinder.addCalendarBinder(dateField_createDate_To, "invoiceStatisticsParams.endDate");        
-//        invoiceStatisticsBinder.addCalendarBinder(dateField_createDate_From, "invoiceStatisticsParams.startDate");
-        
         invoiceStatisticsBinder.addDatePickerBinder(datePicker_To.getDateField(), "invoiceStatisticsParams.endDate");        
         invoiceStatisticsBinder.addDatePickerBinder(datePicker_From.getDateField(), "invoiceStatisticsParams.startDate");
         
         invoiceStatisticsBindingGroup.bind();
-
     }
 
-    protected void initDateFields() {
-/*        dateField_createDate_From.getFormattedTextField().setHorizontalAlignment(JTextField.CENTER);
-        dateField_createDate_From.getFormattedTextField()
-                .setFormatterFactory(
-                new DefaultFormatterFactory(
-                new DateFormatter(DateFormat.getDateInstance(DateFormat.MEDIUM))));
-
-        dateField_createDate_To.getFormattedTextField().setHorizontalAlignment(JTextField.CENTER);
-        dateField_createDate_To.getFormattedTextField()
-                .setFormatterFactory(
-                new DefaultFormatterFactory(
-    new DateFormatter(DateFormat.getDateInstance(DateFormat.MEDIUM))));
-    */ 
-    }
 
     protected void initCustomerFilterComponents() {
         customerFilterBinder = new EntityBinderImpl(customerBindingGroup, this);
@@ -134,14 +108,12 @@ public final class StatisticsTopComponent extends TopComponent {
     protected void hideErrors() {
         jLabel_Errors.setVisible(false);
         jButton_Errors_Details.setVisible(false);
-
     }
 
     protected void showErrors(String message) {
         jLabel_Errors.setText(message);
         jLabel_Errors.setVisible(true);
         jButton_Errors_Details.setVisible(true);
-
     }
 
     protected void initPageNavigator() {
@@ -190,14 +162,6 @@ public final class StatisticsTopComponent extends TopComponent {
         }
     }
 
-/*    private void enableInvoiceOperations(boolean enabled) {
-        jTable_Invoice.setEnabled(enabled);
-
-//        jButton_Search_.setEnabled(enabled);
-//        jButton_InvoiceItem_Add_To_Invoice.setEnabled(enabled);
-        enableNavigateOperations(enabled);
-    }
-*/
     public void enableNavigateOperations(boolean enabled) {
         jButton_Invoice_FirstPage_.setEnabled(enabled);
         jButton_Invoice_LastPage_.setEnabled(enabled);
@@ -262,7 +226,6 @@ public final class StatisticsTopComponent extends TopComponent {
         if (invoiceResult == null) {
             invoiceResult = ObservableCollections.observableList(
                     new ArrayList<InvoiceStatView>());
-
         }
         invoiceResult = ObservableCollections.observableList(
                 invoiceResult);
@@ -272,20 +235,15 @@ public final class StatisticsTopComponent extends TopComponent {
         invoiceTableBinder.addColumn("itemName", String.class, "Item");
         invoiceTableBinder.addColumn("itemCount", Long.class, "Quantity");
         invoiceTableBinder.addColumn("totals", BigDecimal.class, "Sum");
-
         
         invoiceTableBinder.bindTable();
-        
-        
                 
         invoiceTableBinder.refresh();
 
         if (!invoiceResult.isEmpty()) {
             jTable_Invoice.setRowSelectionInterval(0, 0);
         }
-
         invoiceTableBinder.updateColumnModel(jTable_Invoice);
-
     }
 
     protected void doCustomerFilter() {
@@ -857,8 +815,6 @@ public final class StatisticsTopComponent extends TopComponent {
         jTextField_FirstName_Filter.setText("");
         jTextField_LastName_Filter.setText("");
         jTextField_Phone_Filter.setText("");
-        //dateField_createDate_From.setValue(null);
-        //dateField_createDate_To.setValue(null);
     }//GEN-LAST:event_jButton_Customer_Clear_FilterActionPerformed
 
 
@@ -898,12 +854,10 @@ public final class StatisticsTopComponent extends TopComponent {
 
     private void jButton_Clear_StartDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Clear_StartDateActionPerformed
         datePicker_From.setValue(null);
-        //dateField_createDate_From.setValue(null);
     }//GEN-LAST:event_jButton_Clear_StartDateActionPerformed
 
     private void jButton_Clear_EndDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Clear_EndDateActionPerformed
         datePicker_To.setValue(null);
-        //dateField_createDate_To.setValue(null);
     }//GEN-LAST:event_jButton_Clear_EndDateActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
