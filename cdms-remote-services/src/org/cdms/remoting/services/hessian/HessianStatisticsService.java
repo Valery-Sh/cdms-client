@@ -26,6 +26,7 @@ public  abstract class HessianStatisticsService implements StatisticsService {
         
         UserInfo info = ((ConfigService)Lookup.getDefault().lookup(ConfigService.class)).getConfig();
         HessianProxyFactory factory = new HessianProxyFactory();
+        //HessianProxyFactory factory = (HessianProxyFactory)info.getProxyFactory();
         Preferences node = NbPreferences.root();
         String serverName = node.get("server.name", "localhost");
         int port = node.getInt("server.port", 8080);

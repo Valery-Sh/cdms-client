@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.Authenticator;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.prefs.Preferences;
 import org.cdms.remoting.AuthService;
 import org.cdms.remoting.UserInfo;
@@ -14,7 +16,6 @@ import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
 import org.openide.LifecycleManager;
 import org.openide.modules.ModuleInstall;
-import org.openide.util.Lookup;
 import org.openide.util.NbPreferences;
 
 /**
@@ -62,7 +63,20 @@ public class Installer extends ModuleInstall implements ActionListener {
             AuthService authService = rs.getInstance();
             Authenticator.setDefault(null); // to disable pop up window
             UserInfo userInfo = authService.authenticate(pane.getUsername(), pane.getPassword());
+            //////////////////
+/*            UserInfo userInfo = new UserInfo();
+            userInfo.setFirstName("sss");
+            userInfo.setLastName("ll");
+            userInfo.setUserName("uuu");
+            userInfo.setTicket("ttt");
             
+            
+            List<String> r1 = new ArrayList<String>();
+            r1.add("edit");
+            r1.add("view statistics");
+            userInfo.setRoles(r1);
+            */ 
+            ///////////////////////        
             if (userInfo == null) {
                 pane.setLoginMsg("Invalid user name or password");
             } else {

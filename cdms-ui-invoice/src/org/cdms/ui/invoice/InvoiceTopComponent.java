@@ -852,6 +852,7 @@ public final class InvoiceTopComponent extends TopComponent {
         jTable_Invoice.setGridColor(new java.awt.Color(204, 204, 204));
         jScrollPane1.setViewportView(jTable_Invoice);
 
+        jTable_InvoiceItem.setAutoCreateRowSorter(true);
         jTable_InvoiceItem.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},

@@ -36,6 +36,7 @@ public class HessianAuthService implements AuthService {
 //            factory.setPassword(password);
             factory.setUser(userName);
             factory.setPassword(password);
+            //factory.se
         
         AuthService service;
         UserInfo userInfo;
@@ -46,6 +47,7 @@ public class HessianAuthService implements AuthService {
             //factory.setPassword(password);
 
             userInfo = service.authenticate(userName, password);
+            userInfo.setProxyFactory(factory);
             //user = (User)service.getUser(userName, password);
             //user = service.findById(10L); 
         } catch (Exception e) {

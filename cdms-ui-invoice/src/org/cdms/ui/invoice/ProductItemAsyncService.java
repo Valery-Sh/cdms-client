@@ -5,7 +5,6 @@ import org.cdms.entities.ProductItem;
 import org.cdms.remoting.EntityService;
 import org.cdms.remoting.services.ProductItemServiceProvider;
 import org.cdms.ui.common.EntityAsyncService;
-import org.openide.util.Lookup;
 
 /**
  *
@@ -15,6 +14,7 @@ public  class ProductItemAsyncService<E extends ProductItem> extends EntityAsync
 
     @Override
     public EntityService getEntityService() {
-        return (Lookup.getDefault().lookup(ProductItemServiceProvider.class)).getInstance();
+        //return (Lookup.getDefault().lookup(ProductItemServiceProvider.class)).getInstance();
+        return ProductItemServiceProvider.getDefault().getInstance();
     }
 }
