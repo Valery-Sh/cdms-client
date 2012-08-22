@@ -408,8 +408,14 @@ public final class InvoiceTopComponent extends TopComponent {
     protected void showErrors(String message) {
         jLabel_Errors.setText(message);
         jLabel_Errors.setVisible(true);
-        jButton_Errors_Details.setVisible(true);
+//        jButton_Errors_Details.setVisible(true);
 
+    }
+    protected void showErrors(Exception e) {
+        String msg = ErrorMessageBuilder.get(e);
+        jLabel_Errors.setText(msg);
+        jLabel_Errors.setVisible(true);
+        jButton_Errors_Details.setVisible(true);
     }
 
     protected void emptyInvoiceItemEditComponents() {
@@ -1840,7 +1846,7 @@ public final class InvoiceTopComponent extends TopComponent {
                     //It's Swing
                     if (invoiceAsyncFilter.getResult() instanceof Exception) {
                         Exception e = (Exception) invoiceAsyncFilter.getResult();
-                        showErrors(ErrorMessageBuilder.get(e));
+                        showErrors(e);
                     } else {
 
                         QueryPage<Invoice> q = (QueryPage<Invoice>) invoiceAsyncFilter.getResult();
@@ -1876,7 +1882,7 @@ public final class InvoiceTopComponent extends TopComponent {
                     if (invoiceItemAsyncSave.getResult() instanceof Exception) {
                         Exception e = (Exception) invoiceItemAsyncSave.getResult();
                         errorDetailsHandler.setException(e);
-                        showErrors(ErrorMessageBuilder.get(e));
+                        showErrors(e);
 
                     } else {
                         InvoiceItem it = (InvoiceItem) invoiceItemAsyncSave.getResult();
@@ -1934,7 +1940,7 @@ public final class InvoiceTopComponent extends TopComponent {
                     if (invoiceItemAsyncInsert.getResult() instanceof Exception) {
                         Exception e = (Exception) invoiceItemAsyncInsert.getResult();
                         errorDetailsHandler.setException(e);
-                        showErrors(ErrorMessageBuilder.get(e));
+                        showErrors(e);
                     } else {
                         InvoiceItem item = (InvoiceItem) invoiceItemAsyncInsert.getResult();
                         item.getProductItem().setPrice(new BigDecimal(item.getProductItem().getStringPrice()));
@@ -1961,7 +1967,7 @@ public final class InvoiceTopComponent extends TopComponent {
                     //It's Swing
                     if (productItemAsyncFilter.getResult() instanceof Exception) {
                         Exception e = (Exception) productItemAsyncFilter.getResult();
-                        showErrors(ErrorMessageBuilder.get(e));
+                        showErrors(e);
                     } else {
 
                         QueryPage<ProductItem> q = (QueryPage<ProductItem>) productItemAsyncFilter.getResult();

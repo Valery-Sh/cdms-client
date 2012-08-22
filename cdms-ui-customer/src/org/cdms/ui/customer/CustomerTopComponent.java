@@ -49,6 +49,7 @@ persistenceType = TopComponent.PERSISTENCE_ALWAYS)
 })
 public final class CustomerTopComponent extends TopComponent {
 
+    //private Map<JComponent, Boolean> saveState = new HashMap<JComponent, Boolean>();
     private ErrorDetailsHandler errorDetailsHandler = new ErrorDetailsHandler();
     private EntityBinder customerFilterBinder;
     private Customer customerAsFilter = new Customer();
@@ -83,6 +84,8 @@ public final class CustomerTopComponent extends TopComponent {
 
         prohibitEditOperations();
 
+//        saveState();
+
         setName(Bundle.CTL_customerTopComponent());
         setToolTipText(Bundle.HINT_customerTopComponent());
 
@@ -90,7 +93,7 @@ public final class CustomerTopComponent extends TopComponent {
 
     protected void initNewCustomerComponents() {
         customerToInsertBindingGroup = new BindingGroup();
-        customerToInsert = new Customer();
+        customerToInsert = new Customer(new User());
         customerToInsertBinder = new EntityBinderImpl(customerToInsertBindingGroup, this);
         customerToInsertBinder.addTextFieldBinder(jTextField_New_ID, "newCustomer.id");
 
@@ -104,9 +107,18 @@ public final class CustomerTopComponent extends TopComponent {
         customerToInsertBinder.addConcatTextFieldBinder(jTextField_New_CreatedBy, "newCustomer.createdBy.firstName", "newCustomer.createdBy.lastName");
 
         customerToInsertBindingGroup.bind();
-
+        enableNewCustomerFields(true);
+        jButton_New_Save_.setEnabled(true);
     }
 
+    protected void enableNewCustomerFields(boolean enabled) {
+        jTextField_New_FirstName.setEditable(enabled);
+        jTextField_New_LastName.setEditable(enabled);
+        jTextField_New_Email.setEditable(enabled);
+        jTextField_New_LastName.setEditable(enabled);
+        jTextField_New_Email.setEditable(enabled);
+    }
+    
     protected void initPageNavigator() {
         int pageSize = Integer.parseInt(jFormattedTextField_PageSize.getText());
         queryPage.setPageSize(pageSize);
@@ -169,7 +181,9 @@ public final class CustomerTopComponent extends TopComponent {
                 new DefaultFormatterFactory(
                 new DateFormatter(DateFormat.getDateInstance(DateFormat.MEDIUM))));
     }
-
+    /**
+     * Binds the filter components table using Java Bean Bindings.
+     */
     protected void initFilterComponents() {
         customerFilterBinder = new EntityBinderImpl(customerBindingGroup, this);
         customerFilterBinder.addTextFieldBinder(jTextField_ID_Filter, "customerAsFilter.idFilter");
@@ -190,29 +204,6 @@ public final class CustomerTopComponent extends TopComponent {
         userBindingGroup.bind();
 
     }
-
-    protected void hideErrors() {
-        jLabel_Cruid_Errors.setVisible(false);
-        jButton_Gruid_Errors_Details.setVisible(false);
-
-    }
-
-    protected void showErrors(String message) {
-        jLabel_Cruid_Errors.setVisible(true);
-        jButton_Gruid_Errors_Details.setVisible(true);
-
-    }
-
-    protected void emptyEditComponents() {
-        jTextField_ID.setText(null);
-        jTextField_Email.setText(null);
-        jTextField_FirstName.setText(null);
-        jTextField_LastName.setText(null);
-        jTextField_Phone.setText(null);
-        jFormattedTextField_CreatedAt.setValue(null);
-        jTextField_CreatedBy.setText(null);
-    }
-
     protected void initTableComponents() {
         if (tableBinder != null) {
             tableBinder.getBindingGroup().unbind();
@@ -257,13 +248,43 @@ public final class CustomerTopComponent extends TopComponent {
         tableBinder.updateMasterColumnModel();
     }
 
+    protected void hideErrors() {
+        jLabel_Errors.setVisible(false);
+        jButton_Gruid_Errors_Details.setVisible(false);
+
+    }
+
+    protected void showErrors(Exception e) {
+        String msg = ErrorMessageBuilder.get(e);
+        jLabel_Errors.setText(msg);
+        jLabel_Errors.setVisible(true);
+        jButton_Gruid_Errors_Details.setVisible(true);
+    }
+
+    protected void showErrors(String message) {
+        jLabel_Errors.setText(message);
+        jLabel_Errors.setVisible(true);
+    }
+
+    protected void emptyEditComponents() {
+        jTextField_ID.setText(null);
+        jTextField_Email.setText(null);
+        jTextField_FirstName.setText(null);
+        jTextField_LastName.setText(null);
+        jTextField_Phone.setText(null);
+        jFormattedTextField_CreatedAt.setValue(null);
+        jTextField_CreatedBy.setText(null);
+    }
+
+    /**
+     * Check if user is in edit role. 
+     */
     protected void prohibitEditOperations() {
 
         UserInfo info = ((ConfigService) Lookup.getDefault().lookup(ConfigService.class)).getConfig();
 
         if (!info.inRole("edit")) {
             this.jButton_Save_.setEnabled(false);
-            this.jButton_Cancel.setEnabled(false);
             this.jButton_Delete_.setEnabled(false);
             jTabbedPane_Edit_Insert.setTitleAt(0, "View Customer");
             jTabbedPane_Edit_Insert.remove(jPanel_Add_Customer);
@@ -271,6 +292,7 @@ public final class CustomerTopComponent extends TopComponent {
             jTextField_Phone.setEditable(false);
             jTextField_FirstName.setEditable(false);
             jTextField_LastName.setEditable(false);
+            
         }
     }
 
@@ -361,7 +383,6 @@ public final class CustomerTopComponent extends TopComponent {
         jFormattedTextField_CreatedAt = new javax.swing.JFormattedTextField();
         JPanel_CruidOp1 = new javax.swing.JPanel();
         jButton_Save_ = new javax.swing.JButton();
-        jButton_Cancel = new javax.swing.JButton();
         jButton_Delete_ = new javax.swing.JButton();
         jPanel_Add_Customer = new javax.swing.JPanel();
         jPanel_Gruid_Data1 = new javax.swing.JPanel();
@@ -382,9 +403,8 @@ public final class CustomerTopComponent extends TopComponent {
         jPanel5 = new javax.swing.JPanel();
         jButton_New_New_ = new javax.swing.JButton();
         jButton_New_Save_ = new javax.swing.JButton();
-        jButton_New_Cancel = new javax.swing.JButton();
         jPanel_Error_Msg = new javax.swing.JPanel();
-        jLabel_Cruid_Errors = new javax.swing.JLabel();
+        jLabel_Errors = new javax.swing.JLabel();
         jButton_Gruid_Errors_Details = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
 
@@ -757,15 +777,15 @@ public final class CustomerTopComponent extends TopComponent {
         JPanel_CruidOp1.setEnabled(false);
 
         org.openide.awt.Mnemonics.setLocalizedText(jButton_Save_, org.openide.util.NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.jButton_Save_.text")); // NOI18N
+        jButton_Save_.setEnabled(false);
         jButton_Save_.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_Save_ActionPerformed(evt);
             }
         });
 
-        org.openide.awt.Mnemonics.setLocalizedText(jButton_Cancel, org.openide.util.NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.jButton_Cancel.text")); // NOI18N
-
         org.openide.awt.Mnemonics.setLocalizedText(jButton_Delete_, org.openide.util.NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.jButton_Delete_.text")); // NOI18N
+        jButton_Delete_.setEnabled(false);
         jButton_Delete_.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_Delete_ActionPerformed(evt);
@@ -780,16 +800,13 @@ public final class CustomerTopComponent extends TopComponent {
                 .addContainerGap()
                 .addComponent(jButton_Save_)
                 .addGap(18, 18, 18)
-                .addComponent(jButton_Cancel)
-                .addGap(18, 18, 18)
                 .addComponent(jButton_Delete_)
-                .addContainerGap(527, Short.MAX_VALUE))
+                .addContainerGap(610, Short.MAX_VALUE))
         );
         JPanel_CruidOp1Layout.setVerticalGroup(
             JPanel_CruidOp1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JPanel_CruidOp1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(jButton_Save_)
-                .addComponent(jButton_Cancel)
                 .addComponent(jButton_Delete_))
         );
 
@@ -995,8 +1012,6 @@ public final class CustomerTopComponent extends TopComponent {
             }
         });
 
-        org.openide.awt.Mnemonics.setLocalizedText(jButton_New_Cancel, org.openide.util.NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.jButton_New_Cancel.text")); // NOI18N
-
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -1006,17 +1021,14 @@ public final class CustomerTopComponent extends TopComponent {
                 .addComponent(jButton_New_New_)
                 .addGap(20, 20, 20)
                 .addComponent(jButton_New_Save_)
-                .addGap(18, 18, 18)
-                .addComponent(jButton_New_Cancel)
-                .addContainerGap(399, Short.MAX_VALUE))
+                .addContainerGap(474, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton_New_Save_)
-                    .addComponent(jButton_New_New_)
-                    .addComponent(jButton_New_Cancel))
+                    .addComponent(jButton_New_New_))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -1025,7 +1037,7 @@ public final class CustomerTopComponent extends TopComponent {
         jPanel_Add_CustomerLayout.setHorizontalGroup(
             jPanel_Add_CustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_Add_CustomerLayout.createSequentialGroup()
-                .addContainerGap(58, Short.MAX_VALUE)
+                .addContainerGap(66, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(166, 166, 166))
             .addGroup(jPanel_Add_CustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1049,8 +1061,8 @@ public final class CustomerTopComponent extends TopComponent {
 
         jTabbedPane_Edit_Insert.addTab(org.openide.util.NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.jPanel_Add_Customer.TabConstraints.tabTitle"), jPanel_Add_Customer); // NOI18N
 
-        jLabel_Cruid_Errors.setForeground(new java.awt.Color(255, 51, 0));
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel_Cruid_Errors, org.openide.util.NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.jLabel_Cruid_Errors.text")); // NOI18N
+        jLabel_Errors.setForeground(new java.awt.Color(255, 51, 0));
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel_Errors, org.openide.util.NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.jLabel_Errors.text")); // NOI18N
 
         jButton_Gruid_Errors_Details.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/cdms/ui/images/action_stop.gif"))); // NOI18N
         org.openide.awt.Mnemonics.setLocalizedText(jButton_Gruid_Errors_Details, org.openide.util.NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.jButton_Gruid_Errors_Details.text")); // NOI18N
@@ -1067,7 +1079,7 @@ public final class CustomerTopComponent extends TopComponent {
             jPanel_Error_MsgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_Error_MsgLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel_Cruid_Errors, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
+                .addComponent(jLabel_Errors, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton_Gruid_Errors_Details)
                 .addGap(0, 210, Short.MAX_VALUE))
@@ -1076,7 +1088,7 @@ public final class CustomerTopComponent extends TopComponent {
             jPanel_Error_MsgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_Error_MsgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(jButton_Gruid_Errors_Details, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addComponent(jLabel_Cruid_Errors, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE))
+                .addComponent(jLabel_Errors, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE))
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -1131,6 +1143,11 @@ public final class CustomerTopComponent extends TopComponent {
         hideErrors();
         customerAsyncFilter = new CustomerAsyncService();
         enableNavigateOperations(false);
+        jButton_Delete_.setEnabled(false);
+        jButton_Save_.setEnabled(false);
+        jButton_New_Save_.setEnabled(false);
+        
+        
         try {
             queryPage.setEntityAsExample(customerAsFilter);
             queryPage.setQueryResult(new ArrayList<Customer>());
@@ -1167,26 +1184,30 @@ public final class CustomerTopComponent extends TopComponent {
             showErrors(NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.Internal.NoSelectedRow"));
             return;
         }
-        enableCruidOperations(false);
         updateCustomer();
     }//GEN-LAST:event_jButton_Save_ActionPerformed
 
     private void jButton_New_Save_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_New_Save_ActionPerformed
         hideErrors();
-        enableCruidOperations(false);
         insertCustomer();
     }//GEN-LAST:event_jButton_New_Save_ActionPerformed
 
     private void jButton_New_New_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_New_New_ActionPerformed
-        enableInserOperations(true);
         if (customerToInsertBindingGroup == null) {
             initNewCustomerComponents();
 
         } else {
             customerToInsertBindingGroup.unbind();
-            customerToInsert = new Customer();
+            customerToInsert = new Customer(new User());
             customerToInsertBindingGroup.bind();
         }
+        jTextField_New_FirstName.setEnabled(true);
+        jTextField_New_LastName.setEnabled(true);
+        jTextField_New_Email.setEnabled(true);
+        jTextField_New_Phone.setEnabled(true);
+        
+        jButton_New_Save_.setEnabled(true);
+        
     }//GEN-LAST:event_jButton_New_New_ActionPerformed
 
     private void jButton_NextPage_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_NextPage_ActionPerformed
@@ -1236,7 +1257,7 @@ public final class CustomerTopComponent extends TopComponent {
         if (!DeleteConfirmDialog.confirm("Customer", filterResult.get(row).getId())) {
             return;
         }
-        enableCruidOperations(false);
+
         deleteCustomer();
 
     }//GEN-LAST:event_jButton_Delete_ActionPerformed
@@ -1246,18 +1267,30 @@ public final class CustomerTopComponent extends TopComponent {
         User u = new User();
         u.setId(info.getId());
         customerToInsert.setCreatedBy(u);
-        entityAsyncInsert.insert(new InsertHandler(), customerToInsert); // TODO paging
+        InsertHandler handler = new InsertHandler();
+//        handler.beforeSatart(();
+        enableNavigateOperations(false);
+        jButton_Save_.setEnabled(false);
+        jButton_Delete_.setEnabled(false);
+        jButton_New_Save_.setEnabled(false);
+
+        entityAsyncInsert.insert(handler, customerToInsert); // TODO paging
     }
 
     private void updateCustomer() {
         customerAsyncSave = new CustomerAsyncService();
-        jPanel_Gruid_Data.setEnabled(false);
+        //jPanel_Gruid_Data.setEnabled(false);
 
         int r = jTable_Customer.getSelectedRow();
         if (r < 0) {
             return;
         }
         Customer toUpdate = filterResult.get(r);
+        enableNavigateOperations(false);
+        jButton_Save_.setEnabled(false);
+        jButton_Delete_.setEnabled(false);
+        jButton_New_Save_.setEnabled(false);
+    //    saveState();
         try {
             customerAsyncSave.update(new SaveHandler(), toUpdate); // TODO paging
         } catch (Exception e) {
@@ -1274,6 +1307,12 @@ public final class CustomerTopComponent extends TopComponent {
             return;
         }
         Customer c = filterResult.get(r);
+        //saveState();
+        enableNavigateOperations(false);
+        jButton_Save_.setEnabled(false);
+        jButton_Delete_.setEnabled(false);
+        jButton_New_Save_.setEnabled(false);
+        
         try {
             customerAsyncDelete.delete(new DeleteHandler(), c); // TODO paging
         } catch (Exception e) {
@@ -1293,39 +1332,15 @@ public final class CustomerTopComponent extends TopComponent {
             initPageNavigator();
         }
     }
-
-    public void enableCruidOperations(boolean enabled) {
-
-        jButton_New_New_.setEnabled(enabled);
-        jButton_Refresh_Table.setEnabled(enabled);
-        jButton_New_Save_.setEnabled(enabled);
-        jButton_Search_.setEnabled(enabled);
-        jTable_Customer.setEnabled(enabled);
-    }
-
-    public void enableInserOperations(boolean enabled) {
-
-        jButton_New_New_.setEnabled(enabled);
-        jButton_New_Save_.setEnabled(enabled);
-        jTextField_New_Email.setEnabled(enabled);
-        jTextField_New_FirstName.setEnabled(enabled);
-        jTextField_New_LastName.setEnabled(enabled);
-        jTextField_New_Phone.setEnabled(enabled);
-        jTextField_New_Phone.setEnabled(enabled);
-
-
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel JPanel_CruidOp1;
     private net.sf.nachocalendar.components.DateField dateField_createDate_From;
     private net.sf.nachocalendar.components.DateField dateField_createDate_To;
-    private javax.swing.JButton jButton_Cancel;
     private javax.swing.JButton jButton_Clear_;
     private javax.swing.JButton jButton_Delete_;
     private javax.swing.JButton jButton_FirstPage_;
     private javax.swing.JButton jButton_Gruid_Errors_Details;
     private javax.swing.JButton jButton_LastPage_;
-    private javax.swing.JButton jButton_New_Cancel;
     private javax.swing.JButton jButton_New_New_;
     private javax.swing.JButton jButton_New_Save_;
     private javax.swing.JButton jButton_NextPage_;
@@ -1359,7 +1374,7 @@ public final class CustomerTopComponent extends TopComponent {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JLabel jLabel_Cruid_Errors;
+    private javax.swing.JLabel jLabel_Errors;
     private javax.swing.JLabel jLabel_FilterError;
     private javax.swing.JLabel jLabel_PageNo;
     private javax.swing.JLabel jLabel_PrintResult1;
@@ -1421,7 +1436,24 @@ public final class CustomerTopComponent extends TopComponent {
 
         // TODO read your settings according to their version
     }
-
+    protected void adjustUpdateOperations() {
+       if ( filterResult.isEmpty() ) {
+           jButton_Save_.setEnabled(false);
+           jButton_Delete_.setEnabled(false);
+       } else {
+           jButton_Save_.setEnabled(true);
+           jButton_Delete_.setEnabled(true);
+       }
+    }
+    
+    protected void adjustInsertOperations() {
+        if ( customerToInsert == null || customerToInsert.getId() == null ) {
+            jButton_New_Save_.setEnabled(true);
+        } else {
+            jButton_New_Save_.setEnabled(false);
+        }
+    }
+    
     protected class FilterSeachHandler implements TaskListener {
 
         @Override
@@ -1447,7 +1479,9 @@ public final class CustomerTopComponent extends TopComponent {
                         }
                     }
                     enableNavigateOperations(true);
-
+                    adjustInsertOperations();
+                    adjustUpdateOperations();
+                    //afterFinish();
                 }
             });
 
@@ -1468,13 +1502,16 @@ public final class CustomerTopComponent extends TopComponent {
                         Exception e = (Exception) customerAsyncSave.getResult();
                         //jLabel_Cruid_Errors.setText(buildMessageFor(e));
                         errorDetailsHandler.setException(e);
-                        showErrors(ErrorMessageBuilder.get(e));
+                        showErrors(e);
 
                     } else {
                         Customer c = (Customer) customerAsyncSave.getResult();
                         filterResult.set(jTable_Customer.getSelectedRow(), c);
                     }
-                    enableCruidOperations(true);
+                    enableNavigateOperations(true);
+                    adjustInsertOperations();
+                    adjustUpdateOperations();
+ 
                 }
             });
 
@@ -1482,7 +1519,7 @@ public final class CustomerTopComponent extends TopComponent {
     }//class SaveHandler
 
     protected class InsertHandler implements TaskListener {
-
+ 
         @Override
         public void taskFinished(Task task) {
             EventQueue.invokeLater(new Runnable() {
@@ -1492,13 +1529,16 @@ public final class CustomerTopComponent extends TopComponent {
                     if (entityAsyncInsert.getResult() instanceof Exception) {
                         Exception e = (Exception) entityAsyncInsert.getResult();
                         errorDetailsHandler.setException(e);
-                        showErrors(ErrorMessageBuilder.get(e));
+                        showErrors(e);
                     } else {
                         customerToInsertBindingGroup.unbind();
                         customerToInsert = (Customer) entityAsyncInsert.getResult();
                         customerToInsertBindingGroup.bind();
                     }
-                    enableCruidOperations(true);
+                    enableNavigateOperations(true);
+                    adjustInsertOperations();
+                    adjustUpdateOperations();
+
                 }
             });
 
@@ -1516,9 +1556,8 @@ public final class CustomerTopComponent extends TopComponent {
                     if (customerAsyncDelete.getResult() instanceof Exception) {
                         Exception e = (Exception) customerAsyncDelete.getResult();
                         errorDetailsHandler.setException(e);
-                        showErrors(ErrorMessageBuilder.get(e));
+                        showErrors(e);
                     } else {
-                        //Customer c = (Customer) entityAsyncDelete.getResult();
                         int row = jTable_Customer.getSelectedRow();
                         filterResult.remove(jTable_Customer.getSelectedRow());
                         if (!filterResult.isEmpty()) {
@@ -1527,9 +1566,14 @@ public final class CustomerTopComponent extends TopComponent {
                                 row = filterResult.size() - 1;
                             }
                             jTable_Customer.setRowSelectionInterval(row, row);
+                        } else {
+                            emptyEditComponents();
                         }
                     }
-                    enableCruidOperations(true);
+                    enableNavigateOperations(true);
+                    adjustInsertOperations();
+                    adjustUpdateOperations();
+
                 }
             });
 

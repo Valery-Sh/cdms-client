@@ -110,8 +110,9 @@ public final class StatisticsTopComponent extends TopComponent {
         jButton_Errors_Details.setVisible(false);
     }
 
-    protected void showErrors(String message) {
-        jLabel_Errors.setText(message);
+    protected void showErrors(Exception e) {
+        String msg = ErrorMessageBuilder.get(e);
+        jLabel_Errors.setText(msg);
         jLabel_Errors.setVisible(true);
         jButton_Errors_Details.setVisible(true);
     }
@@ -938,7 +939,7 @@ public final class StatisticsTopComponent extends TopComponent {
                     //this code can work with Swing
                     if (customerAsyncFilter.getResult() instanceof Exception) {
                         Exception e = (Exception) customerAsyncFilter.getResult();
-                        showErrors(ErrorMessageBuilder.get(e));
+                        showErrors(e);
                     } else {
 
                         QueryPage<Customer> q = (QueryPage<Customer>) customerAsyncFilter.getResult();
@@ -966,7 +967,7 @@ public final class StatisticsTopComponent extends TopComponent {
                     //this code can work with Swing
                     if (statisticsAsyncService.getResult() instanceof Exception) {
                         Exception e = (Exception) statisticsAsyncService.getResult();
-                        showErrors(ErrorMessageBuilder.get(e));
+                        showErrors(e);
                     } else {
 
                         QueryPage<InvoiceStatView> q = (QueryPage<InvoiceStatView>) statisticsAsyncService.getResult();
