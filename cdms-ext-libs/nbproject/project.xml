@@ -30,14 +30,6 @@
                 <package>javax.validation.groups</package>
                 <package>javax.validation.metadata</package>
                 <package>javax.validation.spi</package>
-                <package>net.sf.nachocalendar</package>
-                <package>net.sf.nachocalendar.components</package>
-                <package>net.sf.nachocalendar.customizer</package>
-                <package>net.sf.nachocalendar.event</package>
-                <package>net.sf.nachocalendar.holidays</package>
-                <package>net.sf.nachocalendar.model</package>
-                <package>net.sf.nachocalendar.table</package>
-                <package>net.sf.nachocalendar.tasks</package>
                 <package>org.jdesktop.beansbinding</package>
                 <package>org.jdesktop.beansbinding.ext</package>
                 <package>org.jdesktop.el</package>
@@ -58,12 +50,12 @@
                 <binary-origin>release/modules/ext/slf4j-api-1.6.1.jar</binary-origin>
             </class-path-extension>
             <class-path-extension>
-                <runtime-relative-path>ext/DatePicker-V0.99-2006.09.01.jar</runtime-relative-path>
-                <binary-origin>release/modules/ext/DatePicker-V0.99-2006.09.01.jar</binary-origin>
-            </class-path-extension>
-            <class-path-extension>
                 <runtime-relative-path>ext/hessian-4.0.7.jar</runtime-relative-path>
                 <binary-origin>release/modules/ext/hessian-4.0.7.jar</binary-origin>
+            </class-path-extension>
+            <class-path-extension>
+                <runtime-relative-path>ext/qt-datepicker.jar</runtime-relative-path>
+                <binary-origin>release/modules/ext/qt-datepicker.jar</binary-origin>
             </class-path-extension>
             <class-path-extension>
                 <runtime-relative-path>ext/beansbinding-1.2.1.jar</runtime-relative-path>
@@ -72,10 +64,6 @@
             <class-path-extension>
                 <runtime-relative-path>ext/validation-api-1.0.0.GA.jar</runtime-relative-path>
                 <binary-origin>release/modules/ext/validation-api-1.0.0.GA.jar</binary-origin>
-            </class-path-extension>
-            <class-path-extension>
-                <runtime-relative-path>ext/nachocalendar-0.23.jar</runtime-relative-path>
-                <binary-origin>release/modules/ext/nachocalendar-0.23.jar</binary-origin>
             </class-path-extension>
         </data>
     </configuration>

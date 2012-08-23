@@ -103,7 +103,7 @@ public final class InvoiceTopComponent extends TopComponent {
         initInvoiceTableComponents();
         initProductItemTableComponents();
 
-        initDateFields();
+//        initDateFields();
         
         prohibitEditOperations();
         
@@ -248,7 +248,7 @@ public final class InvoiceTopComponent extends TopComponent {
         }
     }
 
-    protected void initDateFields() {
+/*    protected void initDateFields() {
         dateField_createDate_From.getFormattedTextField().setHorizontalAlignment(JTextField.CENTER);
         dateField_createDate_From.getFormattedTextField()
                 .setFormatterFactory(
@@ -261,13 +261,13 @@ public final class InvoiceTopComponent extends TopComponent {
                 new DefaultFormatterFactory(
                 new DateFormatter(DateFormat.getDateInstance(DateFormat.MEDIUM))));
     }
-
+*/
     protected void initInvoiceFilterComponents() {
         invoiceFilterBinder = new EntityBinderImpl(invoiceFilterBindingGroup, this);
         invoiceFilterBinder.addTextFieldBinder(jTextField_ID_Filter, "invoiceAsFilter.idFilter");
 
-        invoiceFilterBinder.addCalendarBinder(dateField_createDate_From, "invoiceAsFilter.createdAt");
-        invoiceFilterBinder.addCalendarBinder(dateField_createDate_To, "invoiceAsFilter.createdAtEnd");
+        invoiceFilterBinder.addDatePickerBinder(dateField_createDate_From.getDateField(), "invoiceAsFilter.createdAt");
+        invoiceFilterBinder.addCalendarBinder(dateField_createDate_To.getDateField(), "invoiceAsFilter.createdAtEnd");
 
         invoiceAsFilter.setCreatedBy(userAsFilter);
 
@@ -618,11 +618,10 @@ public final class InvoiceTopComponent extends TopComponent {
         jLabel11 = new javax.swing.JLabel();
         jTextField_User_lastName = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        dateField_createDate_From = new net.sf.nachocalendar.components.DateField();
         jLabel9 = new javax.swing.JLabel();
-        dateField_createDate_To = new net.sf.nachocalendar.components.DateField();
+        dateField_createDate_From = new com.vns.comp.DatePickerEx();
+        dateField_createDate_To = new com.vns.comp.DatePickerEx();
         jLabel8 = new javax.swing.JLabel();
         jTextField_CustomerId_Filter = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -1017,21 +1016,13 @@ public final class InvoiceTopComponent extends TopComponent {
 
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel12, org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jLabel12.text")); // NOI18N
-
         org.openide.awt.Mnemonics.setLocalizedText(jLabel7, org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jLabel7.text")); // NOI18N
         jLabel7.setMinimumSize(new java.awt.Dimension(24, 20));
         jLabel7.setPreferredSize(new java.awt.Dimension(24, 20));
 
-        dateField_createDate_From.setMinimumSize(new java.awt.Dimension(52, 20));
-        dateField_createDate_From.setPreferredSize(new java.awt.Dimension(52, 20));
-
         org.openide.awt.Mnemonics.setLocalizedText(jLabel9, org.openide.util.NbBundle.getMessage(InvoiceTopComponent.class, "InvoiceTopComponent.jLabel9.text")); // NOI18N
         jLabel9.setMaximumSize(new java.awt.Dimension(10, 20));
         jLabel9.setPreferredSize(new java.awt.Dimension(10, 20));
-
-        dateField_createDate_To.setMinimumSize(new java.awt.Dimension(52, 20));
-        dateField_createDate_To.setPreferredSize(new java.awt.Dimension(52, 20));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -1039,28 +1030,24 @@ public final class InvoiceTopComponent extends TopComponent {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel12)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dateField_createDate_From, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(dateField_createDate_From, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(dateField_createDate_To, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(dateField_createDate_To, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(100, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel12))
-                    .addComponent(dateField_createDate_From, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(dateField_createDate_To, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dateField_createDate_To, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dateField_createDate_From, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1115,7 +1102,7 @@ public final class InvoiceTopComponent extends TopComponent {
                 .addComponent(jLabel_Errors, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton_Errors_Details)
-                .addGap(0, 59, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel_Error_MsgLayout.setVerticalGroup(
             jPanel_Error_MsgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1151,28 +1138,31 @@ public final class InvoiceTopComponent extends TopComponent {
                                 .addGap(9, 9, 9)
                                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(81, 81, 81)
                                 .addComponent(jLabel3)
-                                .addGap(20, 20, 20)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jPanel_Error_Msg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(20, 20, 20)
+                                        .addComponent(jPanel_Error_Msg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
                                         .addComponent(jTextField_FirstName_Filter, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGap(12, 12, 12)
                                         .addComponent(jLabel4)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jTextField_LastName_Filter, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
+                                        .addGap(32, 32, 32)
                                         .addComponent(jLabel6)
-                                        .addGap(18, 18, 18)
+                                        .addGap(15, 15, 15)
                                         .addComponent(jTextField_Phone_Filter, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(21, 21, 21)
-                                        .addComponent(jLabel5)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jTextField_Email_Filter, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel5)))
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextField_Email_Filter)))))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1199,7 +1189,7 @@ public final class InvoiceTopComponent extends TopComponent {
                             .addComponent(jLabel5)
                             .addComponent(jTextField_Phone_Filter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jTextField_CustomerId_Filter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton_Search_)
@@ -1551,7 +1541,7 @@ public final class InvoiceTopComponent extends TopComponent {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(16, Short.MAX_VALUE)
+                .addContainerGap(24, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel_Table, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1693,8 +1683,8 @@ public final class InvoiceTopComponent extends TopComponent {
         insertInvoiceItem();
     }//GEN-LAST:event_jButton_InvoiceItem_Add_To_InvoiceActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private net.sf.nachocalendar.components.DateField dateField_createDate_From;
-    private net.sf.nachocalendar.components.DateField dateField_createDate_To;
+    private com.vns.comp.DatePickerEx dateField_createDate_From;
+    private com.vns.comp.DatePickerEx dateField_createDate_To;
     private javax.swing.JButton jButton_Clear_;
     private javax.swing.JButton jButton_Errors_Details;
     private javax.swing.JButton jButton_InvoiceItem_Add_To_Invoice;
@@ -1718,7 +1708,6 @@ public final class InvoiceTopComponent extends TopComponent {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel1_PageItem_PageSize;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;

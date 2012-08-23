@@ -29,6 +29,7 @@ public class DatePickerEx extends javax.swing.JPanel {
     }
     protected final void initDateFields() {
         datePicker = new DatePicker(dateField);
+        
         dateField.setHorizontalAlignment(JTextField.CENTER);
         dateField.setFormatterFactory(
                 new DefaultFormatterFactory(
@@ -85,6 +86,11 @@ public class DatePickerEx extends javax.swing.JPanel {
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         setAlignmentX(0.0F);
         setAlignmentY(0.0F);
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                FocusLost(evt);
+            }
+        });
 
         dateButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/vns/comp/calendar.gif"))); // NOI18N
         dateButton.setToolTipText("Popup Calendar");
@@ -97,8 +103,6 @@ public class DatePickerEx extends javax.swing.JPanel {
                 dateButtonActionPerformed(evt);
             }
         });
-
-        dateField.setBorder(null);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -120,8 +124,13 @@ public class DatePickerEx extends javax.swing.JPanel {
 
     private void dateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateButtonActionPerformed
         //datePicker = new DatePicker(dateField);
-        datePicker.start(this);
+        //datePicker.getScreen().setUndecorated(false);
+        datePicker.start(this.dateField);
     }//GEN-LAST:event_dateButtonActionPerformed
+
+    private void FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FocusLost
+        
+    }//GEN-LAST:event_FocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton dateButton;

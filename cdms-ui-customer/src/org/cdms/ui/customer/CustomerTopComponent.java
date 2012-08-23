@@ -169,7 +169,7 @@ public final class CustomerTopComponent extends TopComponent {
     }
 
     protected void initDateFields() {
-        dateField_createDate_From.getFormattedTextField().setHorizontalAlignment(JTextField.CENTER);
+/*        dateField_createDate_From.getFormattedTextField().setHorizontalAlignment(JTextField.CENTER);
         dateField_createDate_From.getFormattedTextField()
                 .setFormatterFactory(
                 new DefaultFormatterFactory(
@@ -180,6 +180,7 @@ public final class CustomerTopComponent extends TopComponent {
                 .setFormatterFactory(
                 new DefaultFormatterFactory(
                 new DateFormatter(DateFormat.getDateInstance(DateFormat.MEDIUM))));
+                */ 
     }
     /**
      * Binds the filter components table using Java Bean Bindings.
@@ -191,8 +192,10 @@ public final class CustomerTopComponent extends TopComponent {
         customerFilterBinder.addTextFieldBinder(jTextField_LastName_Filter, "customerAsFilter.lastName");
         customerFilterBinder.addTextFieldBinder(jTextField_Email_Filter, "customerAsFilter.email");
         customerFilterBinder.addTextFieldBinder(jTextField_Phone_Filter, "customerAsFilter.phone");
-        customerFilterBinder.addCalendarBinder(dateField_createDate_From, "customerAsFilter.createdAt");
-        customerFilterBinder.addCalendarBinder(dateField_createDate_To, "customerAsFilter.createdAtEnd");
+        //customerFilterBinder.addCalendarBinder(dateField_createDate_From, "customerAsFilter.createdAt");
+        customerFilterBinder.addDatePickerBinder(dateField_createDate_From.getDateField(), "customerAsFilter.createdAt");        
+        customerFilterBinder.addDatePickerBinder(dateField_createDate_To.getDateField(), "customerAsFilter.createdAtEnd");                
+//        customerFilterBinder.addCalendarBinder(dateField_createDate_To, "customerAsFilter.createdAtEnd");
 
         customerAsFilter.setCreatedBy(userAsFilter);
 
@@ -341,14 +344,14 @@ public final class CustomerTopComponent extends TopComponent {
         jTextField_Phone_Filter = new javax.swing.JTextField();
         jButton_Search_ = new javax.swing.JButton();
         jButton_Clear_ = new javax.swing.JButton();
-        dateField_createDate_From = new net.sf.nachocalendar.components.DateField();
-        dateField_createDate_To = new net.sf.nachocalendar.components.DateField();
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel_FilterError = new javax.swing.JLabel();
         jTextField_User_firstName = new javax.swing.JTextField();
         jTextField_User_lastName = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        dateField_createDate_From = new com.vns.comp.DatePickerEx();
+        dateField_createDate_To = new com.vns.comp.DatePickerEx();
         jPanel_Table = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jButton_FirstPage_ = new javax.swing.JButton();
@@ -359,9 +362,9 @@ public final class CustomerTopComponent extends TopComponent {
         jLabel18 = new javax.swing.JLabel();
         jFormattedTextField_PageSize = new javax.swing.JFormattedTextField();
         jLabel_PageNo = new javax.swing.JLabel();
-        jLabel_PrintResult1 = new javax.swing.JLabel();
-        jTextField_PageNo = new javax.swing.JTextField();
         jTextField_RowCount = new javax.swing.JTextField();
+        jButton_Delete_ = new javax.swing.JButton();
+        jTextField_PageNo = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable_Customer = new javax.swing.JTable();
         jTabbedPane_Edit_Insert = new javax.swing.JTabbedPane();
@@ -383,7 +386,6 @@ public final class CustomerTopComponent extends TopComponent {
         jFormattedTextField_CreatedAt = new javax.swing.JFormattedTextField();
         JPanel_CruidOp1 = new javax.swing.JPanel();
         jButton_Save_ = new javax.swing.JButton();
-        jButton_Delete_ = new javax.swing.JButton();
         jPanel_Add_Customer = new javax.swing.JPanel();
         jPanel_Gruid_Data1 = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
@@ -447,12 +449,6 @@ public final class CustomerTopComponent extends TopComponent {
             }
         });
 
-        dateField_createDate_From.setMinimumSize(new java.awt.Dimension(52, 20));
-        dateField_createDate_From.setPreferredSize(new java.awt.Dimension(52, 20));
-
-        dateField_createDate_To.setMinimumSize(new java.awt.Dimension(52, 20));
-        dateField_createDate_To.setPreferredSize(new java.awt.Dimension(52, 20));
-
         org.openide.awt.Mnemonics.setLocalizedText(jLabel7, org.openide.util.NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.jLabel7.text")); // NOI18N
         jLabel7.setMinimumSize(new java.awt.Dimension(24, 20));
         jLabel7.setPreferredSize(new java.awt.Dimension(24, 20));
@@ -504,8 +500,8 @@ public final class CustomerTopComponent extends TopComponent {
                                 .addComponent(dateField_createDate_From, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(dateField_createDate_To, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(12, 12, 12)
+                                .addComponent(dateField_createDate_To, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -526,7 +522,7 @@ public final class CustomerTopComponent extends TopComponent {
         jPanel_FilterLayout.setVerticalGroup(
             jPanel_FilterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_FilterLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(jPanel_FilterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_FilterLayout.createSequentialGroup()
                         .addGroup(jPanel_FilterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -548,23 +544,20 @@ public final class CustomerTopComponent extends TopComponent {
                             .addComponent(jTextField_Phone_Filter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel_FilterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel_FilterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(dateField_createDate_To, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(dateField_createDate_From, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel_FilterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jTextField_User_lastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel_FilterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField_User_firstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)))
-                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel_FilterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextField_User_lastName)
+                    .addComponent(jTextField_User_firstName)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(dateField_createDate_From, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(dateField_createDate_To, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(8, 8, 8)
                 .addGroup(jPanel_FilterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton_Search_)
                     .addComponent(jButton_Clear_)
                     .addComponent(jLabel_FilterError))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel_Table.setBorder(javax.swing.BorderFactory.createTitledBorder(org.openide.util.NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.jPanel_Table.border.title"))); // NOI18N
@@ -648,15 +641,21 @@ public final class CustomerTopComponent extends TopComponent {
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel_PageNo, org.openide.util.NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.jLabel_PageNo.text")); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel_PrintResult1, org.openide.util.NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.jLabel_PrintResult1.text")); // NOI18N
+        jTextField_RowCount.setEditable(false);
+        jTextField_RowCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField_RowCount.setText(org.openide.util.NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.jTextField_RowCount.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(jButton_Delete_, org.openide.util.NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.jButton_Delete_.text")); // NOI18N
+        jButton_Delete_.setEnabled(false);
+        jButton_Delete_.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_Delete_ActionPerformed(evt);
+            }
+        });
 
         jTextField_PageNo.setEditable(false);
         jTextField_PageNo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField_PageNo.setText(org.openide.util.NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.jTextField_PageNo.text")); // NOI18N
-
-        jTextField_RowCount.setEditable(false);
-        jTextField_RowCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField_RowCount.setText(org.openide.util.NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.jTextField_RowCount.text")); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -680,24 +679,25 @@ public final class CustomerTopComponent extends TopComponent {
                 .addComponent(jLabel_PageNo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTextField_PageNo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(10, 10, 10)
                 .addComponent(jTextField_RowCount, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel_PrintResult1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(141, 141, 141))
+                .addComponent(jButton_Delete_)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(2, 2, 2)
+                .addGap(1, 1, 1)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTextField_RowCount)
+                        .addComponent(jButton_Delete_))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jFormattedTextField_PageSize)
                         .addComponent(jLabel18)
                         .addComponent(jLabel_PageNo)
-                        .addComponent(jLabel_PrintResult1)
-                        .addComponent(jTextField_PageNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField_RowCount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextField_PageNo))
                     .addComponent(jButton_LastPage_, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton_NextPage_, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton_PriorPage_, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -784,14 +784,6 @@ public final class CustomerTopComponent extends TopComponent {
             }
         });
 
-        org.openide.awt.Mnemonics.setLocalizedText(jButton_Delete_, org.openide.util.NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.jButton_Delete_.text")); // NOI18N
-        jButton_Delete_.setEnabled(false);
-        jButton_Delete_.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_Delete_ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout JPanel_CruidOp1Layout = new javax.swing.GroupLayout(JPanel_CruidOp1);
         JPanel_CruidOp1.setLayout(JPanel_CruidOp1Layout);
         JPanel_CruidOp1Layout.setHorizontalGroup(
@@ -799,15 +791,13 @@ public final class CustomerTopComponent extends TopComponent {
             .addGroup(JPanel_CruidOp1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton_Save_)
-                .addGap(18, 18, 18)
-                .addComponent(jButton_Delete_)
-                .addContainerGap(610, Short.MAX_VALUE))
+                .addContainerGap(691, Short.MAX_VALUE))
         );
         JPanel_CruidOp1Layout.setVerticalGroup(
             JPanel_CruidOp1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(JPanel_CruidOp1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+            .addGroup(JPanel_CruidOp1Layout.createSequentialGroup()
                 .addComponent(jButton_Save_)
-                .addComponent(jButton_Delete_))
+                .addGap(21, 21, 21))
         );
 
         javax.swing.GroupLayout jPanel_Gruid_DataLayout = new javax.swing.GroupLayout(jPanel_Gruid_Data);
@@ -844,7 +834,7 @@ public final class CustomerTopComponent extends TopComponent {
                         .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jFormattedTextField_CreatedAt, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(290, 290, 290))))
+                        .addContainerGap())))
             .addGroup(jPanel_Gruid_DataLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(JPanel_CruidOp1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -873,7 +863,7 @@ public final class CustomerTopComponent extends TopComponent {
                     .addComponent(jLabel16)
                     .addComponent(jFormattedTextField_CreatedAt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(JPanel_CruidOp1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(JPanel_CruidOp1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
@@ -1127,9 +1117,9 @@ public final class CustomerTopComponent extends TopComponent {
                 .addComponent(jPanel_Table, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel_Error_Msg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTabbedPane_Edit_Insert, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23))
         );
@@ -1334,8 +1324,8 @@ public final class CustomerTopComponent extends TopComponent {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel JPanel_CruidOp1;
-    private net.sf.nachocalendar.components.DateField dateField_createDate_From;
-    private net.sf.nachocalendar.components.DateField dateField_createDate_To;
+    private com.vns.comp.DatePickerEx dateField_createDate_From;
+    private com.vns.comp.DatePickerEx dateField_createDate_To;
     private javax.swing.JButton jButton_Clear_;
     private javax.swing.JButton jButton_Delete_;
     private javax.swing.JButton jButton_FirstPage_;
@@ -1377,7 +1367,6 @@ public final class CustomerTopComponent extends TopComponent {
     private javax.swing.JLabel jLabel_Errors;
     private javax.swing.JLabel jLabel_FilterError;
     private javax.swing.JLabel jLabel_PageNo;
-    private javax.swing.JLabel jLabel_PrintResult1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
