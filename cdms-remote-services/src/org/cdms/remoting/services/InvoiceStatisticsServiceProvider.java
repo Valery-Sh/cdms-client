@@ -1,7 +1,7 @@
 package org.cdms.remoting.services;
 
-import org.cdms.remoting.StatisticsService;
 import org.cdms.remoting.services.hessian.HessianInvoiceStatisticsService;
+import org.cdms.shared.remoting.StatisticsService;
 import org.openide.util.Lookup;
 
 /**

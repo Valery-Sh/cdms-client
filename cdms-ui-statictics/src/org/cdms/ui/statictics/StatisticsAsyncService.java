@@ -4,13 +4,11 @@
  */
 package org.cdms.ui.statictics;
 
-import java.util.Date;
-import org.cdms.entities.InvoiceStatView;
-import org.cdms.remoting.QueryPage;
-import org.cdms.remoting.StatisticsService;
 import org.cdms.remoting.services.InvoiceStatisticsServiceProvider;
+import org.cdms.shared.entities.InvoiceStatView;
+import org.cdms.shared.remoting.QueryPage;
+import org.cdms.shared.remoting.StatisticsService;
 import org.cdms.ui.common.AsyncServiceProcessor;
-import org.openide.util.Lookup;
 import org.openide.util.TaskListener;
 
 /**

@@ -3,20 +3,17 @@ package org.cdms.ui.invoice;
 
 import java.awt.EventQueue;
 import java.math.BigDecimal;
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JTextField;
-import javax.swing.text.DateFormatter;
-import javax.swing.text.DefaultFormatterFactory;
-import org.cdms.entities.Customer;
-import org.cdms.entities.Invoice;
-import org.cdms.entities.InvoiceItem;
-import org.cdms.entities.ProductItem;
-import org.cdms.entities.User;
-import org.cdms.remoting.ConfigService;
-import org.cdms.remoting.QueryPage;
-import org.cdms.remoting.UserInfo;
+import org.cdms.shared.entities.Customer;
+import org.cdms.shared.entities.Invoice;
+import org.cdms.shared.entities.InvoiceItem;
+import org.cdms.shared.entities.ProductItem;
+import org.cdms.shared.entities.User;
+import org.cdms.shared.remoting.ConfigService;
+import org.cdms.shared.remoting.QueryPage;
+import org.cdms.shared.remoting.UserInfo;
+import org.cdms.shared.remoting.WindowInfo;
 import org.cdms.ui.common.EntityBinder;
 import org.cdms.ui.common.EntityBinderImpl;
 import org.cdms.ui.common.ErrorMessageBuilder;
@@ -31,6 +28,7 @@ import org.openide.util.NbBundle;
 import org.openide.util.NbBundle.Messages;
 import org.openide.util.Task;
 import org.openide.util.TaskListener;
+import org.openide.util.lookup.Lookups;
 import org.openide.windows.TopComponent;
 
 /**
@@ -42,7 +40,8 @@ autostore = false)
 @TopComponent.Description(
     preferredID = "invoiceTopComponent",
 iconBase = "org/cdms/ui/invoice/invoice16x16.png",
-persistenceType = TopComponent.PERSISTENCE_ALWAYS)
+persistenceType = TopComponent.PERSISTENCE_ONLY_OPENED)
+//persistenceType = TopComponent.PERSISTENCE_ALWAYS)
 @TopComponent.Registration(mode = "editor", openAtStartup = false)
 @Messages({
     "CTL_InvoiceAction=Invoice",
@@ -50,7 +49,10 @@ persistenceType = TopComponent.PERSISTENCE_ALWAYS)
     "HINT_InvoiceTopComponent=This is a Invoice window"
 })
 public final class InvoiceTopComponent extends TopComponent {
+    
+    private WindowInfo windowInfo;
 
+    
     private ErrorDetailsHandler errorDetailsHandler = new ErrorDetailsHandler();
 
     /*-------------------------------------------------------------
@@ -89,7 +91,12 @@ public final class InvoiceTopComponent extends TopComponent {
     BindingGroup productItemToInsertBindingGroup;
     ProductItemAsyncService productItemAsyncFilter = new ProductItemAsyncService();
     QueryPage<ProductItem> productItemQueryPage;
-
+    
+/*    @Override
+    public boolean isDisplayable(){
+        return false;
+    }
+*/
     public InvoiceTopComponent() {
         initComponents();
 
@@ -105,23 +112,54 @@ public final class InvoiceTopComponent extends TopComponent {
 
 //        initDateFields();
         
-        prohibitEditOperations();
+        //prohibitEditOperations();
+        windowInfo = new WindowInfo(new ProhibitEditHandler());
+        
+        checkEditRole();
         
         setName(Bundle.CTL_InvoiceTopComponent());
         setToolTipText(Bundle.HINT_InvoiceTopComponent());
 
     }
-    protected void prohibitEditOperations() {
+    protected class ProhibitEditHandler implements WindowInfo.OperationHandler {
 
+        @Override
+        public void process(WindowInfo wi) {
+            if ( ! windowInfo.getUserInfo().inRole("edit") ) {
+                prohibitEditOperations();
+            }
+        }
+        
+    }
+    @Override
+    public void componentOpened() {
+        windowInfo.getRoles().add("view");
+        windowInfo.getRoles().add("edit");        
+        //windowInfo.getRoles().add("view statistics");
+        associateLookup(Lookups.singleton(windowInfo));
+
+    }
+    
+    protected void checkEditRole() {
         UserInfo info = ((ConfigService) Lookup.getDefault().lookup(ConfigService.class)).getConfig();
-
-        if (!info.inRole("edit")) {
+        if ( info == null ) {
+            return;
+        }
+        if ( !info.inRole("edit") ) {
+            prohibitEditOperations();
+        } 
+    }
+    
+    
+    boolean editProhibited = false;
+    
+    protected void prohibitEditOperations() {
+            editProhibited = true;
             jButton_InvoiceItem_Edit_Save_.setEnabled(false);
             jButton_InvoiceItem_Edit_Delete_.setEnabled(false);
             jButton_InvoiceItem_Add_To_Invoice.setEnabled(false);
-        }
     }
-
+    
     public Invoice getInvoiceAsFilter() {
         return invoiceAsFilter;
     }
@@ -438,14 +476,18 @@ public final class InvoiceTopComponent extends TopComponent {
         jTable_Invoice.setEnabled(enabled);
         jTable_InvoiceItem.setEnabled(enabled);
 
+
+        jButton_Search_.setEnabled(enabled);
+        //jButton_InvoiceItem_Add_To_Invoice.setEnabled(enabled);
+        enableNavigateOperations(enabled);
+        if ( editProhibited && enabled ) {
+            return;
+        }
         jButton_InvoiceItem_Edit_Save_.setEnabled(enabled);
 
         jButton_InvoiceItem_Edit_Delete_.setEnabled(enabled);
         jButton_InvoiceItem_Add_To_Invoice.setEnabled(enabled);
-
-        jButton_Search_.setEnabled(enabled);
-        jButton_InvoiceItem_Add_To_Invoice.setEnabled(enabled);
-        enableNavigateOperations(enabled);
+        
     }
 
     private void enableProductItemOperations(boolean enabled) {
@@ -1777,10 +1819,6 @@ public final class InvoiceTopComponent extends TopComponent {
     private javax.swing.JTextField jTextField_User_lastName;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public void componentOpened() {
-        // TODO add custom code on component opening
-    }
 
     @Override
     public void componentClosed() {

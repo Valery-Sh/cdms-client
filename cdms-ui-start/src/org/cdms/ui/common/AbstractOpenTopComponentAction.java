@@ -2,8 +2,8 @@ package org.cdms.ui.common;
 
 import javax.swing.AbstractAction;
 import javax.swing.JMenuItem;
-import org.cdms.remoting.ConfigService;
-import org.cdms.remoting.UserInfo;
+import org.cdms.shared.remoting.ConfigService;
+import org.cdms.shared.remoting.UserInfo;
 import org.openide.util.ImageUtilities;
 import org.openide.util.Lookup;
 import org.openide.util.actions.Presenter;

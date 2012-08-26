@@ -1,14 +1,15 @@
 
 package org.cdms.remoting.services;
 
-import org.cdms.remoting.InvoiceItemService;
 import org.cdms.remoting.services.hessian.HessianInvoiceItemService;
+import org.cdms.shared.remoting.InvoiceItemService;
 import org.openide.util.Lookup;
 
 /**
  *
  * @author V. Shyshkin
  */
+
 public abstract class InvoiceItemServiceProvider    {
 
     public abstract InvoiceItemService getInstance();

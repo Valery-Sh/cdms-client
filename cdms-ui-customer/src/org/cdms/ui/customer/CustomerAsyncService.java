@@ -1,8 +1,8 @@
 package org.cdms.ui.customer;
 
-import org.cdms.entities.Customer;
-import org.cdms.remoting.EntityService;
 import org.cdms.remoting.services.CustomerServiceProvider;
+import org.cdms.shared.entities.Customer;
+import org.cdms.shared.remoting.EntityService;
 import org.cdms.ui.common.EntityAsyncService;
 
 /**

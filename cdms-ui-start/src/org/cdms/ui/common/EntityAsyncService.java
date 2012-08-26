@@ -1,8 +1,8 @@
 
 package org.cdms.ui.common;
 
-import org.cdms.remoting.EntityService;
-import org.cdms.remoting.QueryPage;
+import org.cdms.shared.remoting.EntityService;
+import org.cdms.shared.remoting.QueryPage;
 import org.openide.util.TaskListener;
 
 /**

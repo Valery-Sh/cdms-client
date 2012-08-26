@@ -1,8 +1,8 @@
 package org.cdms.remoting.services;
 
 
-import org.cdms.remoting.AuthService;
 import org.cdms.remoting.services.hessian.HessianAuthService;
+import org.cdms.shared.remoting.AuthService;
 import org.openide.util.Lookup;
 
 /**

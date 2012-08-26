@@ -1,7 +1,7 @@
 
 package org.cdms.remoting.services.hessian;
 
-import org.cdms.remoting.InvoiceStatisticsService;
+import org.cdms.shared.remoting.InvoiceStatisticsService;
 
 /**
  * Implements the <code>StatisticsService</code> interface to access it's remote

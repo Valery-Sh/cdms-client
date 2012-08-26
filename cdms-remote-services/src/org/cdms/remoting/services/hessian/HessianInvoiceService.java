@@ -1,7 +1,7 @@
 package org.cdms.remoting.services.hessian;
 
-import org.cdms.entities.Invoice;
-import org.cdms.remoting.InvoiceService;
+import org.cdms.shared.entities.Invoice;
+import org.cdms.shared.remoting.InvoiceService;
 
 /**
  * Implements the <code>InvoiceService</code> interface to access it's remote

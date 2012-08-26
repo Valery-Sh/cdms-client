@@ -4,7 +4,7 @@
  */
 package org.cdms.ui.common.dialog;
 
-import org.cdms.remoting.exception.RemoteDataAccessException;
+import org.cdms.shared.remoting.exception.RemoteDataAccessException;
 
 /**
  *

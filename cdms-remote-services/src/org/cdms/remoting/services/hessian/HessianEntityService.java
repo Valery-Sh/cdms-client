@@ -4,11 +4,11 @@ import com.caucho.hessian.client.HessianProxyFactory;
 import com.caucho.hessian.client.HessianRuntimeException;
 import java.net.MalformedURLException;
 import java.util.prefs.Preferences;
-import org.cdms.remoting.ConfigService;
-import org.cdms.remoting.EntityService;
-import org.cdms.remoting.QueryPage;
-import org.cdms.remoting.UserInfo;
-import org.cdms.remoting.exception.RemoteConnectionException;
+import org.cdms.shared.remoting.ConfigService;
+import org.cdms.shared.remoting.EntityService;
+import org.cdms.shared.remoting.QueryPage;
+import org.cdms.shared.remoting.UserInfo;
+import org.cdms.shared.remoting.exception.RemoteConnectionException;
 import org.openide.util.Exceptions;
 import org.openide.util.Lookup;
 import org.openide.util.NbPreferences;
@@ -47,8 +47,6 @@ public abstract class HessianEntityService<E> implements EntityService<E>{
         int port = node.getInt("server.port", 8080);
         
         String url = "http://" + serverName + ":" + port + "/cdms-server/remoting/" + getServiceClass().getSimpleName();
-//            factory.setUser(userName);
-//            factory.setPassword(password);
         factory.setUser(info.getUserName());
         factory.setPassword(info.getTicket()); // TODO in production
         return (EntityService) factory.create(getServiceClass(), url);

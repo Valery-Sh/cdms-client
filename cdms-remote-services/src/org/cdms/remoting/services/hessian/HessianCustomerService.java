@@ -1,8 +1,9 @@
 
 package org.cdms.remoting.services.hessian;
 
-import org.cdms.entities.Customer;
-import org.cdms.remoting.CustomerService;
+import org.cdms.shared.entities.Customer;
+import org.cdms.shared.remoting.CustomerService;
+
 
 /**
  * Implements the <code>CustomerService</code> interface to access it's remote

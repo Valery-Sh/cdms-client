@@ -1,9 +1,8 @@
 package org.cdms.ui.common.dialog;
 
 import java.util.List;
-import org.cdms.remoting.exception.RemoteValidationException;
-import org.cdms.remoting.validation.RemoteConstraintViolation;
-
+import org.cdms.shared.remoting.exception.RemoteValidationException;
+import org.cdms.shared.remoting.validation.RemoteConstraintViolation;
 /**
  *
  * @author V. Shyshkin

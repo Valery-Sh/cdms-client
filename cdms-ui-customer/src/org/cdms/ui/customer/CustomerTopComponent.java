@@ -1,18 +1,15 @@
 package org.cdms.ui.customer;
 
 import java.awt.EventQueue;
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.swing.JTextField;
-import javax.swing.text.DateFormatter;
-import javax.swing.text.DefaultFormatterFactory;
-import org.cdms.entities.Customer;
-import org.cdms.entities.User;
-import org.cdms.remoting.ConfigService;
-import org.cdms.remoting.QueryPage;
-import org.cdms.remoting.UserInfo;
+import org.cdms.shared.entities.Customer;
+import org.cdms.shared.entities.User;
+import org.cdms.shared.remoting.ConfigService;
+import org.cdms.shared.remoting.QueryPage;
+import org.cdms.shared.remoting.UserInfo;
+import org.cdms.shared.remoting.WindowInfo;
 import org.cdms.ui.common.EntityAsyncService;
 import org.cdms.ui.common.EntityBinder;
 import org.cdms.ui.common.EntityBinderImpl;
@@ -28,6 +25,7 @@ import org.openide.util.NbBundle;
 import org.openide.util.NbBundle.Messages;
 import org.openide.util.Task;
 import org.openide.util.TaskListener;
+import org.openide.util.lookup.Lookups;
 import org.openide.windows.TopComponent;
 
 /**
@@ -39,7 +37,8 @@ autostore = false)
 @TopComponent.Description(
     preferredID = "customerTopComponent",
 iconBase = "org/cdms/ui/customer/customers.png",
-persistenceType = TopComponent.PERSISTENCE_ALWAYS)
+persistenceType = TopComponent.PERSISTENCE_ONLY_OPENED)
+
 @TopComponent.Registration(mode = "editor", openAtStartup = false)
 @Messages({
     "CTL_customerAction=customer",
@@ -48,6 +47,7 @@ persistenceType = TopComponent.PERSISTENCE_ALWAYS)
     "HINT_customerTopComponent=Opens a Customer window"
 })
 public final class CustomerTopComponent extends TopComponent {
+    private WindowInfo windowInfo;
 
     //private Map<JComponent, Boolean> saveState = new HashMap<JComponent, Boolean>();
     private ErrorDetailsHandler errorDetailsHandler = new ErrorDetailsHandler();
@@ -68,10 +68,11 @@ public final class CustomerTopComponent extends TopComponent {
     private BindingGroup customerToInsertBindingGroup;
     private EntityAsyncService entityAsyncInsert = new CustomerAsyncService();
     private QueryPage<Customer> queryPage;
-
+    
+    
     public CustomerTopComponent() {
         initComponents();
-
+        
         initFilterComponents();
         hideErrors();
         jLabel_FilterError.setText(""); //TODO common way to handle filter errors
@@ -81,16 +82,40 @@ public final class CustomerTopComponent extends TopComponent {
         initTableComponents();
 
         initDateFields();
-
-        prohibitEditOperations();
-
-//        saveState();
+        windowInfo = new WindowInfo(new ProhibitEditHandler());
+        checkEditRole();
 
         setName(Bundle.CTL_customerTopComponent());
         setToolTipText(Bundle.HINT_customerTopComponent());
 
     }
+    @Override
+    public void componentOpened() {
+        windowInfo.getRoles().add("view");
+        windowInfo.getRoles().add("edit");        
+        //windowInfo.getRoles().add("view statistics");
+        associateLookup(Lookups.singleton(windowInfo));
+    }
+    protected class ProhibitEditHandler implements WindowInfo.OperationHandler {
 
+        @Override
+        public void process(WindowInfo wi) {
+            if ( ! windowInfo.getUserInfo().inRole("edit") ) {
+                prohibitEditOperations();
+            }
+        }
+        
+    }
+    
+    protected void checkEditRole() {
+        UserInfo info = ((ConfigService) Lookup.getDefault().lookup(ConfigService.class)).getConfig();
+        if ( info == null ) {
+            return;
+        }
+        if ( !info.inRole("edit") ) {
+            prohibitEditOperations();
+        } 
+    }
     protected void initNewCustomerComponents() {
         customerToInsertBindingGroup = new BindingGroup();
         customerToInsert = new Customer(new User());
@@ -278,15 +303,15 @@ public final class CustomerTopComponent extends TopComponent {
         jFormattedTextField_CreatedAt.setValue(null);
         jTextField_CreatedBy.setText(null);
     }
-
-    /**
-     * Check if user is in edit role. 
-     */
+    
+    boolean editProhibited = false;
+    
     protected void prohibitEditOperations() {
 
-        UserInfo info = ((ConfigService) Lookup.getDefault().lookup(ConfigService.class)).getConfig();
+//        UserInfo info = ((ConfigService) Lookup.getDefault().lookup(ConfigService.class)).getConfig();
 
-        if (!info.inRole("edit")) {
+//        if (!info.inRole("edit")) {
+            editProhibited = true;
             this.jButton_Save_.setEnabled(false);
             this.jButton_Delete_.setEnabled(false);
             jTabbedPane_Edit_Insert.setTitleAt(0, "View Customer");
@@ -296,7 +321,7 @@ public final class CustomerTopComponent extends TopComponent {
             jTextField_FirstName.setEditable(false);
             jTextField_LastName.setEditable(false);
             
-        }
+//        }
     }
 
     public Customer getNewCustomer() {
@@ -1403,13 +1428,10 @@ public final class CustomerTopComponent extends TopComponent {
     private javax.swing.JTextField jTextField_User_lastName;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public void componentOpened() {
-        // TODO add custom code on component opening
-    }
 
     @Override
     public void componentClosed() {
+        
         // TODO add custom code on component closing
     }
 
@@ -1426,6 +1448,10 @@ public final class CustomerTopComponent extends TopComponent {
         // TODO read your settings according to their version
     }
     protected void adjustUpdateOperations() {
+        if ( editProhibited ) {
+            return;
+        }
+        
        if ( filterResult.isEmpty() ) {
            jButton_Save_.setEnabled(false);
            jButton_Delete_.setEnabled(false);
@@ -1436,6 +1462,9 @@ public final class CustomerTopComponent extends TopComponent {
     }
     
     protected void adjustInsertOperations() {
+        if ( editProhibited ) {
+            return;
+        }
         if ( customerToInsert == null || customerToInsert.getId() == null ) {
             jButton_New_Save_.setEnabled(true);
         } else {

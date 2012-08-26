@@ -5,10 +5,11 @@ import java.awt.EventQueue;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import org.cdms.entities.Customer;
-import org.cdms.entities.InvoiceStatView;
-import org.cdms.entities.User;
-import org.cdms.remoting.QueryPage;
+import org.cdms.shared.entities.Customer;
+import org.cdms.shared.entities.InvoiceStatView;
+import org.cdms.shared.entities.User;
+import org.cdms.shared.remoting.QueryPage;
+import org.cdms.shared.remoting.WindowInfo;
 import org.cdms.ui.common.CustomerAsyncServiceProvider;
 import org.cdms.ui.common.EntityAsyncService;
 import org.cdms.ui.common.EntityBinder;
@@ -23,6 +24,7 @@ import org.openide.util.Lookup;
 import org.openide.util.NbBundle.Messages;
 import org.openide.util.Task;
 import org.openide.util.TaskListener;
+import org.openide.util.lookup.Lookups;
 import org.openide.windows.TopComponent;
 
 /**
@@ -34,7 +36,7 @@ autostore = false)
 @TopComponent.Description(
     preferredID = "statisticsTopComponent",
 iconBase = "org/cdms/ui/statictics/statistics16x16.png",
-persistenceType = TopComponent.PERSISTENCE_ALWAYS)
+persistenceType = TopComponent.PERSISTENCE_ONLY_OPENED)
 @TopComponent.Registration(mode = "editor", openAtStartup = false)
 @Messages({
     "CTL_StatisticsAction=Statistics",
@@ -42,6 +44,8 @@ persistenceType = TopComponent.PERSISTENCE_ALWAYS)
     "HINT_StatisticsTopComponent=Open a Statistics window"
 })
 public final class StatisticsTopComponent extends TopComponent {
+    
+    private WindowInfo windowInfo;
 
     private ErrorDetailsHandler errorDetailsHandler = new ErrorDetailsHandler();
     /*-------------------------------------------------------------
@@ -67,6 +71,10 @@ public final class StatisticsTopComponent extends TopComponent {
     EntityBinder invoiceStatisticsBinder;
     BindingGroup invoiceStatisticsBindingGroup = new BindingGroup();
     
+    @Override
+    public boolean requestFocusInWindow() {
+        return false;
+    }
     public StatisticsTopComponent() {
         initComponents();
 
@@ -74,6 +82,8 @@ public final class StatisticsTopComponent extends TopComponent {
 
         invoiceQueryPage = new QueryPage<InvoiceStatView>();
         customerQueryPage = new QueryPage<Customer>();
+        
+        windowInfo = new WindowInfo(null);
 
         initCustomerFilterComponents();
         initPageNavigator();
@@ -579,7 +589,7 @@ public final class StatisticsTopComponent extends TopComponent {
                 .addComponent(jButton_Clear_EndDate, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jCheckBox_OnlyCustomerSelected)
-                .addContainerGap(202, Short.MAX_VALUE))
+                .addContainerGap(180, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -719,7 +729,7 @@ public final class StatisticsTopComponent extends TopComponent {
                 .addComponent(jTextField_Invoice_PageNo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTextField_Invoice_RowCount, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 155, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 164, Short.MAX_VALUE)
                 .addComponent(jButton_doStatistics)
                 .addContainerGap())
         );
@@ -764,8 +774,8 @@ public final class StatisticsTopComponent extends TopComponent {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel_Invoice_Navigator, javax.swing.GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2))
+                    .addComponent(jScrollPane2)
+                    .addComponent(jPanel_Invoice_Navigator, javax.swing.GroupLayout.DEFAULT_SIZE, 689, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -783,11 +793,10 @@ public final class StatisticsTopComponent extends TopComponent {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -909,7 +918,9 @@ public final class StatisticsTopComponent extends TopComponent {
 
     @Override
     public void componentOpened() {
-        // TODO add custom code on component opening
+        windowInfo.getRoles().add("view statistics");
+        associateLookup(Lookups.singleton(windowInfo));
+
     }
 
     @Override

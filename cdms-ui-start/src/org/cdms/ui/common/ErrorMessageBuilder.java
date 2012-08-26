@@ -4,10 +4,10 @@
  */
 package org.cdms.ui.common;
 
-import org.cdms.remoting.exception.RemoteConnectionException;
-import org.cdms.remoting.exception.RemoteDataAccessException;
-import org.cdms.remoting.exception.RemoteValidationException;
-import org.cdms.remoting.validation.RemoteConstraintViolation;
+import org.cdms.shared.remoting.exception.RemoteConnectionException;
+import org.cdms.shared.remoting.exception.RemoteDataAccessException;
+import org.cdms.shared.remoting.exception.RemoteValidationException;
+import org.cdms.shared.remoting.validation.RemoteConstraintViolation;
 import org.openide.util.NbBundle;
 
 /**

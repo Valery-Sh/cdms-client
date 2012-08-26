@@ -1,7 +1,7 @@
 package org.cdms.remoting.services.hessian;
 
-import org.cdms.entities.ProductItem;
-import org.cdms.remoting.ProductItemService;
+import org.cdms.shared.entities.ProductItem;
+import org.cdms.shared.remoting.ProductItemService;
 
 /**
  *

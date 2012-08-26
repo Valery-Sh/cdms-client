@@ -1,9 +1,9 @@
 package org.cdms.ui.invoice;
 
 
-import org.cdms.entities.ProductItem;
-import org.cdms.remoting.EntityService;
 import org.cdms.remoting.services.ProductItemServiceProvider;
+import org.cdms.shared.entities.ProductItem;
+import org.cdms.shared.remoting.EntityService;
 import org.cdms.ui.common.EntityAsyncService;
 
 /**

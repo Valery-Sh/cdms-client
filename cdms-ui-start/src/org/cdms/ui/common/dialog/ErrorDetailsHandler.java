@@ -5,8 +5,8 @@
 package org.cdms.ui.common.dialog;
 
 import javax.swing.JPanel;
-import org.cdms.remoting.exception.RemoteDataAccessException;
-import org.cdms.remoting.exception.RemoteValidationException;
+import org.cdms.shared.remoting.exception.RemoteDataAccessException;
+import org.cdms.shared.remoting.exception.RemoteValidationException;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
 
