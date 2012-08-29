@@ -114,6 +114,8 @@ public final class InvoiceTopComponent extends TopComponent {
         
         //prohibitEditOperations();
         windowInfo = new WindowInfo(new ProhibitEditHandler());
+        windowInfo.getRoles().add("view");
+        windowInfo.getRoles().add("edit");  
         
         checkEditRole();
         
@@ -124,7 +126,7 @@ public final class InvoiceTopComponent extends TopComponent {
     protected class ProhibitEditHandler implements WindowInfo.OperationHandler {
 
         @Override
-        public void process(WindowInfo wi) {
+        public void process() {
             if ( ! windowInfo.getUserInfo().inRole("edit") ) {
                 prohibitEditOperations();
             }
@@ -133,11 +135,10 @@ public final class InvoiceTopComponent extends TopComponent {
     }
     @Override
     public void componentOpened() {
-        windowInfo.getRoles().add("view");
-        windowInfo.getRoles().add("edit");        
-        //windowInfo.getRoles().add("view statistics");
-        associateLookup(Lookups.singleton(windowInfo));
-
+        UserInfo info = ((ConfigService) Lookup.getDefault().lookup(ConfigService.class)).getConfig();
+        if ( info == null ) {
+            associateLookup(Lookups.fixed(windowInfo));                
+        }    
     }
     
     protected void checkEditRole() {

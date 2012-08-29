@@ -83,23 +83,27 @@ public final class CustomerTopComponent extends TopComponent {
 
         initDateFields();
         windowInfo = new WindowInfo(new ProhibitEditHandler());
+        windowInfo.getRoles().add("view");
+        windowInfo.getRoles().add("edit");  
+        
         checkEditRole();
 
         setName(Bundle.CTL_customerTopComponent());
         setToolTipText(Bundle.HINT_customerTopComponent());
 
     }
+    
     @Override
     public void componentOpened() {
-        windowInfo.getRoles().add("view");
-        windowInfo.getRoles().add("edit");        
-        //windowInfo.getRoles().add("view statistics");
-        associateLookup(Lookups.singleton(windowInfo));
+        UserInfo info = ((ConfigService) Lookup.getDefault().lookup(ConfigService.class)).getConfig();
+        if ( info == null ) {
+            associateLookup(Lookups.fixed(windowInfo));                
+        }    
     }
     protected class ProhibitEditHandler implements WindowInfo.OperationHandler {
 
         @Override
-        public void process(WindowInfo wi) {
+        public void process() {
             if ( ! windowInfo.getUserInfo().inRole("edit") ) {
                 prohibitEditOperations();
             }
@@ -390,6 +394,7 @@ public final class CustomerTopComponent extends TopComponent {
         jTextField_RowCount = new javax.swing.JTextField();
         jButton_Delete_ = new javax.swing.JButton();
         jTextField_PageNo = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable_Customer = new javax.swing.JTable();
         jTabbedPane_Edit_Insert = new javax.swing.JTabbedPane();
@@ -682,6 +687,13 @@ public final class CustomerTopComponent extends TopComponent {
         jTextField_PageNo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField_PageNo.setText(org.openide.util.NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.jTextField_PageNo.text")); // NOI18N
 
+        org.openide.awt.Mnemonics.setLocalizedText(jButton1, org.openide.util.NbBundle.getMessage(CustomerTopComponent.class, "CustomerTopComponent.jButton1.text")); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -706,6 +718,8 @@ public final class CustomerTopComponent extends TopComponent {
                 .addComponent(jTextField_PageNo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(jTextField_RowCount, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton_Delete_)
                 .addContainerGap())
@@ -717,7 +731,8 @@ public final class CustomerTopComponent extends TopComponent {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jTextField_RowCount)
-                        .addComponent(jButton_Delete_))
+                        .addComponent(jButton_Delete_)
+                        .addComponent(jButton1))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jFormattedTextField_PageSize)
                         .addComponent(jLabel18)
@@ -1276,6 +1291,12 @@ public final class CustomerTopComponent extends TopComponent {
         deleteCustomer();
 
     }//GEN-LAST:event_jButton_Delete_ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Lookup up = getLookup();
+        
+        WindowInfo info = up.lookup(WindowInfo.class);
+    }//GEN-LAST:event_jButton1ActionPerformed
     private void insertCustomer() {
         entityAsyncInsert = new CustomerAsyncService();
         UserInfo info = ((ConfigService) Lookup.getDefault().lookup(ConfigService.class)).getConfig();
@@ -1351,6 +1372,7 @@ public final class CustomerTopComponent extends TopComponent {
     private javax.swing.JPanel JPanel_CruidOp1;
     private com.vns.comp.DatePickerEx dateField_createDate_From;
     private com.vns.comp.DatePickerEx dateField_createDate_To;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton_Clear_;
     private javax.swing.JButton jButton_Delete_;
     private javax.swing.JButton jButton_FirstPage_;

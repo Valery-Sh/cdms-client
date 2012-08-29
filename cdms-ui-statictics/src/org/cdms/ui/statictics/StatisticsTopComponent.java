@@ -8,7 +8,9 @@ import java.util.List;
 import org.cdms.shared.entities.Customer;
 import org.cdms.shared.entities.InvoiceStatView;
 import org.cdms.shared.entities.User;
+import org.cdms.shared.remoting.ConfigService;
 import org.cdms.shared.remoting.QueryPage;
+import org.cdms.shared.remoting.UserInfo;
 import org.cdms.shared.remoting.WindowInfo;
 import org.cdms.ui.common.CustomerAsyncServiceProvider;
 import org.cdms.ui.common.EntityAsyncService;
@@ -84,6 +86,7 @@ public final class StatisticsTopComponent extends TopComponent {
         customerQueryPage = new QueryPage<Customer>();
         
         windowInfo = new WindowInfo(null);
+        windowInfo.getRoles().add("view statistics");
 
         initCustomerFilterComponents();
         initPageNavigator();
@@ -918,9 +921,10 @@ public final class StatisticsTopComponent extends TopComponent {
 
     @Override
     public void componentOpened() {
-        windowInfo.getRoles().add("view statistics");
-        associateLookup(Lookups.singleton(windowInfo));
-
+        UserInfo info = ((ConfigService) Lookup.getDefault().lookup(ConfigService.class)).getConfig();
+        if ( info == null ) {
+            associateLookup(Lookups.fixed(windowInfo));                
+        }    
     }
 
     @Override

@@ -9,6 +9,7 @@ import org.cdms.shared.remoting.EntityService;
 import org.cdms.shared.remoting.QueryPage;
 import org.cdms.shared.remoting.UserInfo;
 import org.cdms.shared.remoting.exception.RemoteConnectionException;
+//import org.cdms.shared.remoting.exception.RemoteConnectionException;
 import org.openide.util.Exceptions;
 import org.openide.util.Lookup;
 import org.openide.util.NbPreferences;
