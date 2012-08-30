@@ -1,6 +1,5 @@
 package org.cdms.ui.invoice;
 
-
 import org.cdms.remoting.services.InvoiceServiceProvider;
 import org.cdms.shared.entities.Invoice;
 import org.cdms.shared.remoting.EntityService;
